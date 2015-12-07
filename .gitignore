@@ -1,0 +1,2 @@
+# Ignore for local version of PHPUnit bootstrap
+bootstrap.php
