@@ -5,7 +5,7 @@
 	xmlns=""
 	backupGlobals="true"
 	backupStaticAttributes="false"
-	bootstrap="Tests/bootstrap.php"
+	bootstrap="bootstrap.php"
 	cacheTokens="false"
 	colors="true"
 	convertErrorsToExceptions="true"
@@ -22,29 +22,29 @@
 	stderr="true">
 	<filter>
 		<blacklist>
-			<directory suffix=".php">Tests</directory>
-			<directory suffix=".phtml">Tests</directory>
+			<directory suffix=".php">../Tests</directory>
+			<directory suffix=".phtml">../Tests</directory>
 		</blacklist>
 		<whitelist>
-			<directory suffix=".php">Application</directory>
-			<directory suffix=".php">Auth</directory>
-			<directory suffix=".php">Cache</directory>
-			<directory suffix=".php">DataBase</directory>
-			<directory suffix=".php">Email</directory>
-			<directory suffix=".php">ErrorHandler</directory>
-			<!--<directory suffix=".php">Form</directory>-->
-			<directory suffix=".php">Helpers</directory>
-			<directory suffix=".php">Model</directory>
-			<directory suffix=".php">Routing</directory>
-			<directory suffix=".php">Tools</directory>
-			<directory suffix=".php">Traits</directory>
-			<!--<directory suffix=".php">Validators</directory>-->
-			<!--<directory suffix=".php">View</directory>-->
+			<directory suffix=".php">../Application</directory>
+			<directory suffix=".php">../Auth</directory>
+			<directory suffix=".php">../Cache</directory>
+			<directory suffix=".php">../DataBase</directory>
+			<directory suffix=".php">../Email</directory>
+			<directory suffix=".php">../ErrorHandler</directory>
+			<!--<directory suffix=".php">../Form</directory>-->
+			<directory suffix=".php">../Helpers</directory>
+			<directory suffix=".php">../Model</directory>
+			<directory suffix=".php">../Routing</directory>
+			<directory suffix=".php">../Tools</directory>
+			<directory suffix=".php">../Traits</directory>
+			<!--<directory suffix=".php">../Validators</directory>-->
+			<!--<directory suffix=".php">../View</directory>-->
 		</whitelist>
 	</filter>
 	<testsuites>
 		<testsuite name="All">
-			<directory>Tests</directory>
+			<directory>../Tests</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
