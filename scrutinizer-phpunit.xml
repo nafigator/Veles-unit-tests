@@ -5,7 +5,7 @@
 		xmlns=""
 		backupGlobals="true"
 		backupStaticAttributes="false"
-		bootstrap="Tests/scrutinizer-bootstrap.php"
+		bootstrap="scrutinizer-bootstrap.php"
 		cacheTokens="false"
 		colors="true"
 		convertErrorsToExceptions="true"
