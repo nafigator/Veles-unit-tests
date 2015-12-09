@@ -155,7 +155,7 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetParams()
 	{
-		$expected = uniqid();
+		$expected = [uniqid()];
 		$this->object->setParams($expected);
 		$result = $this->object->getParams();
 		$msg = 'DbException::setParams() wrong behavior!';
