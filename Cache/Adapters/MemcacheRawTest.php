@@ -111,6 +111,7 @@ class MemcacheRawTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Veles\Cache\Adapters\MemcacheRaw::delByTemplate
+	 * @covers Veles\Cache\Adapters\MemcacheRaw::delete
 	 */
 	public function testDelByTemplate()
 	{
