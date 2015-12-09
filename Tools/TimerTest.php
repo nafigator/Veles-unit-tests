@@ -106,7 +106,7 @@ class TimerTest extends PHPUnit_Framework_TestCase
 		Timer::start();
 		Timer::stop();
 		Timer::reset();
-		$expected = 0;
+		$expected = 0.0;
 
 		$msg = 'Timer::reset() wrong behavior!';
 
@@ -135,7 +135,7 @@ class TimerTest extends PHPUnit_Framework_TestCase
 		$this->assertAttributeGreaterThan($time_before_stop, 'stop_time', new Timer, $msg);
 		$this->assertAttributeLessThan($time_after_stop, 'stop_time', new Timer, $msg);
 		$this->assertAttributeLessThan($expected, 'diff', new Timer, $msg);
-		$this->assertAttributeSame(0, 'start_time', new Timer, $msg);
+		$this->assertAttributeSame(0.0, 'start_time', new Timer, $msg);
 	}
 
 	/**
