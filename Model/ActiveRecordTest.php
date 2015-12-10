@@ -82,14 +82,6 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-	}
-
-	/**
 	 * @covers Veles\Model\ActiveRecord::getMap
 	 */
 	public function testGetMap()
@@ -152,7 +144,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = [];
 
-		for ($i = 1; $i < 21; ++$i) {
+		for ($i = 1; $i <= 5; ++$i) {
 			$expected[] = [
 				'id'      => "$i",
 				'title'   => "title_$i",
@@ -160,8 +152,10 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 				'author'  => "author_$i"
 			];
 		}
+		$pager = new DbPaginator('paginator_default.phtml');
+
 		$news = new News;
-		$result = $news->getAll();
+		$result = $news->getAll(false, $pager);
 		$msg = 'ActiveRecord::getAll() returns wrong result!';
 		$this->assertSame($expected, $result, $msg);
 
