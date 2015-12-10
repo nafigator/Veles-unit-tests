@@ -43,12 +43,10 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 	 * @param string        $ansi_code
 	 * @param int           $code
 	 * @param \PDOException $exception
-	 * @param string        $sql
-	 * @param array         $params
 	 *
 	 * @dataProvider constructProvider
 	 */
-	public function testConstruct($message, $ansi_code, $code, $exception, $sql, $params)
+	public function testConstruct($message, $ansi_code, $code, $exception)
 	{
 		$obj = new DbException(
 			$exception->getMessage(), (int) $exception->getCode(), $exception
@@ -69,17 +67,15 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 
 	public function constructProvider()
 	{
-		$sql = 'SELECT * FROM table_name';
-		$params = [1,2,3];
 		$exception = new \PDOException("SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)", (int) 'HY000');
 
 		return [
-			["Unknown column 'contest' in 'where clause'", '42S22', 1054, new \PDOException("SQLSTATE[42S22]: Column not found: 1054 Unknown column 'contest' in 'where clause'", (int) '42S22'), '', []],
+			["Unknown column 'contest' in 'where clause'", '42S22', 1054, new \PDOException("SQLSTATE[42S22]: Column not found: 1054 Unknown column 'contest' in 'where clause'", (int) '42S22')],
 			["You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY minimum
 						LIMIT 1' at line 7", '42000', 1064, new \PDOException("SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY minimum
-						LIMIT 1' at line 7", (int) '42000'), '', []],
-			["Access denied for user 'root'@'localhost' (using password: YES)", '28000', 1045, new \PDOException("SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)", (int) '28000'), '', []],
-			["Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)", 'HY000', 2002, $exception, $sql, $params]
+						LIMIT 1' at line 7", (int) '42000')],
+			["Access denied for user 'root'@'localhost' (using password: YES)", '28000', 1045, new \PDOException("SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)", (int) '28000')],
+			["Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)", 'HY000', 2002, $exception]
 		];
 	}
 
