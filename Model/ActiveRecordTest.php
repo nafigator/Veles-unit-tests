@@ -256,8 +256,11 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\ActiveRecord::find
+	 * @covers       Veles\Model\ActiveRecord::find
 	 * @dataProvider findProvider
+	 *
+	 * @param $id
+	 * @param $expected
 	 */
 	public function testFind($id, $expected)
 	{

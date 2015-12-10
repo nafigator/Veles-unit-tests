@@ -22,10 +22,10 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 		$msg = "SQLSTATE[28000] [1045] Access denied for user 'user'@'localhost' (using password: YES)";
 		$code = 28000;
 		$exception = new \PDOException($msg, $code);
-		$exception->errorInfo['sql'] = 'SELECT * FROM users WHERE name = ?';
-		$exception->errorInfo['params'] = ['Lola'];
 
 		$this->object = new DbException($msg, $code, $exception);
+		$this->object->setSql('SELECT * FROM users WHERE name = ?');
+		$this->object->setParams(['Lola']);
 	}
 
 	/**
@@ -65,14 +65,6 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 		$result = $obj->getCode();
 		$msg = 'Wrong DbException::__construct() behavior!';
 		$this->assertSame($code, $result, $msg);
-
-		$result = $obj->getSql();
-		$msg = 'Wrong DbException::__construct() behavior!';
-		$this->assertSame($sql, $result, $msg);
-
-		$result = $obj->getParams();
-		$msg = 'Wrong DbException::__construct() behavior!';
-		$this->assertSame($params, $result, $msg);
 	}
 
 	public function constructProvider()
@@ -80,8 +72,6 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 		$sql = 'SELECT * FROM table_name';
 		$params = [1,2,3];
 		$exception = new \PDOException("SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)", (int) 'HY000');
-		$exception->errorInfo['sql'] = $sql;
-		$exception->errorInfo['params'] = $params;
 
 		return [
 			["Unknown column 'contest' in 'where clause'", '42S22', 1054, new \PDOException("SQLSTATE[42S22]: Column not found: 1054 Unknown column 'contest' in 'where clause'", (int) '42S22'), '', []],
