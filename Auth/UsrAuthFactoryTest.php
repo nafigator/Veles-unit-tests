@@ -23,6 +23,11 @@ class UsrAuthFactoryTest extends \PHPUnit_Framework_TestCase
 		$this->object = new UsrAuthFactory;
 	}
 
+	protected function tearDown()
+	{
+		unset($_COOKIE, $_POST);
+	}
+
 	/**
 	 * @covers Veles\Auth\UsrAuthFactory::create
 	 */

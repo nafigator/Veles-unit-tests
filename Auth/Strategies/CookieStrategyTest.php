@@ -56,35 +56,21 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp()
-	{
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-	}
-
-	/**
-	 * @covers Veles\Auth\Strategies\CookieStrategy::identify
-	 * @covers Veles\Auth\Strategies\CookieStrategy::checkInput
-	 * @covers Veles\Auth\Strategies\AbstractAuthStrategy::findUser
+	 * @covers       Veles\Auth\Strategies\CookieStrategy::identify
+	 * @covers       Veles\Auth\Strategies\CookieStrategy::checkInput
+	 * @covers       Veles\Auth\Strategies\AbstractAuthStrategy::findUser
 	 * @dataProvider identifyProvider
+	 *
+	 * @param $id
+	 * @param $hash
+	 * @param $expected
 	 */
 	public function testIdentify($id, $hash, $expected)
 	{
 		$_SERVER['REQUEST_TIME'] = time();
-		$_SERVER['HTTP_HOST'] = 'somehost.com';
-		$_COOKIE['id'] = $id;
-		$_COOKIE['pw'] = $hash;
+		$_SERVER['HTTP_HOST'] = 'host.com';
 
-		$object = new CookieStrategyCopy;
+		$object = new CookieStrategyCopy($id, $hash);
 		$result = $object->identify();
 
 		$msg = 'CookieStrategy::identify() returns wrong result!';
@@ -102,15 +88,15 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\Strategies\CookieStrategy::__construct
+	 * @covers       Veles\Auth\Strategies\CookieStrategy::__construct
 	 * @dataProvider constructProvider
+	 *
+	 * @param $id
+	 * @param $hash
 	 */
 	public function testConstruct($id, $hash)
 	{
-		$_COOKIE['id'] = $id;
-		$_COOKIE['pw'] = $hash;
-
-		$object = new CookieStrategyCopy;
+		$object = new CookieStrategyCopy($id, $hash);
 
 		$msg = 'Wrong behavior of CookieStrategy::__construct!';
 		$this->assertAttributeSame($id, 'cookie_id', $object, $msg);
