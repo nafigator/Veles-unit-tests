@@ -12,7 +12,7 @@ use Veles\View\View;
 class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var ViewAdapterAbstract
+	 * @var ViewAdapterAbstractChild
 	 */
 	protected $object;
 
@@ -39,7 +39,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testInstance()
 	{
-		$this->object->setCalls(null);
+		$this->object->setCalls([]);
 		$this->object->setInstance(null);
 		$expected = '\Veles\Tests\View\Adapters\ViewAdapterAbstractChild';
 		$result = $this->object->instance();
@@ -63,7 +63,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf($expected, $result, $msg);
 
 		$result = $this->object->getCalls();
-		$this->assertSame(null, $result);
+		$this->assertSame([], $result);
 
 		View::setAdapter(NativeAdapter::instance());
 	}
@@ -127,7 +127,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 		$msg = 'Wrong ViewAdapterAbstract::__call() behavior!';
 		$this->assertAttributeSame($expected, 'calls', $this->object, $msg);
 
-		$this->object->setCalls(null);
+		$this->object->setCalls([]);
 		$this->object->setDriver($this->object);
 	}
 
