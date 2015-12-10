@@ -55,36 +55,20 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp()
-	{
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-	}
-
-	/**
-	 * @covers Veles\Auth\Strategies\LoginFormStrategy::identify
-	 * @covers Veles\Auth\Strategies\LoginFormStrategy::checkInput
+	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::identify
+	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::checkInput
 	 * @dataProvider identifyProvider
+	 *
+	 * @param $mail
+	 * @param $pass
+	 * @param $expected
 	 */
 	public function testIdentify($mail, $pass, $expected)
 	{
 		$_SERVER['REQUEST_TIME'] = time();
-		$_SERVER['HTTP_HOST'] = 'somehost.com';
-		$_POST['ln'] = $mail;
-		$_POST['pw'] = $pass;
-		$_COOKIE['id'] = true;
-		$_COOKIE['pw'] = true;
+		$_SERVER['HTTP_HOST'] = 'host.com';
 
-		$object = new LoginFormStrategyCopy;
+		$object = new LoginFormStrategyCopy($mail, $pass);
 		$result = $object->identify();
 
 		$msg = 'LoginFormStrategy::identify() returns wrong result!';
@@ -103,15 +87,15 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\Strategies\LoginFormStrategy::__construct
+	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::__construct
 	 * @dataProvider constructProvider
+	 *
+	 * @param $mail
+	 * @param $pass
 	 */
 	public function testConstruct($mail, $pass)
 	{
-		$_POST['ln'] = $mail;
-		$_POST['pw'] = $pass;
-
-		$object = new LoginFormStrategyCopy;
+		$object = new LoginFormStrategyCopy($mail, $pass);
 
 		$msg = 'Wrong behavior of LoginFormStrategy::__construct()!';
 		$this->assertAttributeSame($mail, 'email', $object, $msg);
