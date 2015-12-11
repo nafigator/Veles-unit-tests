@@ -23,7 +23,10 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = new Route;
+		$this->object = $this->getMockBuilder('\Veles\Routing\Route')
+			->setMethods(['getUri'])
+			->getMock();
+
 		$config = new RoutesConfig(
 			new IniConfigLoader(TEST_DIR . '/Project/routes.ini')
 		);
@@ -36,31 +39,44 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testNotFoundException()
 	{
-		$_SERVER['REQUEST_URI'] = '/not-found';
+		$this->object->method('getUri')->willReturn('/not-found');
 
 		$this->object->init();
 	}
 
 	/**
-	 * @covers Veles\Routing\Route::isAjax
-	 * @covers Veles\Routing\Route::checkAjax
+	 * @covers       Veles\Routing\Route::isAjax
+	 * @covers       Veles\Routing\Route::checkAjax
+	 *
+	 * @dataProvider isAjaxProvider
+	 *
+	 * @param $uri
+	 * @param $expected
 	 */
-	public function testIsAjax()
+	public function testIsAjax($uri, $expected)
 	{
-		$_SERVER['REQUEST_URI'] = '/';
-		$expected = false;
+		$this->object = $this->getMockBuilder('\Veles\Routing\Route')
+			->setMethods(['getUri', 'checkAjax'])
+			->getMock();
+		$config = new RoutesConfig(
+			new IniConfigLoader(TEST_DIR . '/Project/routes.ini')
+		);
+		$this->object->setConfigHandler($config);
+		$this->object->method('getUri')->willReturn($uri);
+		$this->object->method('checkAjax')->willReturn($expected);
+
 		$result = $this->object->init()->isAjax();
 
 		$msg = 'Wrong Route::isAjax() result!';
 		$this->assertSame($expected, $result, $msg);
+	}
 
-		$_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
-		$_SERVER['REQUEST_URI'] = '/contacts';
-		$expected = true;
-		$result = $this->object->init()->isAjax();
-
-		$msg = 'Wrong Route::isAjax() result!';
-		$this->assertSame($expected, $result, $msg);
+	public function isAjaxProvider()
+	{
+		return [
+			['/', false],
+			['/contacts', true]
+		];
 	}
 
 	/**
@@ -70,7 +86,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCheckAjaxException()
 	{
-		$_SERVER['REQUEST_URI'] = '/contacts';
+		$this->object->method('getUri')->willReturn('/contacts');
 		$this->object->init()->getController();
 	}
 
@@ -79,12 +95,18 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetController()
 	{
-		$_SERVER['REQUEST_URI'] = '/';
-		$route = new Route;
+		$route = $this->getMockBuilder('\Veles\Routing\Route')
+			->setMethods(['getUri'])
+			->getMock();
+
 		$config = new RoutesConfig(
 			new IniConfigLoader(TEST_DIR . '/Project/routes.ini')
 		);
+		$route->method('getUri')->willReturn('/');
 		$route->setConfigHandler($config)->init();
+
+		$this->object->method('getUri')->willReturn('/');
+
 		$expected = $controller = new Home($route);
 		$result = $this->object->init()->getController();
 
@@ -103,7 +125,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetControllerException()
 	{
-		$_SERVER['REQUEST_URI'] = '/user';
+		$this->object->method('getUri')->willReturn('/user');
 		$this->object->init()->getController();
 	}
 
@@ -112,7 +134,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetActionName()
 	{
-		$_SERVER['REQUEST_URI'] = '/';
+		$this->object->method('getUri')->willReturn('/');
 		$expected = 'index';
 		$result = $this->object->init()->getActionName();
 
@@ -126,7 +148,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetActionNameException()
 	{
-		$_SERVER['REQUEST_URI'] = '/user';
+		$this->object->method('getUri')->willReturn('/user');
 		$this->object->init()->getActionName();
 	}
 
@@ -135,7 +157,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetAdapter()
 	{
-		$_SERVER['REQUEST_URI'] = '/';
+		$this->object->method('getUri')->willReturn('/');
 		$expected = NativeAdapter::instance();
 		$result = $this->object->init()->getAdapter();
 
@@ -149,7 +171,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetAdapterException()
 	{
-		$_SERVER['REQUEST_URI'] = '/user';
+		$this->object->method('getUri')->willReturn('/user');
 		$this->object->init()->getAdapter();
 	}
 
@@ -158,7 +180,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetPageName()
 	{
-		$_SERVER['REQUEST_URI'] = '/';
+		$this->object->method('getUri')->willReturn('/');
 		$expected = 'Home';
 		$result = $this->object->init()->getPageName();
 
@@ -171,14 +193,14 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 * @covers       Veles\Routing\Route::init
 	 * @dataProvider getParamsProvider
 	 *
-	 * @param $url
+	 * @param $uri
 	 * @param $expected
 	 */
-	public function testGetParams($url, $expected)
+	public function testGetParams($uri, $expected)
 	{
-		$_SERVER['REQUEST_URI'] = $url;
-
+		$this->object->method('getUri')->willReturn($uri);
 		$this->object->init();
+
 		$msg = 'Route::$params wrong value!';
 		$this->assertAttributeSame($expected, 'params', $this->object, $msg);
 
@@ -206,7 +228,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetTemplate()
 	{
-		$_SERVER['REQUEST_URI'] = '/';
+		$this->object->method('getUri')->willReturn('/');
 		$expected = 'Frontend/index.phtml';
 		$result = $this->object->init()->getTemplate();
 
