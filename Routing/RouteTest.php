@@ -35,6 +35,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Veles\Routing\Route::init
+	 * @covers Veles\Routing\Route::execNotFoundHandler
+	 * @covers Veles\Routing\Route::getUri
+	 *
 	 * @expectedException \Veles\Routing\Exceptions\NotFoundException
 	 */
 	public function testNotFoundException()
@@ -45,8 +48,26 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @covers Veles\Routing\Route::getUri
+	 */
+	public function testGetUri()
+	{
+		$route = new Route;
+		$config = new RoutesConfig(
+			new IniConfigLoader(TEST_DIR . '/Project/routes.ini')
+		);
+		$route->setConfigHandler($config);
+		$route->setNotFoundException(null);
+		$result = $route->init();
+
+		$msg = 'Route::getUri() wrong behavior!';
+		$this->assertSame($route, $result, $msg);
+	}
+
+	/**
 	 * @covers       Veles\Routing\Route::isAjax
 	 * @covers       Veles\Routing\Route::checkAjax
+	 * @covers       Veles\Routing\Route::getUri
 	 *
 	 * @dataProvider isAjaxProvider
 	 *
