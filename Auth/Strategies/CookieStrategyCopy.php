@@ -20,7 +20,7 @@ use Veles\Auth\Strategies\CookieStrategy;
  */
 class CookieStrategyCopy extends CookieStrategy
 {
-	protected static function delCookie()
+	protected function delCookie(array $params = [])
 	{
 		return true;
 	}

@@ -20,12 +20,12 @@ use Veles\Auth\Strategies\LoginFormStrategy;
  */
 class LoginFormStrategyCopy extends LoginFormStrategy
 {
-	protected static function setCookie($id, $hash)
+	protected function setCookie(array $params = [])
 	{
 		return true;
 	}
 
-	protected static function delCookie()
+	protected function delCookie(array $params = [])
 	{
 		return true;
 	}

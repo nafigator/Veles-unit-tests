@@ -67,10 +67,7 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testIdentify($id, $hash, $expected)
 	{
-		$_SERVER['REQUEST_TIME'] = time();
-		$_SERVER['HTTP_HOST'] = 'host.com';
-
-		$object = new CookieStrategyCopy($id, $hash);
+		$object = new CookieStrategyCopy($id, $hash, new User);
 		$result = $object->identify();
 
 		$msg = 'CookieStrategy::identify() returns wrong result!';
@@ -81,7 +78,6 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	{
 		return [
 			[1, 'GlOaUExBSD9HxuEYk2ZFaeDhggU716O', true],
-			['ss', '109()', false],
 			[2, 'GlOaUExBSD9HxuEYk3ZFaeDhggU716O', false],
 			[1, 'GlOaUExBSD9HxuEYk3ZFaeDhggU716O', false]
 		];
@@ -96,13 +92,13 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testConstruct($id, $hash)
 	{
-		$object = new CookieStrategyCopy($id, $hash);
+		$object = new CookieStrategyCopy($id, $hash, new User);
 
 		$msg = 'Wrong behavior of CookieStrategy::__construct!';
-		$this->assertAttributeSame($id, 'cookie_id', $object, $msg);
+		$this->assertAttributeSame($id, 'id', $object, $msg);
 
 		$msg = 'Wrong behavior of CookieStrategy::__construct!';
-		$this->assertAttributeSame($hash, 'cookie_hash', $object, $msg);
+		$this->assertAttributeSame($hash, 'password_hash', $object, $msg);
 	}
 
 	public function constructProvider()

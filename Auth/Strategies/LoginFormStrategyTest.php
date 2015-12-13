@@ -65,10 +65,7 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testIdentify($mail, $pass, $expected)
 	{
-		$_SERVER['REQUEST_TIME'] = time();
-		$_SERVER['HTTP_HOST'] = 'host.com';
-
-		$object = new LoginFormStrategyCopy($mail, $pass);
+		$object = new LoginFormStrategyCopy($mail, $pass, new User);
 		$result = $object->identify();
 
 		$msg = 'LoginFormStrategy::identify() returns wrong result!';
@@ -79,7 +76,6 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	{
 		return [
 			['mail@mail.org', 'superpass', true],
-			['zzz', 'asf1900', false],
 			['mail500@mail.org', 'asf1900', false],
 			['mail@mail.org', 'superpasslakj()', false],
 			['mail@mail.org', 'usell', false]
@@ -95,10 +91,10 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testConstruct($mail, $pass)
 	{
-		$object = new LoginFormStrategyCopy($mail, $pass);
+		$object = new LoginFormStrategyCopy($mail, $pass, new User);
 
 		$msg = 'Wrong behavior of LoginFormStrategy::__construct()!';
-		$this->assertAttributeSame($mail, 'email', $object, $msg);
+		$this->assertAttributeSame($mail, 'login', $object, $msg);
 
 		$msg = 'Wrong behavior of LoginFormStrategy::__construct()!';
 		$this->assertAttributeSame($pass, 'password', $object, $msg);
