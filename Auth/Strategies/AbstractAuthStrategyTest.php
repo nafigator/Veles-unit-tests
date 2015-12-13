@@ -1,6 +1,7 @@
 <?php
-namespace Veles\Auth\Strategies;
+namespace Veles\Tests\Auth\Strategies;
 
+use Veles\Auth\Strategies\GuestStrategy;
 use Veles\Model\User;
 
 /**
@@ -10,7 +11,7 @@ use Veles\Model\User;
 class AbstractAuthStrategyTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var AbstractAuthStrategy
+	 * @var GuestStrategy
 	 */
 	protected $object;
 

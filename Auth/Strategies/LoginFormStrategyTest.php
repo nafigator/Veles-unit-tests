@@ -56,7 +56,6 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::identify
-	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::checkInput
 	 * @dataProvider identifyProvider
 	 *
 	 * @param $mail
@@ -107,5 +106,65 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 			['mail300@mail.org', 'superpass2'],
 			['mail500@mail.org', 'superpass1']
 		];
+	}
+
+	/**
+	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::setLogin
+	 */
+	public function testSetLogin()
+	{
+		$expected = 'info@mail.ru';
+		$pass = uniqid();
+
+		$object = new LoginFormStrategyCopy($expected, $pass, new User);
+
+		$msg = 'Wrong behavior of LoginFormStrategy::setLogin()!';
+		$this->assertAttributeSame($expected, 'login', $object, $msg);
+	}
+
+	/**
+	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::getLogin
+	 * @depends testSetLogin
+	 */
+	public function testGetLogin()
+	{
+		$expected = 'info@mail.ru';
+		$pass = uniqid();
+
+		$object = new LoginFormStrategyCopy($expected, $pass, new User);
+		$result = $object->getLogin();
+
+		$msg = 'LoginFormStrategy::getLogin() wrong behavior!';
+		$this->assertSame($expected, $result, $msg);
+	}
+
+	/**
+	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::setPassword
+	 */
+	public function testSetPassword()
+	{
+		$login = 'info@mail.ru';
+		$expected = uniqid();
+
+		$object = new LoginFormStrategyCopy($login, $expected, new User);
+
+		$msg = 'LoginFormStrategy::setPassword() wrong behavior!';
+		$this->assertAttributeSame($expected, 'password', $object, $msg);
+	}
+
+	/**
+	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::getPassword
+	 * @depends testSetPassword
+	 */
+	public function testGetPassword()
+	{
+		$login = 'info@mail.ru';
+		$expected = uniqid();
+
+		$object = new LoginFormStrategyCopy($login, $expected, new User);
+		$result = $object->getPassword();
+
+		$msg = 'LoginFormStrategy::getLogin() wrong behavior!';
+		$this->assertSame($expected, $result, $msg);
 	}
 }

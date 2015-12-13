@@ -38,10 +38,7 @@ class UsrAuthFactoryTest extends \PHPUnit_Framework_TestCase
 		$object = $this->getMockBuilder('\Veles\Auth\UsrAuthFactory')
 			->setMethods(['getPost', 'getCookies'])
 			->getMock();
-//		$object = $this->getMockClass(
-//			'\Veles\Auth\UsrAuthFactory',
-//			['getPost', 'getCookies']
-//		);
+
 		$result = $object->create();
 		$expected = 'Veles\Auth\Strategies\GuestStrategy';
 
@@ -51,8 +48,6 @@ class UsrAuthFactoryTest extends \PHPUnit_Framework_TestCase
 		$object->expects($this->once())
 			->method('getPost')
 			->willReturn(['ln' => 'login', 'pw' => 'password']);
-//		$_POST['ln'] = 'login';
-//		$_POST['pw'] = 'password';
 
 		$result = $object->create();
 		$expected = 'Veles\Auth\Strategies\LoginFormStrategy';

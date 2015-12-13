@@ -57,7 +57,6 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers       Veles\Auth\Strategies\CookieStrategy::identify
-	 * @covers       Veles\Auth\Strategies\CookieStrategy::checkInput
 	 * @covers       Veles\Auth\Strategies\AbstractAuthStrategy::findUser
 	 * @dataProvider identifyProvider
 	 *
@@ -108,5 +107,69 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 			[5, 'GlOaUExBSD9HxuEYk2ZFaeDhggU7162'],
 			[5555, 'GlOaUExBSD9HxuEYk2fFaeDhggU7162']
 		];
+	}
+
+	/**
+	 * @covers Veles\Auth\Strategies\CookieStrategy::setPasswordHash
+	 */
+	public function testSetPasswordHash()
+	{
+		$id	  = rand();
+		$expected = uniqid();
+
+		$object = new CookieStrategyCopy($id, $expected, new User);
+		$object->setPasswordHash($expected);
+
+		$msg = 'CookieStrategy::setPasswordHash() wrong behavior!';
+		$this->assertAttributeSame($expected, 'password_hash', $object, $msg);
+	}
+
+	/**
+	 * @covers Veles\Auth\Strategies\CookieStrategy::getPasswordHash
+	 * @depends testSetPasswordHash
+	 */
+	public function testGetPasswordHash()
+	{
+		$id	  = rand();
+		$expected = uniqid();
+
+		$object = new CookieStrategyCopy($id, $expected, new User);
+
+		$result = $object->getPasswordHash();
+
+		$msg = 'CookieStrategy::getPasswordHash() returns wrong result!';
+		$this->assertSame($expected, $result, $msg);
+	}
+
+	/**
+	 * @covers Veles\Auth\Strategies\CookieStrategy::setId
+	 */
+	public function testSetId()
+	{
+		$expected = rand();
+		$hash = uniqid();
+
+		$object = new CookieStrategyCopy($expected, $hash, new User);
+		$object->setId($expected);
+
+		$msg = 'CookieStrategy::setId() wrong behavior!';
+		$this->assertAttributeSame($expected, 'id', $object, $msg);
+	}
+
+	/**
+	 * @covers Veles\Auth\Strategies\CookieStrategy::getId
+	 * @depends testSetId
+	 */
+	public function testGetId()
+	{
+		$expected = rand();
+		$hash = uniqid();
+
+		$object = new CookieStrategyCopy($expected, $hash, new User);
+
+		$result = $object->getId();
+
+		$msg = 'CookieStrategy::getId() returns wrong result!';
+		$this->assertSame($expected, $result, $msg);
 	}
 }
