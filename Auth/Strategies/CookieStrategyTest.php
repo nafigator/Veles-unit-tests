@@ -94,7 +94,7 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 		$object = new CookieStrategyCopy($id, $hash, new User);
 
 		$msg = 'Wrong behavior of CookieStrategy::__construct!';
-		$this->assertAttributeSame($id, 'id', $object, $msg);
+		$this->assertAttributeSame($id, 'identifier', $object, $msg);
 
 		$msg = 'Wrong behavior of CookieStrategy::__construct!';
 		$this->assertAttributeSame($hash, 'password_hash', $object, $msg);
@@ -153,7 +153,7 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 		$object->setId($expected);
 
 		$msg = 'CookieStrategy::setId() wrong behavior!';
-		$this->assertAttributeSame($expected, 'id', $object, $msg);
+		$this->assertAttributeSame($expected, 'identifier', $object, $msg);
 	}
 
 	/**
