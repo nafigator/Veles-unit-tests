@@ -38,19 +38,19 @@ class FatalErrorHandlerTest extends \PHPUnit_Framework_TestCase
 		/** @noinspection PhpUndefinedVariableInspection */
 		@$b = $a['none'];
 
-		$time = time();
-		$_SERVER['REQUEST_TIME'] = $time;
+		$time = strftime('%Y-%m-%d %H:%M:%S', time());
 
 		$expected = [
 			'type' => 8,
 			'message' => 'Undefined variable: a',
 			'file' => realpath(__FILE__),
 			'line' => 39,
-			'time' => strftime('%Y-%m-%d %H:%M:%S', $time),
+			'time' => $time,
 			'stack' => [],
 			'defined' => []
 		];
 
+		$this->object->setTime($time);
 		$this->object->run();
 		$result = $this->object->getVars();
 

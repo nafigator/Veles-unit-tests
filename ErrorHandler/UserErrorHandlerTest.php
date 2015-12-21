@@ -36,8 +36,7 @@ class UserErrorHandlerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRun()
 	{
-		$time = time();
-		$_SERVER['REQUEST_TIME'] = $time;
+		$time = strftime('%Y-%m-%d %H:%M:%S', time());
 		$file = realpath(__FILE__);
 		$msg = 'Undefined variable: a';
 		$type = 8;
@@ -45,7 +44,7 @@ class UserErrorHandlerTest extends \PHPUnit_Framework_TestCase
 
 		$expected = [
 			'type' => $type,
-			'time' => strftime('%Y-%m-%d %H:%M:%S', $time),
+			'time' => $time,
 			'message' => $msg,
 			'file' => $file,
 			'line' => $line,
@@ -53,6 +52,7 @@ class UserErrorHandlerTest extends \PHPUnit_Framework_TestCase
 			'defined' => []
 		];
 
+		$this->object->setTime($time);
 		$this->object->run($type, $msg, $file, $line, []);
 		$result = $this->object->getVars();
 		// Удаляем последний вызов для корректности теста

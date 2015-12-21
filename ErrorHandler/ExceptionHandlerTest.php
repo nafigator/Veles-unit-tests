@@ -24,22 +24,16 @@ class ExceptionHandlerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-	}
-
-	/**
 	 * @covers       Veles\ErrorHandler\ExceptionHandler::run
 	 * @dataProvider runProvider
 	 *
 	 * @param $e
+	 * @param $time
 	 * @param $expected
 	 */
-	public function testRun($e, $expected)
+	public function testRun($e, $time, $expected)
 	{
+		$this->object->setTime($time);
 		$this->object->run($e);
 
 		$result = $this->object->getVars();
@@ -55,20 +49,20 @@ class ExceptionHandlerTest extends \PHPUnit_Framework_TestCase
 			throw new \Exception($msg);
 		} catch(\Exception $e) {}
 
-		$time = time();
-		$_SERVER['REQUEST_TIME'] = $time;
+		$time = strftime('%Y-%m-%d %H:%M:%S', time());
+
 		$expected = [
-			'time' => strftime('%Y-%m-%d %H:%M:%S', $time),
+			'time'    => $time,
 			'message' => $msg,
-			'file' => realpath(__FILE__),
-			'line' => 55,
-			'stack' => array_reverse($e->getTrace()),
-			'type' => 0,
+			'file'    => realpath(__FILE__),
+			'line'    => 49,
+			'stack'   => array_reverse($e->getTrace()),
+			'type'    => 0,
 			'defined' => ['exception' => $e]
 		];
 
 		return [
-			[$e, $expected]
+			[$e, $time, $expected]
 		];
 	}
 }

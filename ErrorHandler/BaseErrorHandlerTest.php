@@ -24,14 +24,6 @@ class BaseErrorHandlerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-	}
-
-	/**
 	 * @covers Veles\ErrorHandler\BaseErrorHandler::getVars
 	 */
 	public function testGetVars()
@@ -44,5 +36,61 @@ class BaseErrorHandlerTest extends \PHPUnit_Framework_TestCase
 
 		$msg = 'BaseErrorHandler::vars has wrong default type!';
 		$this->assertAttributeInternalType('array', 'vars', $this->object, $msg);
+	}
+
+	/**
+	 * @covers       Veles\ErrorHandler\BaseErrorHandler::setTime
+	 * @dataProvider setTimeProvider
+	 *
+	 * @param $expected
+	 */
+	public function testSetTime($expected)
+	{
+		$this->object->setTime($expected);
+
+		$msg = 'BaseErrorHandler::setTime() wrong behavior!';
+		$this->assertAttributeSame($expected, 'time', $this->object, $msg);
+	}
+
+	public function setTimeProvider()
+	{
+		return [
+			[uniqid()],
+			[uniqid()]
+		];
+	}
+
+	/**
+	 * @covers       Veles\ErrorHandler\BaseErrorHandler::getTime
+	 * @dataProvider getTimeProvider
+	 * @depends      testSetTime
+	 *
+	 * @param $time
+	 * @param $expected
+	 */
+	public function testGetTime($time, $expected)
+	{
+		$this->object->setTime($time);
+
+		$msg = 'BaseErrorHandler::getTime() wrong behavior!';
+
+		$result = $this->object->getTime();
+		$this->assertGreaterThanOrEqual($expected, $result, $msg);
+		$this->assertAttributeGreaterThanOrEqual($expected, 'time', $this->object, $msg);
+
+		$expected = strftime('%Y-%m-%d %H:%M:%S', time());
+		$this->assertLessThanOrEqual($expected, $result, $msg);
+		$this->assertAttributeLessThanOrEqual($expected, 'time', $this->object, $msg);
+
+	}
+
+	public function getTimeProvider()
+	{
+		$time = strftime('%Y-%m-%d %H:%M:%S', time());
+
+		return [
+			[$time, $time],
+			[null, $time]
+		];
 	}
 }
