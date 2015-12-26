@@ -57,7 +57,7 @@ class ViewAdapterAbstractChild extends ViewAdapterAbstract
 	{
 	}
 
-	public function setCalls($calls)
+	public function addCalls($calls)
 	{
 		self::$calls = $calls;
 	}

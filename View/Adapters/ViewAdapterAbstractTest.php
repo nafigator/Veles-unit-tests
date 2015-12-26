@@ -2,7 +2,6 @@
 namespace Veles\Tests\View\Adapters;
 
 use Veles\View\Adapters\NativeAdapter;
-use Veles\View\Adapters\ViewAdapterAbstract;
 use Veles\View\View;
 
 /**
@@ -39,7 +38,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testInstance()
 	{
-		$this->object->setCalls([]);
+		$this->object->addCalls([]);
 		$this->object->setInstance(null);
 		$expected = '\Veles\Tests\View\Adapters\ViewAdapterAbstractChild';
 		$result = $this->object->instance();
@@ -52,7 +51,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->object->setInstance(null);
-		$this->object->setCalls([[
+		$this->object->addCalls([[
 			'method'    => 'testCall',
 			'arguments' => ['string']
 		]]);
@@ -111,7 +110,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Veles\View\Adapters\ViewAdapterAbstract::__call
-	 * @covers Veles\View\Adapters\ViewAdapterAbstract::setCall
+	 * @covers Veles\View\Adapters\ViewAdapterAbstract::addCall
 	 */
 	public function test__call()
 	{
@@ -127,7 +126,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 		$msg = 'Wrong ViewAdapterAbstract::__call() behavior!';
 		$this->assertAttributeSame($expected, 'calls', $this->object, $msg);
 
-		$this->object->setCalls([]);
+		$this->object->addCalls([]);
 		$this->object->setDriver($this->object);
 	}
 

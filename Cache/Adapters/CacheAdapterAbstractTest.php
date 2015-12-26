@@ -58,14 +58,14 @@ class CacheAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = __NAMESPACE__ . '\CacheAdapterAbstractChild';
 		CacheAdapterAbstractChild::setInstance(null);
-		CacheAdapterAbstractChild::setCalls([]);
+		CacheAdapterAbstractChild::addCalls([]);
 		$result = CacheAdapterAbstractChild::instance();
 
 		$msg = 'Adapter returned wrong instance object!';
 		$this->assertInstanceOf($expected, $result, $msg);
 
 		CacheAdapterAbstractChild::setInstance(null);
-		CacheAdapterAbstractChild::setCalls([[
+		CacheAdapterAbstractChild::addCalls([[
 			'method'    => 'testCall',
 			'arguments' => ['string']
 		]]);

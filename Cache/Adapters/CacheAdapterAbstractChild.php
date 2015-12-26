@@ -13,7 +13,7 @@ class CacheAdapterAbstractChild extends CacheAdapterAbstract
 		$this->driver = new CacheDriver;
 	}
 
-	public static function setCalls($calls)
+	public static function addCalls($calls)
 	{
 		self::$calls = $calls;
 	}
