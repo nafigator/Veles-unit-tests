@@ -2,7 +2,7 @@
 namespace Veles\Tests\DataBase;
 
 use Exception;
-use Veles\DataBase\Adapters\iDbAdapter;
+use Veles\DataBase\Adapters\DbAdapterInterface;
 use Veles\DataBase\Adapters\PdoAdapter;
 
 /**
@@ -66,7 +66,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		DbCopy::setAdapter(PdoAdapter::instance());
 
 		$result = DbCopy::getAdapter();
-		$this->assertTrue($result instanceof iDbAdapter);
+		$this->assertTrue($result instanceof DbAdapterInterface);
 	}
 
 	/**

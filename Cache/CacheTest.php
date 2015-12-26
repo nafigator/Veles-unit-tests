@@ -4,7 +4,7 @@ namespace Veles\Tests\Cache;
 use Exception;
 use Memcached;
 use PHPUnit_Framework_TestCase;
-use Veles\Cache\Adapters\iCacheAdapter;
+use Veles\Cache\Adapters\CacheAdapterInterface;
 use Veles\Cache\Adapters\MemcacheAdapter;
 use Veles\Cache\Adapters\MemcachedAdapter;
 
@@ -18,7 +18,7 @@ class CacheTest extends PHPUnit_Framework_TestCase
 	 * @covers       Veles\Cache\Cache::setAdapter
 	 * @dataProvider setAdapterProvider
 	 *
-	 * @param iCacheAdapter $adapter Adapter
+	 * @param CacheAdapterInterface $adapter Adapter
 	 */
 	public function testSetAdapter($adapter)
 	{
