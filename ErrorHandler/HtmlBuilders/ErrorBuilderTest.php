@@ -2,6 +2,7 @@
 namespace Veles\Tests\ErrorHandler\HtmlBuilders;
 
 use Veles\ErrorHandler\ExceptionHandler;
+use Veles\ErrorHandler\FatalErrorHandler;
 use Veles\ErrorHandler\HtmlBuilders\ErrorBuilder;
 use Veles\ErrorHandler\Subscribers\ErrorRenderer;
 
@@ -42,8 +43,8 @@ EOL;
 
 	/**
 	 * @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getHtml
-	 * @covers Veles\ErrorHandler\HtmlBuilders\AbstractBuilder::convertTypeToString
-	 * @covers Veles\ErrorHandler\HtmlBuilders\AbstractBuilder::formatBacktrace
+	 * @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::convertTypeToString
+	 * @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::formatBacktrace
 	 */
 	public function testGetHtml()
 	{
@@ -59,5 +60,54 @@ EOL;
 
 		$handler->attach($renderer);
 		$handler->run($exception);
+	}
+
+	/**
+	 * @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getHandler
+	 */
+	public function testGetHandler()
+	{
+		$expected = new FatalErrorHandler;
+		$this->object->setHandler($expected);
+
+		$result = $this->object->getHandler();
+
+		$msg = 'ErrorBuilder::getHandler() returns wrong result!';
+		$this->assertSame($expected, $result, $msg);
+	}
+
+	/**
+	 * @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::setHandler
+	 */
+	public function testSetHandler()
+	{
+		$expected = new FatalErrorHandler;
+		$this->object->setHandler($expected);
+		$msg = 'ErrorBuilder::setHandler() wrong behavior!';
+		$this->assertAttributeSame($expected, 'handler', $this->object, $msg);
+	}
+
+	/**
+	* @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::setTemplate
+	*/
+	public function testSetTemplate()
+	{
+		$expected = uniqid();
+		$this->object->setTemplate($expected);
+		$msg = 'ErrorBuilder::setTemplate() wrong behavior!';
+		$this->assertAttributeSame($expected, 'template', $this->object, $msg);
+	}
+
+	/**
+	* @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getTemplate
+	* @depends testSetTemplate
+	*/
+	public function testGetTemplate()
+	{
+		$expected = uniqid();
+		$this->object->setTemplate($expected);
+		$result = $this->object->getTemplate();
+		$msg = 'ErrorBuilder::setTemplate() wrong behavior!';
+		$this->assertSame($expected, $result, $msg);
 	}
 }
