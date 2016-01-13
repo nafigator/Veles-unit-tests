@@ -142,7 +142,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException Exception
-	 * @expectedExceptionMessage Не указан контроллер!
+	 * @expectedExceptionMessage Controller name not set!
 	 */
 	public function testGetControllerException()
 	{
@@ -165,7 +165,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException Exception
-	 * @expectedExceptionMessage Не указан экшен!
+	 * @expectedExceptionMessage Action not set!
 	 */
 	public function testGetActionNameException()
 	{
@@ -188,7 +188,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException Exception
-	 * @expectedExceptionMessage Не указан адаптер!
+	 * @expectedExceptionMessage Route adapter not set
 	 */
 	public function testGetAdapterException()
 	{
