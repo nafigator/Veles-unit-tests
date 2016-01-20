@@ -219,7 +219,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 			'content' => 'content_21',
 			'author' => 'author_21'
 		];
-		$news->setProperties($properties);
+		$actual = $news->setProperties($properties);
 
 		$expected = new News;
 		$expected->id = 21;
@@ -229,6 +229,10 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 
 		$msg = 'Wrong ActiveRecord::setProperties() behavior!';
 		$this->assertEquals($expected, $news, $msg);
+
+		$expected = $news;
+		$msg = 'ActiveRecord::setProperties() returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**
