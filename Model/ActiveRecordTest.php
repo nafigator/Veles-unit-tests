@@ -178,10 +178,14 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 		$news->content = 'content_21';
 		$news->author = 'author_21';
 
-		$expected = 21;
+		$expected = true;
 		$result = $news->save();
 		$msg = 'ActiveRecord::save() returns wrong result!';
 		$this->assertSame($expected, $result, $msg);
+
+		$expected = 21;
+		$msg = 'ActiveRecord::save() wrong behavior!';
+		$this->assertAttributeSame($expected, 'id', $news, $msg);
 
 		$news = new News;
 		$news->getById(21);
