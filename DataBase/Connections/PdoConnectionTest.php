@@ -42,11 +42,10 @@ class PdoConnectionTest extends \PHPUnit_Framework_TestCase
 	public function testCreate()
 	{
 		$this->object->setDriver('\Veles\Tests\DataBase\Connections\PDOStub');
-		$dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8';
+		$dsn = 'mysql:host=host;dbname=db_name;charset=utf8';
 		$this->object->setDsn($dsn)
-			->setUserName(DB_USER)
-			->setPassword(DB_PASS)
-			->setOptions([PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
+			->setUserName('user_name')
+			->setPassword('password');
 
 		$this->object->create();
 
