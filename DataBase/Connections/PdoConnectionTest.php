@@ -41,27 +41,17 @@ class PdoConnectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreate()
 	{
-		$expected = 'PDO';
-		$conn = PdoAdapter::instance()->getPool()->getConnection('master');
-		$this->object->setDsn($conn->getDsn())
-			->setUserName($conn->getUserName())
-			->setPassword($conn->getPassword())
+		$this->object->setDriver('\Veles\Tests\DataBase\Connections\PDOStub');
+		$dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8';
+		$this->object->setDsn($dsn)
+			->setUserName(DB_USER)
+			->setPassword(DB_PASS)
 			->setOptions([PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
 
-		$result = $this->object->create();
+		$this->object->create();
 
-		$msg = 'Wrong PdoConnection::create result!';
-		$this->assertAttributeInstanceOf($expected, 'resource', $this->object, $msg);
-
-		$expected = $this->object->getResource();
-		$msg = 'Wrong PdoConnection::create return value!';
-		$this->assertSame($expected, $result, $msg);
-
-		$expected = PDO::FETCH_ASSOC;
-		$result = $this->object->getResource()->getAttribute(PDO::ATTR_DEFAULT_FETCH_MODE);
-
-		$msg = 'Wrong PdoConnection::create behavior!';
-		$this->assertSame($expected, $result, $msg);
+		$msg = 'Wrong PdoConnection::create() result!';
+		$this->assertAttributeInstanceOf('\PDO', 'resource', $this->object, $msg);
 
 		$this->object->setCallback(
 			'setAttribute', [PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ]
@@ -69,11 +59,14 @@ class PdoConnectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->object->create();
 
-		$expected = PDO::FETCH_OBJ;
-		$result = $this->object->getResource()->getAttribute(PDO::ATTR_DEFAULT_FETCH_MODE);
+		$msg = 'Wrong PdoConnection::create() behavior!';
+		$this->assertAttributeInstanceOf('\PDO', 'resource', $this->object, $msg);
 
-		$msg = 'Wrong PdoConnection::create behavior!';
-		$this->assertSame($expected, $result, $msg);
+		$expected = PDO::FETCH_OBJ;
+		$actual = $this->object->getResource()->getAttribute(PDO::ATTR_DEFAULT_FETCH_MODE);
+
+		$msg = 'Wrong PdoConnection::create() behavior!';
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**
@@ -149,7 +142,7 @@ class PdoConnectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->object->setCallback($callback_name, $args);
 
-		$result = $this->object->getCallbacks();
+		$this->object->getCallbacks();
 
 		$msg = 'Wrong PdoConnection::setCallback behavior!';
 		$this->assertAttributeSame($expected, 'callbacks', $this->object, $msg);

@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\DataBase\Connections;
 
+use PDO;
 use Veles\DataBase\Connections\PdoConnection;
 
 /**
@@ -52,17 +53,22 @@ class DbConnectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetResource()
 	{
-		$expected = null;
-		$result = $this->object->getResource();
+		$this->object->setDriver('\Veles\Tests\DataBase\Connections\PDOStub');
+		$dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8';
+		$this->object->setDsn($dsn)
+			->setUserName(DB_USER)
+			->setPassword(DB_PASS);
 
-		$msg = 'Wrong Connection::getResource default value!';
-		$this->assertSame($expected, $result, $msg);
+		$actual = $this->object->getResource();
+
+		$msg = 'DbConnection::getResource() returns wrong result!';
+		$this->assertInstanceOf('\PDO', $actual, $msg);
 
 		$expected = 'some value';
 		$this->object->setResource($expected);
 		$result = $this->object->getResource();
 
-		$msg = 'Wrong Connection::getResource return result!';
+		$msg = 'DbConnection::getResource() return wrong result!';
 		$this->assertSame($expected, $result, $msg);
 	}
 
