@@ -2,6 +2,7 @@
 namespace Veles\Tests\DataBase;
 
 use Veles\DataBase\Adapters\PdoAdapter;
+use Veles\DataBase\Db;
 use Veles\DataBase\DbFilter;
 use Veles\DataBase\DbPaginator;
 use Veles\Tests\Model\News;
@@ -20,38 +21,6 @@ class DbPaginatorTest extends \PHPUnit_Framework_TestCase
 	 * @var string
 	 */
 	protected $html;
-	protected static $tbl_name;
-
-	public static function setUpBeforeClass()
-	{
-		// Create test table
-		$tbl_name = static::$tbl_name = News::TBL_NAME;
-
-		DbCopy::setAdapter(PdoAdapter::instance());
-		DbCopy::query("
-			CREATE TABLE IF NOT EXISTS $tbl_name (
-			  id int(10) unsigned NOT NULL,
-			  title char(30) NOT NULL,
-			  content char(60) NOT NULL,
-			  author char(30) NOT NULL,
-			  PRIMARY KEY (id)
-			) ENGINE=INNODB DEFAULT CHARSET=utf8
-		");
-		for ($i = 0; $i < 20; ++$i) {
-			DbCopy::query("
-				INSERT INTO $tbl_name
-					(id, title, content, author)
-				VALUES
-					(?, ?, ?, ?)
-			", [$i, uniqid(), uniqid(), uniqid()], 'isss');
-		}
-	}
-
-	public static function tearDownAfterClass()
-	{
-		$table =& static::$tbl_name;
-		DbCopy::query("DROP TABLE $table");
-	}
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -80,6 +49,7 @@ EOL;
 	 */
 	protected function tearDown()
 	{
+		DbCopy::unsetAdapter();
 	}
 
 	/**
@@ -87,6 +57,18 @@ EOL;
 	 */
 	public function test__toString()
 	{
+		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+			->setMethods(['rows', 'getFoundRows'])
+			->getMock();
+		$adapter->expects($this->once())
+			->method('rows')
+			->willReturn([1, 2, 3]);
+		$adapter->expects($this->once())
+			->method('getFoundRows')
+			->willReturn(20);
+
+		Db::setAdapter($adapter);
+
 		$this->expectOutputString($this->html);
 
 		$template = realpath(__DIR__ . '/../Project/View/paginator_default.phtml');
@@ -153,28 +135,28 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbPaginator::getMaxPages
-	 * @covers Veles\Model\QueryBuilder::setPage
+	 * @covers       Veles\DataBase\DbPaginator::getMaxPages
 	 */
 	public function testGetMaxPages()
 	{
 		$expected = 4;
-		$news = new News;
-		$news->getAll();
 
-		$result = $this->object->getMaxPages();
+		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+			->setMethods(['getFoundRows'])
+			->getMock();
+		$adapter->expects($this->once())
+			->method('getFoundRows')
+			->willReturn(20);
+
+		Db::setAdapter($adapter);
+
+		$actual = $this->object->getMaxPages();
 		$msg = 'DbPaginator::getMaxPages() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
 
-		$expected = 5;
-		$news = new News;
-		$this->object->setLimit(4);
-		$filter = new DbFilter;
-		$news->getAll($filter, $this->object);
-
-		$result = $this->object->getMaxPages();
+		$actual = $this->object->getMaxPages();
 		$msg = 'DbPaginator::getMaxPages() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**
@@ -182,12 +164,18 @@ EOL;
 	 */
 	public function testCalcMaxPages()
 	{
-		$expected = 5;
-		$news = new News;
-		$this->object->setLimit(4);
-		$filter = new DbFilter;
-		$news->getAll($filter, $this->object);
+		$expected = 3;
 
+		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+			->setMethods(['getFoundRows'])
+			->getMock();
+		$adapter->expects($this->once())
+			->method('getFoundRows')
+			->willReturn(15);
+
+		Db::setAdapter($adapter);
+
+		$this->object->calcMaxPages();
 		$msg = 'Wrong DbPaginator::calcMaxPages() behavior!';
 		$this->assertAttributeSame($expected, 'page_nums',$this->object, $msg);
 	}
