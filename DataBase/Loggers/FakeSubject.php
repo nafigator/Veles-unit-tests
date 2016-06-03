@@ -13,7 +13,7 @@ use SplObserver;
  */
 class FakeSubject implements \SplSubject
 {
-	private $connection;
+	private $resource;
 	private $stmt;
 
 	public function attach(SplObserver $observer)
@@ -32,17 +32,17 @@ class FakeSubject implements \SplSubject
 	/**
 	 * @return mixed
 	 */
-	public function getConnection()
+	public function getResource()
 	{
-		return $this->connection;
+		return $this->resource;
 	}
 
 	/**
-	 * @param mixed $connection
+	 * @param mixed $resource
 	 */
-	public function setConnection($connection)
+	public function setResource($resource)
 	{
-		$this->connection = $connection;
+		$this->resource = $resource;
 	}
 
 	/**

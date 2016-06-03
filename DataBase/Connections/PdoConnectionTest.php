@@ -3,7 +3,6 @@ namespace Veles\Tests\DataBase\Connections;
 
 use Exception;
 use PDO;
-use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Connections\PdoConnection;
 
 /**
@@ -134,7 +133,7 @@ class PdoConnectionTest extends \PHPUnit_Framework_TestCase
 	public function testSetCallback()
 	{
 		$callback_name = 'callback';
-		$args = ['arument 1', 'argument 2'];
+		$args = ['argument 1', 'argument 2'];
 		$expected = [
 			['method' => $callback_name, 'arguments' => $args]
 		];
@@ -150,7 +149,7 @@ class PdoConnectionTest extends \PHPUnit_Framework_TestCase
 	public function testGetCallbacks()
 	{
 		$callback_name = 'callback';
-		$args = ['arument 1', 'argument 2'];
+		$args = ['argument 1', 'argument 2'];
 		$expected = [
 			['method' => $callback_name, 'arguments' => $args]
 		];
