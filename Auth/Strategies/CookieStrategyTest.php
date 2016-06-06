@@ -27,16 +27,10 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	 * @param $id
 	 * @param $hash
 	 * @param $expected
+	 * @param $user_result
 	 */
-	public function testIdentify($id, $hash, $expected)
+	public function testIdentify($id, $hash, $expected, $user_result)
 	{
-		$user_result = [
-			'id'         => 1,
-			'email'      => 'mail@mail.org',
-			'hash'       => '$2a$07$usesomesillystringforeGlOaUExBSD9HxuEYk2ZFaeDhggU716O',
-			'group'      => 'uzzy',
-			'last_login' => '1980-12-12'
-		];
 		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
 			->setMethods(['row'])
 			->getMock();
@@ -55,10 +49,20 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 
 	public function identifyProvider()
 	{
+		$found = [
+			'id'         => 1,
+			'email'      => 'mail@mail.org',
+			'hash'       => '$2a$07$usesomesillystringforeGlOaUExBSD9HxuEYk2ZFaeDhggU716O',
+			'group'      => 'uzzy',
+			'last_login' => '1980-12-12'
+		];
+
+		$not_found = [];
+
 		return [
-			[1, 'GlOaUExBSD9HxuEYk2ZFaeDhggU716O', true],
-			[2, 'GlOaUExBSD9HxuEYk3ZFaeDhggU716O', false],
-			[1, 'GlOaUExBSD9HxuEYk3ZFaeDhggU716O', false]
+			[1, 'GlOaUExBSD9HxuEYk2ZFaeDhggU716O', true, $found],
+			[2, 'GlOaUExBSD9HxuEYk3ZFaeDhggU716O', false, $not_found],
+			[1, 'GlOaUExBSD9HxuEYk3ZFaeDhggU716O', false, $found]
 		];
 	}
 
