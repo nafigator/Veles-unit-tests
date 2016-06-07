@@ -304,34 +304,42 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testFind($id, $expected)
 	{
+		$expected_news = new News;
+
 		if ($expected) {
-			$expected = new News;
-			$expected->id = $id;
-			$expected->title = "title_$id";
-			$expected->content = "content_$id";
-			$expected->author = "author_$id";
-		} else {
-			$expected = new News;
+			$expected_news->id      = $id;
+			$expected_news->title   = "title_$id";
+			$expected_news->content = "content_$id";
+			$expected_news->author  = "author_$id";
 		}
+
+		$db_result = $expected
+			? [
+				'id'      => $id,
+				'title'   => "title_$id",
+				'content' => "content_$id",
+				'author'  => "author_$id"
+			]
+			: [];
 
 		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
 			->setMethods(['row'])
 			->getMock();
 		$adapter->expects($this->once())
 			->method('row')
-			->willReturn($expected);
+			->willReturn($db_result);
 
 		Db::setAdapter($adapter);
 
-		$news = new News;
+		$actual_news = new News;
 		$filter = new DbFilter;
 		$filter->setWhere("id = $id");
-		$result = $news->find($filter);
-		$msg = 'ActiveRecord::find returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		$actual = $actual_news->find($filter);
+		$msg = 'ActiveRecord::find() returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
 
 		$msg = 'Wrong ActiveRecord::find() behavior!';
-		$this->assertEquals($expected, $news, $msg);
+		$this->assertEquals($expected_news, $actual_news, $msg);
 	}
 
 	public function findProvider()
