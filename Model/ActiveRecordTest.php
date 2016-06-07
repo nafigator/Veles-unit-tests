@@ -211,6 +211,15 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testDelete()
 	{
+		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+			->setMethods(['query'])
+			->getMock();
+		$adapter->expects($this->once())
+			->method('query')
+			->willReturn(true);
+
+		Db::setAdapter($adapter);
+
 		$news = new News;
 		$news->id = 21;
 
@@ -259,6 +268,16 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 			'content' => 'content_3',
 			'author' => 'author_3'
 		];
+
+		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+			->setMethods(['row'])
+			->getMock();
+		$adapter->expects($this->once())
+			->method('row')
+			->willReturn($expected);
+
+		Db::setAdapter($adapter);
+
 		$news = new News;
 		$news->getById(3);
 		$result = [
@@ -281,13 +300,6 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testFind($id, $expected)
 	{
-		$news = new News;
-		$filter = new DbFilter;
-		$filter->setWhere("id = $id");
-		$result = $news->find($filter);
-		$msg = 'ActiveRecord::find returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
-
 		if ($expected) {
 			$expected = new News;
 			$expected->id = $id;
@@ -297,6 +309,22 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 		} else {
 			$expected = new News;
 		}
+
+		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+			->setMethods(['row'])
+			->getMock();
+		$adapter->expects($this->once())
+			->method('row')
+			->willReturn($expected);
+
+		Db::setAdapter($adapter);
+
+		$news = new News;
+		$filter = new DbFilter;
+		$filter->setWhere("id = $id");
+		$result = $news->find($filter);
+		$msg = 'ActiveRecord::find returns wrong result!';
+		$this->assertSame($expected, $result, $msg);
 
 		$msg = 'Wrong ActiveRecord::find() behavior!';
 		$this->assertEquals($expected, $news, $msg);
