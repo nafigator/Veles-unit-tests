@@ -14,6 +14,10 @@ require_once 'setcookie_stub.php';
  */
 class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 {
+	/**
+	 * Tears down the fixture, for example, closes a network connection.
+	 * This method is called after a test is executed.
+	 */
 	protected function tearDown()
 	{
 		DbCopy::unsetAdapter();
