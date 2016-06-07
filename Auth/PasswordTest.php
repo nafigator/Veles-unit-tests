@@ -58,9 +58,14 @@ class PasswordTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * Unit-test for Password::check
-	 * @covers Veles\Auth\Password::check
+	 *
+	 * @covers       Veles\Auth\Password::check
 	 * @dataProvider checkProvider
-	 * @see Veles\Auth\Password::check
+	 * @see          Veles\Auth\Password::check
+	 *
+	 * @param $user
+	 * @param $password
+	 * @param $expected
 	 */
 	public function testCheck($user, $password, $expected)
 	{
