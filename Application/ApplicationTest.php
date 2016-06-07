@@ -3,7 +3,7 @@
  * Юнит-тест для класса Application
  * @file    Application.php
  *
- * PHP version 5.4+
+ * PHP version 5.6+
  *
  * @author  Alexander Yancharuk <alex at itvault dot info>
  * @date    Втр Янв 22 22:53:39 2013

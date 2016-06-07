@@ -3,7 +3,7 @@
  * Юнит-тест для класса Helper
  * @file      HelperTest.php
  *
- * PHP version 5.4+
+ * PHP version 5.6+
  *
  * @author    Alexander Yancharuk <alex at itvault dot info>
  * @copyright © 2012-2016 Alexander Yancharuk <alex at itvault at info>
