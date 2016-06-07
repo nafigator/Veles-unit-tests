@@ -2,6 +2,7 @@
 namespace Veles\Tests\Model;
 
 use Veles\Auth\UsrGroup;
+use Veles\DataBase\Db;
 use Veles\DataBase\DbFilter;
 use Veles\DataBase\DbPaginator;
 use Veles\Model\QueryBuilder;
@@ -43,27 +44,35 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 	public function testInsert()
 	{
 		$group = UsrGroup::GUEST;
-		$hash = md5('lalala');
+		$hash  = md5('lalala');
 
-		$user = new UserCopy;
-		$user->id = 1;
-		$user->email = 'mail@mail.org';
-		$user->hash = $hash;
-		$user->group = $group;
-		$user->money = 2.22;
-		$user->date = '1080-12-12';
+		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+			->setMethods(['escape'])
+			->getMock();
+		$adapter->expects($this->exactly(3))
+			->method('escape')
+			->willReturn('escaped-string');
+
+		Db::setAdapter($adapter);
+
+		$user             = new User;
+		$user->id         = 1;
+		$user->email      = 'mail@mail.org';
+		$user->hash       = $hash;
+		$user->group      = $group;
+		$user->last_login = '1080-12-12';
 
 		$expected = "
 			INSERT
 				\"users\"
-				(\"id\", \"email\", \"hash\", \"group\", \"money\")
+				(\"id\", \"email\", \"hash\", \"group\", \"last_login\")
 			VALUES
-				(1, 'mail@mail.org', '$hash', $group, 2.22)
+				(1, escaped-string, escaped-string, $group, escaped-string)
 		";
-		$result = $this->object->insert($user);
+		$actual = $this->object->insert($user);
 
 		$msg = 'QueryBuilder::insert() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**
@@ -75,24 +84,34 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 		$group = UsrGroup::GUEST;
 		$hash = md5('lalala');
 
-		$user = new User;
-		$user->id = 1;
-		$user->email = 'mail@mail.org';
-		$user->hash = $hash;
-		$user->group = $group;
+		$user             = new User;
+		$user->id         = 1;
+		$user->email      = 'mail@mail.org';
+		$user->hash       = $hash;
+		$user->group      = $group;
+		$user->last_login = '1980-12-01';
+
+		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+			->setMethods(['escape'])
+			->getMock();
+		$adapter->expects($this->exactly(3))
+			->method('escape')
+			->willReturn('\'escaped-string\'');
+
+		Db::setAdapter($adapter);
 
 		$expected = "
 			UPDATE
 				\"users\"
 			SET
-				\"email\" = 'mail@mail.org', \"hash\" = '9aa6e5f2256c17d2d430b100032b997c', \"group\" = 16
+				\"email\" = 'escaped-string', \"hash\" = 'escaped-string', \"group\" = 16, \"last_login\" = 'escaped-string'
 			WHERE
 				id = 1
 		";
-		$result = $this->object->update($user);
+		$actual = $this->object->update($user);
 
 		$msg = 'QueryBuilder::update() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**
@@ -166,7 +185,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 	public function testDeleteException()
 	{
 		$user = new User;
-		$result = $this->object->delete($user, false);
+		$this->object->delete($user, false);
 	}
 
 	/**
