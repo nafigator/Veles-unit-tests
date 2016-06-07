@@ -150,16 +150,8 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 		];
 		$this->object->set($expected);
 
-		$object = new \ReflectionObject($this->object);
-
-		$prop = $object->getProperty('variables');
-		$prop->setAccessible(true);
-		$result = $prop->getValue($this->object);
-
 		$msg = 'Wrong ViewAdapterAbstract::set() behavior!';
-		foreach ($expected as $var => $value) {
-			$this->assertSame($value, $result[$var], $msg);
-		}
+		$this->assertAttributeSame($expected, 'variables', $this->object, $msg);
 	}
 
 	/**
@@ -167,19 +159,10 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testDel()
 	{
-		$this->object->set(['lalala' => 'value']);
-		$this->object->del(['lalala']);
+		$this->object->del(['variable-2']);
 
-		$object = new \ReflectionObject($this->object);
-
-		$prop = $object->getProperty('variables');
-		$prop->setAccessible(true);
-		$result = $prop->getValue(View::getAdapter());
-		$expected = ['lalala' => false];
+		$expected = ['variable-1' => 'value-1'];
 		$msg = 'Wrong ViewAdapterAbstract::del() behavior!';
-
-		foreach ($expected as $var => $value) {
-			$this->assertSame($value, isset($result[$var]), $msg);
-		}
+		$this->assertAttributeSame($expected, 'variables', $this->object, $msg);
 	}
 }
