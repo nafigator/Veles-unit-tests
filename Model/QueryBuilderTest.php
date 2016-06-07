@@ -30,14 +30,6 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-	}
-
-	/**
 	 * @covers Veles\Model\QueryBuilder::insert
 	 * @covers Veles\Model\QueryBuilder::sanitize
 	 */
@@ -49,25 +41,26 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
 			->setMethods(['escape'])
 			->getMock();
-		$adapter->expects($this->exactly(3))
+		$adapter->expects($this->exactly(2))
 			->method('escape')
-			->willReturn('escaped-string');
+			->willReturn('\'escaped-string\'');
 
 		Db::setAdapter($adapter);
 
-		$user             = new User;
-		$user->id         = 1;
-		$user->email      = 'mail@mail.org';
-		$user->hash       = $hash;
-		$user->group      = $group;
-		$user->last_login = '1080-12-12';
+		$user        = new UserCopy;
+		$user->id    = 1;
+		$user->email = 'mail@mail.org';
+		$user->hash  = $hash;
+		$user->group = $group;
+		$user->money = 2.22;
+		$user->date  = '1080-12-12';
 
 		$expected = "
 			INSERT
 				\"users\"
-				(\"id\", \"email\", \"hash\", \"group\", \"last_login\")
+				(\"id\", \"email\", \"hash\", \"group\", \"money\")
 			VALUES
-				(1, escaped-string, escaped-string, $group, escaped-string)
+				(1, 'escaped-string', 'escaped-string', $group, 2.22)
 		";
 		$actual = $this->object->insert($user);
 
