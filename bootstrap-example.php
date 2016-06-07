@@ -7,7 +7,7 @@
  * Unit-tests skeletons generation:
  * phpunit-skelgen --bootstrap="Tests/bootstrap.php" generate-test "Veles\Cache\Adapters\ApcAdapter" "Cache\Adapters\ApcAdapter.php" "Veles\Tests\Cache\Adapters\ApcAdapterTest" "Tests/Cache/Adapters/ApcAdapterTest.php"
  *
- * @file      bootstrap.php
+ * @file      bootstrap-example.php
  *
  * PHP version 5.4+
  *
