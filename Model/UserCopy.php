@@ -1,5 +1,7 @@
 <?php
 /**
+ * Testing float and default properties types in QueryBuilder::sanitize()
+ *
  * @file    UserCopy.php
  *
  * PHP version 5.4+

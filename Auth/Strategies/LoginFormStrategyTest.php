@@ -25,6 +25,8 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::identify
+	 * @covers       Veles\Auth\Strategies\AbstractAuthStrategy::setCookie
+	 * @covers       Veles\Auth\Strategies\AbstractAuthStrategy::delCookie
 	 * @dataProvider identifyProvider
 	 *
 	 * @param $mail
