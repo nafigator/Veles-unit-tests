@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:noNamespaceSchemaLocation="phpunit.xsd"
-		xmlns=""
-		backupGlobals="false"
-		backupStaticAttributes="false"
-		bootstrap="travisci-bootstrap.php"
-		cacheTokens="false"
-		colors="true"
-		convertErrorsToExceptions="true"
-		convertNoticesToExceptions="true"
-		convertWarningsToExceptions="true"
-		forceCoversAnnotation="false"
-		mapTestClassNameToCoveredClassName="false"
-		processIsolation="false"
-		stopOnError="false"
-		stopOnFailure="false"
-		stopOnIncomplete="false"
-		stopOnSkipped="false"
-		verbose="true">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="phpunit.xsd"
+	xmlns=""
+	backupGlobals="false"
+	backupStaticAttributes="false"
+	bootstrap="travisci-bootstrap.php"
+	cacheTokens="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	forceCoversAnnotation="false"
+	mapTestClassNameToCoveredClassName="false"
+	processIsolation="false"
+	stopOnError="false"
+	stopOnFailure="false"
+	stopOnIncomplete="false"
+	stopOnSkipped="false"
+	verbose="true">
 	<filter>
 		<blacklist>
 			<directory suffix=".php">../Tests</directory>
@@ -39,7 +39,7 @@
 			<directory suffix=".php">../Tools</directory>
 			<directory suffix=".php">../Traits</directory>
 			<directory suffix=".php">../Validators</directory>
-			<!--<directory suffix=".php">../View</directory>-->
+			<directory suffix=".php">../View</directory>
 		</whitelist>
 	</filter>
 	<testsuites>
