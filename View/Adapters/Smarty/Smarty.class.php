@@ -20,7 +20,7 @@ class Smarty
 		return true;
 	}
 
-	public function clearAssign(array $vars)
+	public function clearAssign($vars)
 	{
 		return true;
 	}

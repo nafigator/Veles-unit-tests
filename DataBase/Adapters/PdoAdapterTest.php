@@ -170,8 +170,8 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 		$stmt2->expects($this->exactly(2))
 			->method('bindValue')
 			->withConsecutive(
-				[$this->equalTo(1), $this->equalTo(200), $this->equalTo(PDO::PARAM_INT)],
-				[$this->equalTo(2), $this->equalTo('string'), $this->equalTo(PDO::PARAM_STR)]
+				[1, 200, PDO::PARAM_INT],
+				[2, 'string', PDO::PARAM_STR]
 			)
 			->willReturn($expected);
 
