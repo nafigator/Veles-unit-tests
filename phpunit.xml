@@ -40,7 +40,7 @@
 			<directory suffix=".php">../Tools</directory>
 			<directory suffix=".php">../Traits</directory>
 			<directory suffix=".php">../Validators</directory>
-			<!--<directory suffix=".php">../View</directory>-->
+			<directory suffix=".php">../View</directory>
 		</whitelist>
 	</filter>
 	<testsuites>
