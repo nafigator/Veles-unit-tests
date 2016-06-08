@@ -5,7 +5,7 @@
  * Launch test in root directory:
  * phpunit
  * Unit-tests skeletons generation:
- * phpunit-skelgen --bootstrap="Tests/bootstrap.php" generate-test "Veles\Cache\Adapters\ApcAdapter" "Cache\Adapters\ApcAdapter.php" "Veles\Tests\Cache\Adapters\ApcAdapterTest" "Tests/Cache/Adapters/ApcAdapterTest.php"
+ * phpunit-skelgen --bootstrap="Tests/bootstrap.php" generate-test "Veles\View\Adapters\CustomJsonAdapter" "Veles/View/Adapters/CustomJsonAdapter.php" "Veles\Tests\View\Adapters\CustomJsonAdapterTest" "Tests/View/Adapters/CustomJsonAdapterTest.php"
  *
  * @file      bootstrap-example.php
  *
