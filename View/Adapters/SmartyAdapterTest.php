@@ -35,8 +35,16 @@ class SmartyAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @covers Veles\View\Adapters\SmartyAdapter::__construct
+	 */
+	public function testConstruct()
+	{
+		$msg = 'SmartyAdapter::__construct() wrong behavior!';
+		$this->assertAttributeInstanceOf('\Smarty', 'driver', $this->object, $msg);
+	}
+
+	/**
 	 * @covers Veles\View\Adapters\SmartyAdapter::set
-	 * @todo   Implement testSet().
 	 */
 	public function testSet()
 	{
