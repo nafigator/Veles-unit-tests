@@ -2,7 +2,7 @@
 /**
  * Unit-test for AutoLoader class
  *
-*@file      AutoLoaderTest.php
+ * @file      AutoLoaderTest.php
  *
  * PHP version 5.6+
  *
@@ -62,43 +62,5 @@ class AutoLoaderTest extends PHPUnit_Framework_TestCase
 
 		$msg = 'Class AutoLoaderFake did not loaded';
 		self::assertTrue(false !== $result, $msg);
-	}
-
-	/**
-	 * @covers       Veles\AutoLoader::registerPath
-	 * @dataProvider registerPathProvider
-	 *
-	 * @param $path
-	 */
-	public function testRegisterPath($path)
-	{
-		$includes = get_include_path();
-		if (is_array($path)) {
-			foreach ($path as $value) {
-				$includes = str_replace($value . PATH_SEPARATOR, '', $includes);
-			}
-		} else {
-			$includes = str_replace($path . PATH_SEPARATOR, '', $includes);
-		}
-
-		AutoLoader::registerPath($path);
-
-		if (is_array($path)) {
-			$path = implode(PATH_SEPARATOR, $path);
-		}
-
-		$expected = true;
-		$result = (bool) strstr(get_include_path(), $path);
-
-		$msg = 'Wron AutoLoader::registerPath behavior!';
-		$this->assertSame($expected, $result, $msg);
-	}
-
-	public function registerPathProvider()
-	{
-		return [
-			[LIB_DIR],
-			[[LIB_DIR, TEST_DIR]]
-		];
 	}
 }

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Environment initialisation for unit-tests
+ *
  * @file      travisci-bootstrap.php
  *
  * PHP version 5.6+
@@ -26,10 +28,10 @@ define('TEST_DIR', realpath(LIB_DIR . '/Veles/Tests'));
 date_default_timezone_set('Europe/Moscow');
 
 require LIB_DIR . '/Veles/AutoLoader.php';
+$includes = LIB_DIR . ':' . TEST_DIR . ':' . realpath(__DIR__ . '/Project');
+set_include_path(implode(PATH_SEPARATOR, [$includes, get_include_path()]));
+
 AutoLoader::init();
-AutoLoader::registerPath(
-	[LIB_DIR, TEST_DIR, realpath(__DIR__ . '/Project')]
-);
 
 $view_adapter = new NativeAdapter;
 $view_adapter->setTemplateDir(TEST_DIR . '/Project/View/');
