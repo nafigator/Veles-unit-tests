@@ -28,9 +28,9 @@ use Veles\Cache\Cache;
 use Veles\View\Adapters\NativeAdapter;
 use Veles\View\View;
 
-ini_set('error_reporting', E_ALL | E_STRICT);
-ini_set('display_errors', 'STDOUT');
-ini_set('display_startup_errors', true);
+//ini_set('error_reporting', E_ALL);
+//ini_set('display_errors', '1');
+//ini_set('display_startup_errors', '1');
 
 define('LIB_DIR', realpath(__DIR__ . '/../..'));
 define('TEST_DIR', realpath(LIB_DIR . '/Veles/Tests'));
