@@ -21,7 +21,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected $object;
 	/** @var string  */
-	protected $uri = 'http://localhost';
+	protected $url = 'http://localhost';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -29,7 +29,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = new CurlRequest($this->uri);
+		$this->object = new CurlRequest($this->url);
 	}
 
 	/**
@@ -42,7 +42,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testConstruct($expected, $options)
 	{
-		$object = new CurlRequest($this->uri, $options);
+		$object = new CurlRequest($this->url, $options);
 
 		$msg = 'CurlRequest::__construct() wrong behavior!';
 		$this->assertAttributeInternalType('resource', 'curl', $object, $msg);
@@ -55,7 +55,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 		return [
 			[
 				[
-					CURLOPT_URL            => $this->uri,
+					CURLOPT_URL            => $this->url,
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_CONNECTTIMEOUT => 10,
 					CURLOPT_TIMEOUT        => 10
@@ -64,7 +64,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 			],
 			[
 				[
-					CURLOPT_URL            => $this->uri,
+					CURLOPT_URL            => $this->url,
 					CURLOPT_CRLF           => true,
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_CONNECTTIMEOUT => 10,
@@ -123,7 +123,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 			[
 				['Content-length: 100'],
 				[
-					CURLOPT_URL            => $this->uri,
+					CURLOPT_URL            => $this->url,
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_CONNECTTIMEOUT => 10,
 					CURLOPT_TIMEOUT        => 10,
@@ -133,7 +133,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 			[
 				['Content-type: text/plain', 'Content-length: 300'],
 				[
-					CURLOPT_URL            => $this->uri,
+					CURLOPT_URL            => $this->url,
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_CONNECTTIMEOUT => 10,
 					CURLOPT_TIMEOUT        => 10,

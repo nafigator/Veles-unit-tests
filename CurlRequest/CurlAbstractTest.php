@@ -19,7 +19,7 @@ class CurlAbstractTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected $object;
 	/** @var string  */
-	protected $uri = 'http://localhost';
+	protected $url = 'http://localhost';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -27,7 +27,7 @@ class CurlAbstractTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = new CurlRequest($this->uri);
+		$this->object = new CurlRequest($this->url);
 	}
 
 	/**
