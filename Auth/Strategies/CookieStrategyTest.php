@@ -45,10 +45,10 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 		Db::setAdapter($adapter);
 
 		$object = new CookieStrategy($id, $hash, new User);
-		$result = $object->identify();
+		$actual = $object->identify();
 
 		$msg = 'CookieStrategy::identify() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	public function identifyProvider()
