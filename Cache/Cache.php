@@ -18,9 +18,4 @@ class Cache extends \Veles\Cache\Cache
 		self::$adapter_name = null;
 		self::$adapter 		= null;
 	}
-
-	public static function resetAdapter()
-	{
-		self::$adapter = ApcAdapter::instance();
-	}
 }
