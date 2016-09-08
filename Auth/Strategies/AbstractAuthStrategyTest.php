@@ -31,9 +31,9 @@ class AbstractAuthStrategyTest extends \PHPUnit_Framework_TestCase
 	public function testGetUser()
 	{
 		$expected = '\Veles\Model\User';
-		$result = $this->object->getUser();
+		$actual = $this->object->getUser();
 		$msg = 'AbstractAuthStrategy::getUser() returns wrong result!';
-		$this->assertInstanceOf($expected, $result, $msg);
+		$this->assertInstanceOf($expected, $actual, $msg);
 	}
 
 	/**
@@ -42,8 +42,24 @@ class AbstractAuthStrategyTest extends \PHPUnit_Framework_TestCase
 	public function testGetErrors()
 	{
 		$expected = 0;
-		$result = $this->object->getErrors();
-		$msg = 'AbstractAuthStrategy::getErrors returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		$actual = $this->object->getErrors();
+		$msg = 'AbstractAuthStrategy::getErrors() returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
+	}
+
+	/**
+	 * @covers Veles\Auth\Strategies\AbstractAuthStrategy::setError
+	 */
+	public function testSetError()
+	{
+		$expected = 8;
+		$this->object->setError(GuestStrategy::ERR_NOT_VALID_LOGIN);
+		$msg = 'AbstractAuthStrategy::setErrors() wrong behavior!';
+		$this->assertAttributeSame($expected, 'errors', $this->object, $msg);
+
+		$expected = 40;
+		$this->object->setError(GuestStrategy::ERR_NOT_VALID_HASH);
+		$msg = 'AbstractAuthStrategy::setErrors() wrong behavior!';
+		$this->assertAttributeSame($expected, 'errors', $this->object, $msg);
 	}
 }
