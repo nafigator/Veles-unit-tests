@@ -37,7 +37,7 @@ class CustomJsonAdapterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testShow()
 	{
-		$expected = null;
+		$expected = [];
 
 		$msg = 'CustomJsonAdapter::show() wrong behavior!';
 		$this->assertAttributeSame($expected, 'variables', $this->object, $msg);
