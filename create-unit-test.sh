@@ -105,7 +105,7 @@ while true; do
 			print_version
 			exit 0
 		;;
-		-* | --*) err "Unrecognized option '$1'"
+		-* | --*) error "Unrecognized option '$1'"
 			exit 2
 		;;
 		*) readonly CLASS_NAME="$1";
