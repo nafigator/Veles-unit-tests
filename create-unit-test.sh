@@ -20,6 +20,13 @@ Options:
   -v, --version              Show script version
   -h, --help                 Show this help message
   -d, --debug                Run script in debug mode
+  -n, --namespace            Set namespace for class
+
+Examples:
+
+./create-unit-test.sh --namespace View View
+
+./create-unit-test.sh --debug RouteTrait
 
 EOL
 	exit 2;
@@ -155,7 +162,7 @@ else
 fi
 
 debug "Full class name: '${FULL_CLASS_NAME}'"
-cd - ; exit
+
 debug "Check that FULL_CLASS_NAME is not empty"
 if [ -z "${FULL_CLASS_NAME}" ]; then
 	error "Unable to build full class name"
