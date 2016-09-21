@@ -5,10 +5,10 @@
 # TODO: Реализовать добавление док-коммента @group
 # TODO: Реализовать добавление алиаса для тестируемого класса
 
-readonly CLASSES_DIR='/home/alex/api/_modules/project/api/_lib'
-readonly UNIT_TESTS_DIR='/home/alex/api/tests'
+readonly CLASSES_DIR='/home/alex/veles'
+readonly UNIT_TESTS_DIR='/home/alex/veles/Tests'
 readonly CLASS_EXTENSION='.php'
-readonly VERSION='0.0.3'
+readonly VERSION='0.0.4'
 readonly CURRENT_DIR=$(pwd)
 
 usage_help() {
@@ -38,32 +38,30 @@ debug() {
 }
 
 # Function for error
-err() {
-	print_version
+error() {
 	printf "[$(date --rfc-3339=seconds)]: \033[0;31mERROR:\033[0m $@\n" >&2
 }
 
+# Function for warning messages
+warning() {
+	printf "[$(date --rfc-3339=seconds)]: \033[0;33mWARNING:\033[0m $@\n" >&2
+}
+
 check_dependencies() {
-	debug "Check phpunit-skelgen"
-	command -v phpunit-skelgen >/dev/null 2>&1
-	if [ $? -ne 0 ]; then
-		err "phpunit-skelgen not found"
-		exit 1
-	fi
+	local commands='phpunit-skelgen sed find'
+	local result=0
 
-	debug "Check sed"
-	command -v sed >/dev/null 2>&1
-	if [ $? -ne 0 ]; then
-		err "sed utility not found"
-		exit 1
-	fi
+	for i in ${commands}; do
+		command -v ${i} >/dev/null 2>&1
+		if [ $? -eq 0 ]; then
+			debug "Check $i ... OK"
+		else
+			warning "$i command not available"
+			result=1
+		fi
+	done
 
-	debug "Check find"
-	command -v find >/dev/null 2>&1
-	if [ $? -ne 0 ]; then
-		err "find utility not found"
-		exit 1
-	fi
+	return ${result}
 }
 
 create_test_dir() {
@@ -72,7 +70,7 @@ create_test_dir() {
 	mkdir -p "${UNIT_TEST_DIR}"
 
 	if [ $? -ne 0 ]; then
-		err "Unable to create unit-test dir"
+		error "Unable to create unit-test dir"
 		exit 1
 	else
 		debug "Success!"
@@ -91,7 +89,7 @@ while true; do
 			shift
 		;;
 		-n | --namespace) debug "Found '${1}' option"
-			debug "Found '${1}' option"
+			shift
 			readonly NAMESPACE="$1"
 			debug "NAMESPACE set to '${NAMESPACE}'"
 			shift
@@ -111,50 +109,56 @@ while true; do
 		;;
 	esac
 done
-exit
+
 debug "Check that CLASS_NAME not empty"
 if [ -z "${CLASS_NAME}" ]; then
-	err 'CLASS_NAME parameter required'
+	error 'CLASS_NAME parameter required'
 	exit 1
 fi
 
 debug "Check unit-tests dir: $UNIT_TESTS_DIR"
 if [ ! -x "${UNIT_TESTS_DIR}" ]; then
-	err 'Unit-tests dir not found'
+	error 'Unit-tests dir not found'
 	exit 1
 fi
 
 debug "Check classes dir: ${CLASSES_DIR}"
 if [ ! -x "${CLASSES_DIR}" ]; then
-	err 'Classes dir not found'
+	error 'Classes dir not found'
 	exit 1
 fi
-
-check_dependencies
 
 debug "Open dir ${CLASSES_DIR}"
 cd ${CLASSES_DIR}
 
 debug "Find relative path to class"
-RELATIVE_CLASS_PATH="$(find . -name "${FILE_NAME}" | sed -e s/\\.\\///)"
+if [ -z "${NAMESPACE}" ]; then
+	RELATIVE_CLASS_PATH="$(find . -name "${FILE_NAME}" | sed -e s/\\.\\///)"
+else
+	RELATIVE_CLASS_PATH="${NAMESPACE}/${FILE_NAME}"
+fi
 
 debug "Relative path: '${RELATIVE_CLASS_PATH}'"
 
 debug "Check that RELATIVE_CLASS_PATH is not empty"
 if [ -z "${RELATIVE_CLASS_PATH}" ]; then
-	err "Class '${CLASS_NAME}' not found"
+	error "Class '${CLASS_NAME}' not found"
 	cd ${CURRENT_DIR} >/dev/null 2>&1
 	exit 1
 fi
 
 debug "Build full class name"
-FULL_CLASS_NAME="$(echo "${RELATIVE_CLASS_PATH}" | sed -e s/${CLASS_EXTENSION}// | sed -e s/\\\//\\\\/g)"
+if [ -z "${NAMESPACE}" ]; then
+	FULL_CLASS_NAME="$(echo "${RELATIVE_CLASS_PATH}" | sed -e s/${CLASS_EXTENSION}// | sed -e s/\\\//\\\\/g)"
+else
+	FULL_CLASS_NAME="$(echo "${NAMESPACE}\\${CLASS_NAME}")"
+fi
 
 debug "Full class name: '${FULL_CLASS_NAME}'"
-
+cd - ; exit
 debug "Check that FULL_CLASS_NAME is not empty"
 if [ -z "${FULL_CLASS_NAME}" ]; then
-	err "Unable to build full class name"
+	error "Unable to build full class name"
 	cd ${CURRENT_DIR} >/dev/null 2>&1
 	exit 1
 fi
@@ -166,7 +170,7 @@ debug "Relative test path: '${RELATIVE_TEST_PATH}'"
 
 debug "Check that RELATIVE_TEST_PATH is not empty"
 if [ -z "${RELATIVE_TEST_PATH}" ]; then
-	err "Unable to build relative test path"
+	error "Unable to build relative test path"
 	cd ${CURRENT_DIR} >/dev/null 2>&1
 	exit 1
 fi
@@ -178,7 +182,7 @@ debug "Full test name: '${FULL_TEST_NAME}'"
 
 debug "Check that FULL_TEST_NAME is not empty"
 if [ -z "${FULL_TEST_NAME}" ]; then
-	err "Unable to build full test name"
+	error "Unable to build full test name"
 	cd ${CURRENT_DIR} >/dev/null 2>&1
 	exit 1
 fi
@@ -191,7 +195,7 @@ readonly UNIT_TEST_DIR="$(echo "${RELATIVE_TEST_PATH}" | sed -e s/${CLASS_NAME}T
 
 debug "Check that UNIT_TEST_DIR is not empty"
 if [ -z "${UNIT_TEST_DIR}" ]; then
-	err "Unable to build unit-test dir"
+	error "Unable to build unit-test dir"
 	cd ${CURRENT_DIR} >/dev/null 2>&1
 	exit 1
 fi
