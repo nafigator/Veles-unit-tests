@@ -222,9 +222,9 @@ if [ ! -x "${UNIT_TEST_DIR}" ]; then
 	create_test_dir
 fi
 
-debug "Command: phpunit-skelgen --bootstrap="bootstrap-local.php" generate-test "${FULL_CLASS_NAME}" "${RELATIVE_CLASS_PATH}" "${FULL_TEST_NAME}" "${RELATIVE_TEST_PATH}""
+debug "Command: phpunit-skelgen --bootstrap="bootstrap.php" generate-test "${FULL_CLASS_NAME}" "${RELATIVE_CLASS_PATH}" "${FULL_TEST_NAME}" "${RELATIVE_TEST_PATH}""
 
-phpunit-skelgen --bootstrap="bootstrap-local.php" generate-test "${FULL_CLASS_NAME}" "${RELATIVE_CLASS_PATH}" "${FULL_TEST_NAME}" "${RELATIVE_TEST_PATH}"
+phpunit-skelgen --bootstrap="bootstrap.php" generate-test "${FULL_CLASS_NAME}" "${RELATIVE_CLASS_PATH}" "${FULL_TEST_NAME}" "${RELATIVE_TEST_PATH}"
 
 debug "Open tests dir ${UNIT_TESTS_DIR}"
 cd ${UNIT_TESTS_DIR} >/dev/null 2>&1
