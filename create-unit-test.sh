@@ -24,9 +24,11 @@ Options:
 
 Examples:
 
-./create-unit-test.sh --namespace View View
+./create-unit-test.sh --namespace=View View
 
-./create-unit-test.sh --debug RouteTrait
+./create-unit-test.sh -d -n View View
+
+./create-unit-test.sh --debug ButtonElement
 
 EOL
 	exit 2;
@@ -95,9 +97,14 @@ while true; do
 			debug "Found '${1}' option"
 			shift
 		;;
-		-n | --namespace) debug "Found '${1}' option"
+		-n) debug "Found '${1}' option"
 			shift
 			readonly NAMESPACE="$1"
+			debug "NAMESPACE set to '${NAMESPACE}'"
+			shift
+		;;
+		--namespace=?* ) value="${1#*=}"; debug "Found '${1}' option"
+			readonly NAMESPACE="$value"
 			debug "NAMESPACE set to '${NAMESPACE}'"
 			shift
 		;;
@@ -156,7 +163,7 @@ fi
 
 debug "Build full class name"
 if [ -z "${NAMESPACE}" ]; then
-	FULL_CLASS_NAME="$(echo "${RELATIVE_CLASS_PATH}" | sed -e s/${CLASS_EXTENSION}// | sed -e s/\\\//\\\\/g)"
+	FULL_CLASS_NAME="$(echo "Veles\\${RELATIVE_CLASS_PATH}" | sed -e s/${CLASS_EXTENSION}// | sed -e s/\\\//\\\\/g)"
 else
 	FULL_CLASS_NAME="$(echo "${NAMESPACE}\\${CLASS_NAME}")"
 fi
@@ -211,6 +218,9 @@ debug "Check unit-test dir: ${UNIT_TEST_DIR}"
 if [ ! -x "${UNIT_TEST_DIR}" ]; then
 	create_test_dir
 fi
+
+debug "Open dir ${CLASSES_DIR}"
+cd "${CLASSES_DIR}" >/dev/null 2>&1
 
 debug "Command: phpunit-skelgen --bootstrap="bootstrap-local.php" generate-test "${FULL_CLASS_NAME}" "${RELATIVE_CLASS_PATH}" "${FULL_TEST_NAME}" "${RELATIVE_TEST_PATH}""
 
