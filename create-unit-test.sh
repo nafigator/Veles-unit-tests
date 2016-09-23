@@ -163,7 +163,7 @@ fi
 
 debug "Build full class name"
 if [ -z "${NAMESPACE}" ]; then
-	FULL_CLASS_NAME="$(echo "Veles\\${RELATIVE_CLASS_PATH}" | sed s/${CLASS_EXTENSION}// | sed 's/\//\\\\/g')"
+	FULL_CLASS_NAME="$(echo "Veles\\${RELATIVE_CLASS_PATH}" | sed s/${CLASS_EXTENSION}// | sed 's/\//\\/g')"
 else
 	FULL_CLASS_NAME="$(echo "${NAMESPACE}\\${CLASS_NAME}")"
 fi
@@ -178,7 +178,7 @@ if [ -z "${FULL_CLASS_NAME}" ]; then
 fi
 
 debug "Build relative test path"
-RELATIVE_TEST_PATH="$(echo "Tests/${FULL_CLASS_NAME}" | sed 's/\\\\/\//g' | sed 's/Veles\\//')Test$CLASS_EXTENSION"
+RELATIVE_TEST_PATH="$(echo "Tests/${FULL_CLASS_NAME}" | sed 's/\\/\//g' | sed 's/Veles\\//')Test$CLASS_EXTENSION"
 
 debug "Relative test path: '${RELATIVE_TEST_PATH}'"
 
@@ -190,7 +190,7 @@ if [ -z "${RELATIVE_TEST_PATH}" ]; then
 fi
 
 debug "Build full test name"
-FULL_TEST_NAME="$(echo "${RELATIVE_TEST_PATH}" | sed -e s/${CLASS_EXTENSION}// | sed -e 's/\//\\\\/g')"
+FULL_TEST_NAME="$(echo "${RELATIVE_TEST_PATH}" | sed -e s/${CLASS_EXTENSION}// | sed -e 's/\//\\/g')"
 
 debug "Full test name: '${FULL_TEST_NAME}'"
 
@@ -222,7 +222,6 @@ fi
 debug "Open dir ${CLASSES_DIR}"
 cd "${CLASSES_DIR}" >/dev/null 2>&1
 
-debug "Command: phpunit-skelgen $params"
 phpunit-skelgen --bootstrap='Tests/bootstrap.php' generate-test "${FULL_CLASS_NAME}" "${RELATIVE_CLASS_PATH}" "${FULL_TEST_NAME}" "${RELATIVE_TEST_PATH}"
 
 debug "Open tests dir ${UNIT_TESTS_DIR}"
