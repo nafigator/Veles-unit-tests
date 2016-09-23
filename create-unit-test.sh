@@ -178,7 +178,7 @@ if [ -z "${FULL_CLASS_NAME}" ]; then
 fi
 
 debug "Build relative test path"
-RELATIVE_TEST_PATH="$(echo "Tests/${FULL_CLASS_NAME}" | sed 's/\\/\//g' | sed 's/Veles\\//')Test$CLASS_EXTENSION"
+RELATIVE_TEST_PATH="$(echo "Tests/${FULL_CLASS_NAME}" | sed 's/Veles\\//' | sed 's/\\/\//g')Test$CLASS_EXTENSION"
 
 debug "Relative test path: '${RELATIVE_TEST_PATH}'"
 
@@ -200,9 +200,6 @@ if [ -z "${FULL_TEST_NAME}" ]; then
 	cd ${CURRENT_DIR} >/dev/null 2>&1
 	exit 1
 fi
-
-#debug "Open dir ${UNIT_TESTS_DIR}"
-#cd "${UNIT_TESTS_DIR}"
 
 debug "Build unit test dir"
 readonly UNIT_TEST_DIR="$(echo "${RELATIVE_TEST_PATH}" | sed -e s/${CLASS_NAME}Test${CLASS_EXTENSION}//)"
