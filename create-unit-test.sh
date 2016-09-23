@@ -204,9 +204,6 @@ fi
 #debug "Open dir ${UNIT_TESTS_DIR}"
 #cd "${UNIT_TESTS_DIR}"
 
-#debug "Open dir ${CLASSES_DIR}"
-#cd "${CLASSES_DIR}" >/dev/null 2>&1
-
 debug "Build unit test dir"
 readonly UNIT_TEST_DIR="$(echo "${RELATIVE_TEST_PATH}" | sed -e s/${CLASS_NAME}Test${CLASS_EXTENSION}//)"
 
@@ -222,12 +219,17 @@ if [ ! -x "${UNIT_TEST_DIR}" ]; then
 	create_test_dir
 fi
 
-debug "Command: phpunit-skelgen --bootstrap="bootstrap.php" generate-test "${FULL_CLASS_NAME}" "${RELATIVE_CLASS_PATH}" "${FULL_TEST_NAME}" "${RELATIVE_TEST_PATH}""
+debug "Open dir ${CLASSES_DIR}"
+cd "${CLASSES_DIR}" >/dev/null 2>&1
 
-phpunit-skelgen --bootstrap="bootstrap.php" generate-test "${FULL_CLASS_NAME}" "${RELATIVE_CLASS_PATH}" "${FULL_TEST_NAME}" "${RELATIVE_TEST_PATH}"
+debug "Command: phpunit-skelgen $params"
+phpunit-skelgen --bootstrap='Tests/bootstrap.php' generate-test "${FULL_CLASS_NAME}" "${RELATIVE_CLASS_PATH}" "${FULL_TEST_NAME}" "${RELATIVE_TEST_PATH}"
 
 debug "Open tests dir ${UNIT_TESTS_DIR}"
 cd ${UNIT_TESTS_DIR} >/dev/null 2>&1
 
 debug "Git checkout to master branch"
 git checkout master
+
+debug "Open dir ${CURRENT_DIR}"
+cd "${CURRENT_DIR}" >/dev/null 2>&1
