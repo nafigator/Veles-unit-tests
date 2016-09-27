@@ -147,7 +147,7 @@ cd ${CLASSES_DIR}
 
 debug "Find relative path to class"
 if [ -z "${NAMESPACE}" ]; then
-	RELATIVE_CLASS_PATH="$(find . -name "${FILE_NAME}" | sed 's/\\.\\///')"
+	RELATIVE_CLASS_PATH="$(find . -name "${FILE_NAME}" | sed 's/\.\///')"
 else
 	RELATIVE_CLASS_PATH="$(echo "${NAMESPACE}/${FILE_NAME}" | sed 's/Veles\\//' | sed 's/\\/\//g')"
 fi
