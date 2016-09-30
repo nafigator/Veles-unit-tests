@@ -54,7 +54,7 @@ warning() {
 }
 
 check_dependencies() {
-	local commands='phpunit-skelgen printf sed find tr'
+	local commands='phpunit-skelgen printf sed find tr perl'
 	local result=0
 
 	for i in ${commands}; do
