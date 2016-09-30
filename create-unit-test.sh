@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 # Скрипт для создания скелета юнит-теста
-#
-# TODO: Реализовать добавление алиаса для тестируемого класса
 
 readonly CLASSES_DIR='/home/alex/veles'
 readonly UNIT_TESTS_DIR='/home/alex/veles/Tests'
