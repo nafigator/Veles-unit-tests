@@ -13,20 +13,16 @@
 
 namespace Controllers\Frontend;
 
-use Veles\Routing\Route;
+use Veles\Controllers\BaseController;
 
 /**
  * Класс Home
  * @author  Alexander Yancharuk <alex at itvault dot info>
  */
-class Home
+class Home extends BaseController
 {
 	protected $route;
 
-	public function __construct(Route $route)
-	{
-		$this->setRoute($route);
-	}
 	/**
 	 * Метод вызываемый при запросе /index.html
 	 */
@@ -48,7 +44,7 @@ class Home
 	 */
 	public function getRoute()
 	{
-		return $this->route;
+		return $this->getApplication()->getRoute();
 	}
 
 	/**
@@ -56,6 +52,6 @@ class Home
 	 */
 	public function setRoute($route)
 	{
-		$this->route = $route;
+		$this->getApplication()->setRoute($route);
 	}
 }

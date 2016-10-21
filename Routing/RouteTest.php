@@ -3,6 +3,7 @@ namespace Veles\Tests\Routing;
 
 use Controllers\Frontend\Home;
 use Exception;
+use Veles\Application\Application;
 use Veles\Routing\IniConfigLoader;
 use Veles\Routing\Route;
 use Veles\Routing\RoutesConfig;
@@ -125,11 +126,12 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 		);
 		$route->method('getUri')->willReturn('/');
 		$route->setConfigHandler($config)->init();
+		$application = (new Application)->setRoute($route);
 
 		$this->object->method('getUri')->willReturn('/');
 
-		$expected = $controller = new Home($route);
-		$result = $this->object->init()->getController();
+		$expected = $controller = new Home($application);
+		$result = $this->object->init()->getController($application);
 
 		$msg = 'Route::getController() returns wrong result!';
 		$this->assertEquals($expected, $result, $msg);
@@ -146,8 +148,19 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetControllerException()
 	{
+		$route = $this->getMockBuilder('\Veles\Routing\Route')
+			->setMethods(['getUri'])
+			->getMock();
+
+		$config = new RoutesConfig(
+			new IniConfigLoader(TEST_DIR . '/Project/routes.ini')
+		);
+		$route->method('getUri')->willReturn('/');
+		$route->setConfigHandler($config)->init();
+		$application = (new Application)->setRoute($route);
+
 		$this->object->method('getUri')->willReturn('/user');
-		$this->object->init()->getController();
+		$this->object->init()->getController($application);
 	}
 
 	/**
@@ -197,15 +210,15 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\Route::getPageName
+	 * @covers Veles\Routing\Route::getName
 	 */
-	public function testGetPageName()
+	public function testGetName()
 	{
 		$this->object->method('getUri')->willReturn('/');
 		$expected = 'Home';
-		$result = $this->object->init()->getPageName();
+		$result = $this->object->init()->getName();
 
-		$msg = 'Route::getPageName() returns wrong result!';
+		$msg = 'Route::getName() returns wrong result!';
 		$this->assertSame($expected, $result, $msg);
 	}
 
