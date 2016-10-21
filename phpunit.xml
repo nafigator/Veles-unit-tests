@@ -29,6 +29,7 @@
 			<directory suffix=".php">../Application</directory>
 			<directory suffix=".php">../Auth</directory>
 			<directory suffix=".php">../Cache</directory>
+			<!--<directory suffix=".php">../Controllers</directory>-->
 			<directory suffix=".php">../CurlRequest</directory>
 			<directory suffix=".php">../DataBase</directory>
 			<directory suffix=".php">../Email</directory>

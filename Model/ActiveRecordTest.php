@@ -58,6 +58,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers       Veles\Model\ActiveRecord::getById
+	 * @covers       Veles\Model\ActiveRecord::getResult
 	 * @dataProvider getByIdProvider
 	 *
 	 * @param $id
