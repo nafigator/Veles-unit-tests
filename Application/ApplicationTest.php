@@ -37,6 +37,7 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 	{
 		$this->expectOutputString($expected['output']);
 
+		/** @var \Veles\Routing\Route $route */
 		$route = $this->getMockBuilder('\Veles\Routing\Route')
 			->setMethods(['getUri'])
 			->getMock();
