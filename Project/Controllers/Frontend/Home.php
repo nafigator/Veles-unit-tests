@@ -54,4 +54,17 @@ class Home extends BaseController
 	{
 		$this->getApplication()->setRoute($route);
 	}
+
+	/**
+	 * Метод вызываемый при запросе с uri /doc/3/user/8
+	 *
+	 * @return array
+	 */
+	public function doc()
+	{
+		return [
+			'doc'  => $this->getParam('doc_id'),
+			'user' => $this->getParam('user_id')
+		];
+	}
 }
