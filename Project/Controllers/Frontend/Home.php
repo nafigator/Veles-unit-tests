@@ -28,7 +28,11 @@ class Home extends BaseController
 	 */
 	public function index()
 	{
-		return ['a' => 'Test', 'b' => 'complete', 'c' => 'Hello'];
+		return [
+			'a' => 'Test',
+			'b' => 'complete',
+			'c' => 'Hello',
+		];
 	}
 
 	/**
@@ -36,7 +40,10 @@ class Home extends BaseController
 	 */
 	public function book()
 	{
-		return [1, 2, 3];
+		return [
+			'book' => $this->getParam('book_id'),
+			'user' => $this->getParam('user_id')
+		];
 	}
 
 	/**
@@ -53,18 +60,5 @@ class Home extends BaseController
 	public function setRoute($route)
 	{
 		$this->getApplication()->setRoute($route);
-	}
-
-	/**
-	 * Метод вызываемый при запросе с uri /doc/3/user/8
-	 *
-	 * @return array
-	 */
-	public function doc()
-	{
-		return [
-			'doc'  => $this->getParam('doc_id'),
-			'user' => $this->getParam('user_id')
-		];
 	}
 }

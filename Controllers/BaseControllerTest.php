@@ -87,7 +87,7 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 		$this->route->method('getUri')->willReturn($uri);
 		$this->route->init();
 
-		$actual = $this->object->doc();
+		$actual = $this->object->book();
 
 		$msg = 'BaseController::getParams() returns wrong result!';
 		$this->assertSame($expected, $actual, $msg);
@@ -97,16 +97,16 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 	{
 		return [
 			[
-				'/doc/5/user/8',
+				'/book/5/user/8',
 				[
-					'doc'  => '5',
+					'book' => '5',
 					'user' => '8'
 				]
 			],
 			[
-				'/doc/575/user/82',
+				'/book/575/user/82',
 				[
-					'doc'  => '575',
+					'book' => '575',
 					'user' => '82'
 				]
 			]
