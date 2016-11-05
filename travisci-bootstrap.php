@@ -33,7 +33,7 @@ set_include_path(implode(PATH_SEPARATOR, [$includes, get_include_path()]));
 
 AutoLoader::init();
 
-$view_adapter = new NativeAdapter;
+$view_adapter = NativeAdapter::instance();
 $view_adapter->setTemplateDir(TEST_DIR . '/Project/View/');
 View::setAdapter($view_adapter);
 
