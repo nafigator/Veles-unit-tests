@@ -23,7 +23,7 @@ class NativeAdapterTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = new NativeAdapter;
+		$this->object = NativeAdapter::instance();
 		$this->dir = TEST_DIR . '/Project/View/';
 		$this->html = <<<EOF
 <!DOCTYPE html>
@@ -58,11 +58,11 @@ EOF;
 	public function testSetTemplateDir()
 	{
 		$expected = '/templates/dir';
-		NativeAdapter::setTemplateDir($expected);
+		$this->object->setTemplateDir($expected);
 
 		$msg = 'Wrong NativeAdapter::setTemplateDir property value!';
 		$this->assertAttributeEquals(
-			$expected, 'template_dir', 'Veles\View\Adapters\NativeAdapter', $msg
+			$expected, 'template_dir', $this->object, $msg
 		);
 	}
 
@@ -73,12 +73,12 @@ EOF;
 	public function testGetTemplateDir()
 	{
 		$expected = '/templates/dir';
-		NativeAdapter::setTemplateDir($expected);
+		$this->object->setTemplateDir($expected);
 
-		$result = NativeAdapter::getTemplateDir();
+		$actual = $this->object->getTemplateDir();
 
 		$msg = 'Wrong NativeAdapter::getTemplateDir() result!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**
