@@ -15,6 +15,7 @@ namespace Veles\Tests\Application;
 
 use PHPUnit_Framework_TestCase;
 use Veles\Application\Application;
+use Veles\Application\Environment;
 use Veles\Routing\IniConfigLoader;
 use Veles\Routing\Route;
 use Veles\Routing\RoutesConfig;
@@ -92,34 +93,31 @@ EOF
 	 */
 	public function testSetRoute()
 	{
-		$expected = new Route;
-		$config = new RoutesConfig(
-			new IniConfigLoader(TEST_DIR . '/Project/routessdfsdfsdf.ini')
+		$expected = (new Route)->setConfigHandler(
+			new RoutesConfig(new IniConfigLoader(TEST_DIR . '/Project/routes.ini'))
 		);
-		$expected->setConfigHandler($config);
 
-		$object = new Application;
-		$object->setRoute($expected);
+		$object = (new Application)->setRoute($expected);
 
 		$msg = 'Application::setRoute() wrong behavior!';
 		$this->assertAttributeSame($expected, 'route', $object, $msg);
 	}
 
+	/**
+	 * @covers Veles\Application\Application::getRoute
+	 */
 	public function testGetRoute()
 	{
-		$expected = new Route;
-		$config = new RoutesConfig(
-			new IniConfigLoader(TEST_DIR . '/Project/routessdfsdfsdf.ini')
+		$expected = (new Route)->setConfigHandler(
+			new RoutesConfig(new IniConfigLoader(TEST_DIR . '/Project/routes.ini'))
 		);
-		$expected->setConfigHandler($config);
 
-		$object = new Application;
-		$object->setRoute($expected);
+		$object = (new Application)->setRoute($expected);
 
-		$result = $object->getRoute();
+		$actual = $object->getRoute();
 
 		$msg = 'Application::getRoute() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**
@@ -128,8 +126,7 @@ EOF
 	public function testSetVersion()
 	{
 		$expected = '0.0.234';
-		$object = new Application;
-		$object->setVersion($expected);
+		$object = (new Application)->setVersion($expected);
 
 		$msg = 'IdbApiApplication::setVersion() wrong behavior!';
 		$this->assertAttributeSame($expected, 'version', $object, $msg);
@@ -141,12 +138,43 @@ EOF
 	public function testGetVersion()
 	{
 		$expected = '0.0.234';
-		$object = new Application;
-		$object->setVersion($expected);
+		$object = (new Application)->setVersion($expected);
 
-		$result = $object->getVersion();
+		$actual = $object->getVersion();
 
 		$msg = 'IdbApiApplication::getVersion() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
+	}
+
+	/**
+	 * @covers Veles\Application\Application::setEnvironment
+	 */
+	public function testSetEnvironment()
+	{
+		$expected = (new Environment)
+			->setName('development')
+			->setStaticPath('https://static.project.com');
+
+		$object = (new Application)->setEnvironment($expected);
+
+		$msg = 'Application::setEnvironment() wrong behavior!';
+		$this->assertAttributeSame($expected, 'environment', $object, $msg);
+	}
+
+	/**
+	 * @covers Veles\Application\Application::getEnvironment
+	 */
+	public function testGetEnvironment()
+	{
+		$expected = (new Environment)
+			->setName('development')
+			->setStaticPath('https://static.project.com');
+
+		$object = (new Application)->setEnvironment($expected);
+
+		$actual = $object->getEnvironment();
+
+		$msg = 'Application::getEnvironment() returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
 	}
 }
