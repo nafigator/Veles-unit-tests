@@ -1,7 +1,6 @@
 <?php
 namespace Veles\Tests\DataBase;
 
-use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Db;
 use Veles\DataBase\DbFilter;
 use Veles\DataBase\DbPaginator;
