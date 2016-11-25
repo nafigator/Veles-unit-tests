@@ -5,7 +5,7 @@
 	xmlns=""
 	backupGlobals="false"
 	backupStaticAttributes="false"
-	bootstrap="travisci-bootstrap.php"
+	bootstrap="travisci-bootstrap-5.6.php"
 	cacheTokens="false"
 	colors="true"
 	convertErrorsToExceptions="true"
