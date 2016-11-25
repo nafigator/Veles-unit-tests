@@ -5,7 +5,6 @@ use Exception;
 use Memcached;
 use PHPUnit_Framework_TestCase;
 use Veles\Cache\Adapters\CacheAdapterInterface;
-use Veles\Cache\Adapters\MemcacheAdapter;
 use Veles\Cache\Adapters\MemcachedAdapter;
 
 /**

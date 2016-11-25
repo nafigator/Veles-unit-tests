@@ -15,7 +15,6 @@
 namespace Veles\Tests;
 
 use Veles\AutoLoader;
-use Veles\Cache\Adapters\MemcacheAdapter;
 use Veles\Cache\Adapters\MemcachedAdapter;
 use Veles\Cache\Adapters\MemcacheRaw;
 use Veles\Cache\Cache;
