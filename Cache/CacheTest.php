@@ -34,7 +34,6 @@ class CacheTest extends PHPUnit_Framework_TestCase
 	public function setAdapterProvider()
 	{
 		return [
-			[MemcacheAdapter::instance()],
 			[MemcachedAdapter::instance()]
 		];
 	}
@@ -45,11 +44,6 @@ class CacheTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetAdapter()
 	{
-		Cache::setAdapter(MemcacheAdapter::instance());
-		$result = Cache::getAdapter();
-
-		$this->assertTrue($result instanceof MemcacheAdapter);
-
 		Cache::setAdapter(MemcachedAdapter::instance());
 		$result = Cache::getAdapter();
 
