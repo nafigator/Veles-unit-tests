@@ -34,7 +34,7 @@ class RoutesConfigTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\RoutesConfig::getData
+	 * @covers \Veles\Routing\RoutesConfig::getData
 	 */
 	public function testGetData()
 	{

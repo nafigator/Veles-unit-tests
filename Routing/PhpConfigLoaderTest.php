@@ -24,7 +24,7 @@ class PhpConfigLoaderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\PhpConfigLoader::load
+	 * @covers \Veles\Routing\PhpConfigLoader::load
 	 */
 	public function testLoad()
 	{

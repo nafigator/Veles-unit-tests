@@ -26,7 +26,7 @@ class HttpBasicTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\AuthStrategies\HttpBasic::setPassword
+	 * @covers \Veles\CurlRequest\AuthStrategies\HttpBasic::setPassword
 	 */
 	public function testSetPassword()
 	{
@@ -41,7 +41,7 @@ class HttpBasicTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\AuthStrategies\HttpBasic::getPassword
+	 * @covers \Veles\CurlRequest\AuthStrategies\HttpBasic::getPassword
 	 *
 	 * @depends testSetPassword
 	 */
@@ -56,7 +56,7 @@ class HttpBasicTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\AuthStrategies\HttpBasic::setLogin
+	 * @covers \Veles\CurlRequest\AuthStrategies\HttpBasic::setLogin
 	 */
 	public function testSetLogin()
 	{
@@ -71,7 +71,7 @@ class HttpBasicTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\AuthStrategies\HttpBasic::getLogin
+	 * @covers \Veles\CurlRequest\AuthStrategies\HttpBasic::getLogin
 	 *
 	 * @depends testSetLogin
 	 */
@@ -86,7 +86,7 @@ class HttpBasicTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\AuthStrategies\HttpBasic::apply
+	 * @covers \Veles\CurlRequest\AuthStrategies\HttpBasic::apply
 	 *
 	 * @depends testGetPassword
 	 * @depends testSetPassword

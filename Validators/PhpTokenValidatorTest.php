@@ -32,7 +32,7 @@ class PhpTokenValidatorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Validators\PhpTokenValidator::check
+	 * @covers \Veles\Validators\PhpTokenValidator::check
 	 * @dataProvider checkProvider
 	 */
 	public function testCheck($data, $expected)

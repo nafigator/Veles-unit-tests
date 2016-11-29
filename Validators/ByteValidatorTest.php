@@ -38,7 +38,7 @@ class ByteValidatorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Validators\ByteValidator::check
+	 * @covers \Veles\Validators\ByteValidator::check
 	 * @group  Validators
 	 * @see	   ByteValidator::check()
 	 * @dataProvider checkProvider
@@ -67,7 +67,7 @@ class ByteValidatorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Validators\ByteValidator::format
+	 * @covers \Veles\Validators\ByteValidator::format
 	 * @group  Validators
 	 * @see	   ByteValidator::format()
 	 * @dataProvider formatProvider

@@ -25,7 +25,7 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Traits\Observable::attach
+	 * @covers \Veles\Traits\Observable::attach
 	 */
 	public function testAttach()
 	{
@@ -41,7 +41,7 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Traits\Observable::detach
+	 * @covers \Veles\Traits\Observable::detach
 	 * @depends testAttach
 	 */
 	public function testDetach()
@@ -56,7 +56,7 @@ class ObservableTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Traits\Observable::notify
+	 * @covers \Veles\Traits\Observable::notify
 	 * @depends testAttach
 	 */
 	public function testNotify()

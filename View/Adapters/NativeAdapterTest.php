@@ -53,7 +53,7 @@ EOF;
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\NativeAdapter::setTemplateDir
+	 * @covers \Veles\View\Adapters\NativeAdapter::setTemplateDir
 	 */
 	public function testSetTemplateDir()
 	{
@@ -67,7 +67,7 @@ EOF;
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\NativeAdapter::getTemplateDir
+	 * @covers \Veles\View\Adapters\NativeAdapter::getTemplateDir
 	 * @depends testSetTemplateDir
 	 */
 	public function testGetTemplateDir()
@@ -82,7 +82,7 @@ EOF;
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\NativeAdapter::show
+	 * @covers \Veles\View\Adapters\NativeAdapter::show
 	 */
 	public function testShow()
 	{
@@ -95,7 +95,7 @@ EOF;
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\NativeAdapter::get
+	 * @covers \Veles\View\Adapters\NativeAdapter::get
 	 */
 	public function testGet()
 	{
@@ -108,7 +108,7 @@ EOF;
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\NativeAdapter::isCached
+	 * @covers \Veles\View\Adapters\NativeAdapter::isCached
 	 */
 	public function testIsCached()
 	{
@@ -120,7 +120,7 @@ EOF;
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\NativeAdapter::__construct
+	 * @covers \Veles\View\Adapters\NativeAdapter::__construct
 	 */
 	public function testConstruct()
 	{

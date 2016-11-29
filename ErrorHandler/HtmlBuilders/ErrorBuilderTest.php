@@ -42,9 +42,9 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getHtml
-	 * @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::convertTypeToString
-	 * @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::formatBacktrace
+	 * @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getHtml
+	 * @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::convertTypeToString
+	 * @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::formatBacktrace
 	 */
 	public function testGetHtml()
 	{
@@ -63,7 +63,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getHandler
+	 * @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getHandler
 	 */
 	public function testGetHandler()
 	{
@@ -77,7 +77,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::setHandler
+	 * @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::setHandler
 	 */
 	public function testSetHandler()
 	{
@@ -88,7 +88,7 @@ EOL;
 	}
 
 	/**
-	* @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::setTemplate
+	* @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::setTemplate
 	*/
 	public function testSetTemplate()
 	{
@@ -99,7 +99,7 @@ EOL;
 	}
 
 	/**
-	* @covers Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getTemplate
+	* @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getTemplate
 	* @depends testSetTemplate
 	*/
 	public function testGetTemplate()

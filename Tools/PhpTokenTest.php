@@ -27,7 +27,7 @@ class PhpTokenTest extends \PHPUnit_Framework_TestCase
     }
 
 	/**
-	 * @covers Veles\Tools\PhpToken::setName
+	 * @covers \Veles\Tools\PhpToken::setName
 	 */
 	public function testSetName()
 	{
@@ -39,7 +39,7 @@ class PhpTokenTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\PhpToken::getName
+	 * @covers \Veles\Tools\PhpToken::getName
 	 */
 	public function testGetName()
 	{

@@ -31,7 +31,7 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbFilter::getWhere
+	 * @covers \Veles\DataBase\DbFilter::getWhere
 	 */
 	public function testGetWhere()
 	{
@@ -44,7 +44,7 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbFilter::getGroup
+	 * @covers \Veles\DataBase\DbFilter::getGroup
 	 */
 	public function testGetGroup()
 	{
@@ -57,7 +57,7 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbFilter::getHaving
+	 * @covers \Veles\DataBase\DbFilter::getHaving
 	 */
 	public function testGetHaving()
 	{
@@ -70,7 +70,7 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbFilter::getOrder
+	 * @covers \Veles\DataBase\DbFilter::getOrder
 	 */
 	public function testGetOrder()
 	{
@@ -83,7 +83,7 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbFilter::setWhere
+	 * @covers \Veles\DataBase\DbFilter::setWhere
 	 */
 	public function testSetWhere()
 	{
@@ -95,7 +95,7 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbFilter::setGroup
+	 * @covers \Veles\DataBase\DbFilter::setGroup
 	 */
 	public function testSetGroup()
 	{
@@ -107,7 +107,7 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbFilter::setHaving
+	 * @covers \Veles\DataBase\DbFilter::setHaving
 	 */
 	public function testSetHaving()
 	{
@@ -119,7 +119,7 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbFilter::setOrder
+	 * @covers \Veles\DataBase\DbFilter::setOrder
 	 */
 	public function testSetOrder()
 	{

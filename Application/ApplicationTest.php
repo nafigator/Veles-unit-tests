@@ -28,7 +28,7 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Unit-test for Application::run
-	 * @covers       Veles\Application\Application::run
+	 * @covers       \Veles\Application\Application::run
 	 * @dataProvider runProvider
 	 *
 	 * @param $url
@@ -89,7 +89,7 @@ EOF
 	}
 
 	/**
-	 * @covers Veles\Application\Application::setRoute
+	 * @covers \Veles\Application\Application::setRoute
 	 */
 	public function testSetRoute()
 	{
@@ -104,7 +104,7 @@ EOF
 	}
 
 	/**
-	 * @covers Veles\Application\Application::getRoute
+	 * @covers \Veles\Application\Application::getRoute
 	 */
 	public function testGetRoute()
 	{
@@ -121,7 +121,7 @@ EOF
 	}
 
 	/**
-	 * @covers       Veles\Application\Application::setVersion
+	 * @covers       \Veles\Application\Application::setVersion
 	 */
 	public function testSetVersion()
 	{
@@ -133,7 +133,7 @@ EOF
 	}
 
 	/**
-	 * @covers       Veles\Application\Application::getVersion
+	 * @covers       \Veles\Application\Application::getVersion
 	 */
 	public function testGetVersion()
 	{
@@ -147,7 +147,7 @@ EOF
 	}
 
 	/**
-	 * @covers Veles\Application\Application::setEnvironment
+	 * @covers \Veles\Application\Application::setEnvironment
 	 */
 	public function testSetEnvironment()
 	{
@@ -162,7 +162,7 @@ EOF
 	}
 
 	/**
-	 * @covers Veles\Application\Application::getEnvironment
+	 * @covers \Veles\Application\Application::getEnvironment
 	 */
 	public function testGetEnvironment()
 	{

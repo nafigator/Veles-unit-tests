@@ -37,7 +37,7 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\DataBase\Exceptions\DbException::__construct
+	 * @covers       \Veles\DataBase\Exceptions\DbException::__construct
 	 *
 	 * @param string        $message
 	 * @param string        $ansi_code
@@ -80,7 +80,7 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Exceptions\DbException::getAnsiCode
+	 * @covers \Veles\DataBase\Exceptions\DbException::getAnsiCode
 	 */
 	public function testGetAnsiCode()
 	{
@@ -91,7 +91,7 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Exceptions\DbException::setAnsiCode
+	 * @covers \Veles\DataBase\Exceptions\DbException::setAnsiCode
 	 */
 	public function testSetAnsiCode()
 	{
@@ -103,7 +103,7 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Exceptions\DbException::getSql
+	 * @covers \Veles\DataBase\Exceptions\DbException::getSql
 	 */
 	public function testGetSql()
 	{
@@ -114,7 +114,7 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Exceptions\DbException::setSql
+	 * @covers \Veles\DataBase\Exceptions\DbException::setSql
 	 */
 	public function testSetSql()
 	{
@@ -126,7 +126,7 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Exceptions\DbException::getParams
+	 * @covers \Veles\DataBase\Exceptions\DbException::getParams
 	 */
 	public function testGetParams()
 	{
@@ -137,7 +137,7 @@ class DbExceptionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Exceptions\DbException::setParams
+	 * @covers \Veles\DataBase\Exceptions\DbException::setParams
 	 */
 	public function testSetParams()
 	{

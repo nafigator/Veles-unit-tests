@@ -27,7 +27,7 @@ class PhpTokenBaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\PhpTokenBase::__construct
+	 * @covers \Veles\Tools\PhpTokenBase::__construct
 	 * @dataProvider constructProvider
 	 * @param $token
 	 * @param $validator
@@ -88,7 +88,7 @@ class PhpTokenBaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\PhpToken::setContent
+	 * @covers \Veles\Tools\PhpToken::setContent
 	 */
 	public function testSetContent()
 	{
@@ -103,7 +103,7 @@ class PhpTokenBaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\PhpTokenBase::getContent
+	 * @covers \Veles\Tools\PhpTokenBase::getContent
 	 */
 	public function testGetContent()
 	{
@@ -117,7 +117,7 @@ class PhpTokenBaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\PhpTokenBase::setId
+	 * @covers \Veles\Tools\PhpTokenBase::setId
 	 */
 	public function testSetId()
 	{
@@ -129,7 +129,7 @@ class PhpTokenBaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\PhpTokenBase::getId
+	 * @covers \Veles\Tools\PhpTokenBase::getId
 	 */
 	public function testGetId()
 	{
@@ -143,7 +143,7 @@ class PhpTokenBaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\PhpTokenBase::setLine
+	 * @covers \Veles\Tools\PhpTokenBase::setLine
 	 */
 	public function testSetLine()
 	{
@@ -155,7 +155,7 @@ class PhpTokenBaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\PhpTokenBase::getLine
+	 * @covers \Veles\Tools\PhpTokenBase::getLine
 	 */
 	public function testGetLine()
 	{

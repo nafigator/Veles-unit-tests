@@ -38,7 +38,7 @@ class CliProgressBarTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\CliProgressBar::__construct
+	 * @covers \Veles\Tools\CliProgressBar::__construct
 	 */
 	public function testConstruct()
 	{
@@ -68,8 +68,8 @@ class CliProgressBarTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\CliProgressBar::update
-	 * @covers Veles\Tools\CliProgressBar::calcParams
+	 * @covers \Veles\Tools\CliProgressBar::update
+	 * @covers \Veles\Tools\CliProgressBar::calcParams
 	 */
 	public function testUpdateOne()
 	{
@@ -94,8 +94,8 @@ class CliProgressBarTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\CliProgressBar::update
-	 * @covers Veles\Tools\CliProgressBar::calcParams
+	 * @covers \Veles\Tools\CliProgressBar::update
+	 * @covers \Veles\Tools\CliProgressBar::calcParams
 	 */
 	public function testUpdateTwo()
 	{
@@ -121,7 +121,7 @@ class CliProgressBarTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\CliProgressBar::getStatusString
+	 * @covers \Veles\Tools\CliProgressBar::getStatusString
 	 */
 	public function testGetStatusString()
 	{
@@ -150,7 +150,7 @@ class CliProgressBarTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\CliProgressBar::getMemString
+	 * @covers \Veles\Tools\CliProgressBar::getMemString
 	 */
 	public function testGetMemString()
 	{

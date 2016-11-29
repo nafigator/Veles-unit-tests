@@ -25,8 +25,8 @@ class AbstractAuthStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\Strategies\AbstractAuthStrategy::getUser
-	 * @covers Veles\Auth\Strategies\AbstractAuthStrategy::__construct
+	 * @covers \Veles\Auth\Strategies\AbstractAuthStrategy::getUser
+	 * @covers \Veles\Auth\Strategies\AbstractAuthStrategy::__construct
 	 */
 	public function testGetUser()
 	{
@@ -37,7 +37,7 @@ class AbstractAuthStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\Strategies\AbstractAuthStrategy::getErrors
+	 * @covers \Veles\Auth\Strategies\AbstractAuthStrategy::getErrors
 	 */
 	public function testGetErrors()
 	{
@@ -48,7 +48,7 @@ class AbstractAuthStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\Strategies\AbstractAuthStrategy::setError
+	 * @covers \Veles\Auth\Strategies\AbstractAuthStrategy::setError
 	 */
 	public function testSetError()
 	{

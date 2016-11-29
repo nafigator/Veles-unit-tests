@@ -24,7 +24,7 @@ class RouteBaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\RouteBase::setConfigHandler
+	 * @covers \Veles\Routing\RouteBase::setConfigHandler
 	 */
 	public function testSetConfigHandler()
 	{
@@ -37,7 +37,7 @@ class RouteBaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\RouteBase::getConfigHandler
+	 * @covers \Veles\Routing\RouteBase::getConfigHandler
 	 */
 	public function testGetConfigHandler()
 	{
@@ -51,7 +51,7 @@ class RouteBaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\RouteBase::setNotFoundException
+	 * @covers \Veles\Routing\RouteBase::setNotFoundException
 	 */
 	public function testSetNotFoundException()
 	{

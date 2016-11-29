@@ -27,7 +27,7 @@ class EmailNotifierTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\Subscribers\EmailNotifier::update
+	 * @covers \Veles\ErrorHandler\Subscribers\EmailNotifier::update
 	 */
 	public function testUpdate()
 	{
@@ -50,7 +50,7 @@ class EmailNotifierTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\Subscribers\EmailNotifier::setMessageBuilder
+	 * @covers \Veles\ErrorHandler\Subscribers\EmailNotifier::setMessageBuilder
 	 */
 	public function testSetMessageBuilder()
 	{
@@ -62,7 +62,7 @@ class EmailNotifierTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\Subscribers\EmailNotifier::getMessageBuilder
+	 * @covers \Veles\ErrorHandler\Subscribers\EmailNotifier::getMessageBuilder
 	 * @depends testSetMessageBuilder
 	 */
 	public function testGetMessageBuilder()
@@ -76,7 +76,7 @@ class EmailNotifierTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\Subscribers\EmailNotifier::init
+	 * @covers \Veles\ErrorHandler\Subscribers\EmailNotifier::init
 	 */
 	public function testInit()
 	{
@@ -95,7 +95,7 @@ class EmailNotifierTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\Subscribers\EmailNotifier::addHeaders
+	 * @covers \Veles\ErrorHandler\Subscribers\EmailNotifier::addHeaders
 	 */
 	public function testAddHeaders()
 	{

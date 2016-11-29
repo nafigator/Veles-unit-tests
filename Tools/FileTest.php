@@ -29,7 +29,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	protected $object;
 
 	/**
-	 * @covers Veles\Tools\File::setDir
+	 * @covers \Veles\Tools\File::setDir
 	 * @group Tools
 	 * @see File::setDir
 	 */
@@ -51,7 +51,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\File::getDir
+	 * @covers \Veles\Tools\File::getDir
 	 * @group Tools
 	 * @depends testSetDir
 	 * @see File::getDir
@@ -67,7 +67,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\File::setMime
+	 * @covers \Veles\Tools\File::setMime
 	 * @group Tools
 	 * @see File::setMime
 	 */
@@ -89,7 +89,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\File::getMime
+	 * @covers \Veles\Tools\File::getMime
 	 * @group Tools
 	 * @depends testSetMime
 	 * @see File::getMime
@@ -105,7 +105,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\File::setName
+	 * @covers \Veles\Tools\File::setName
 	 * @group Tools
 	 * @see File::setName
 	 */
@@ -127,7 +127,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\File::getName
+	 * @covers \Veles\Tools\File::getName
 	 * @group Tools
 	 * @depends testSetName
 	 * @see File::getName
@@ -143,7 +143,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\File::setPath
+	 * @covers \Veles\Tools\File::setPath
 	 * @group Tools
 	 * @depends testSetName
 	 * @depends testSetDir
@@ -180,7 +180,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\File::getPath
+	 * @covers \Veles\Tools\File::getPath
 	 * @group Tools
 	 * @depends testSetPath
 	 * @see File::getPath
@@ -196,7 +196,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\File::delete
+	 * @covers \Veles\Tools\File::delete
 	 * @group Tools
 	 * @param $path
 	 * @param $expected
@@ -227,7 +227,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\File::deleteDir
+	 * @covers \Veles\Tools\File::deleteDir
 	 * @group Tools
 	 * @dataProvider deleteDirProvider
 	 */

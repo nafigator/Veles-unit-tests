@@ -44,7 +44,7 @@ class Md5ValidatorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Validators\Md5Validator::check
+	 * @covers \Veles\Validators\Md5Validator::check
 	 * @dataProvider checkProvider
 	 */
 	public function testCheck($value, $expected)

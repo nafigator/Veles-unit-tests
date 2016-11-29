@@ -45,7 +45,7 @@ class RoutesCacheDecoratorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\RoutesCacheDecorator::getData
+	 * @covers \Veles\Routing\RoutesCacheDecorator::getData
 	 */
 	public function testGetData()
 	{
@@ -89,7 +89,7 @@ class RoutesCacheDecoratorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\RoutesCacheDecorator::getPrefix
+	 * @covers \Veles\Routing\RoutesCacheDecorator::getPrefix
 	 */
 	public function testGetPrefix()
 	{
@@ -101,7 +101,7 @@ class RoutesCacheDecoratorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\RoutesCacheDecorator::setPrefix
+	 * @covers \Veles\Routing\RoutesCacheDecorator::setPrefix
 	 */
 	public function testSetPrefix()
 	{

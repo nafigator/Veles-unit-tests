@@ -30,8 +30,8 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\QueryBuilder::insert
-	 * @covers Veles\Model\QueryBuilder::sanitize
+	 * @covers \Veles\Model\QueryBuilder::insert
+	 * @covers \Veles\Model\QueryBuilder::sanitize
 	 */
 	public function testInsert()
 	{
@@ -69,8 +69,8 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\QueryBuilder::update
-	 * @covers Veles\Model\QueryBuilder::sanitize
+	 * @covers \Veles\Model\QueryBuilder::update
+	 * @covers \Veles\Model\QueryBuilder::sanitize
 	 */
 	public function testUpdate()
 	{
@@ -108,7 +108,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\QueryBuilder::getById
+	 * @covers \Veles\Model\QueryBuilder::getById
 	 */
 	public function testGetById()
 	{
@@ -128,7 +128,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Model\QueryBuilder::delete
+	 * @covers       \Veles\Model\QueryBuilder::delete
 	 * @dataProvider deleteProvider
 	 *
 	 * @param $ids
@@ -182,8 +182,8 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Model\QueryBuilder::find
-	 * @covers       Veles\Model\QueryBuilder::extractParams
+	 * @covers       \Veles\Model\QueryBuilder::find
+	 * @covers       \Veles\Model\QueryBuilder::extractParams
 	 * @dataProvider findProvider
 	 *
 	 * @param $filter
@@ -217,7 +217,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\QueryBuilder::setPage
+	 * @covers \Veles\Model\QueryBuilder::setPage
 	 */
 	public function testSetPage()
 	{

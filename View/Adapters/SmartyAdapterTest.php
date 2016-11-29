@@ -35,7 +35,7 @@ class SmartyAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\SmartyAdapter::__construct
+	 * @covers \Veles\View\Adapters\SmartyAdapter::__construct
 	 */
 	public function testConstruct()
 	{
@@ -44,7 +44,7 @@ class SmartyAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\SmartyAdapter::set
+	 * @covers \Veles\View\Adapters\SmartyAdapter::set
 	 */
 	public function testSet()
 	{
@@ -63,7 +63,7 @@ class SmartyAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\SmartyAdapter::del
+	 * @covers \Veles\View\Adapters\SmartyAdapter::del
 	 */
 	public function testDel()
 	{
@@ -82,7 +82,7 @@ class SmartyAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\SmartyAdapter::show
+	 * @covers \Veles\View\Adapters\SmartyAdapter::show
 	 */
 	public function testShow()
 	{
@@ -101,7 +101,7 @@ class SmartyAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\SmartyAdapter::get
+	 * @covers \Veles\View\Adapters\SmartyAdapter::get
 	 */
 	public function testGet()
 	{
@@ -120,7 +120,7 @@ class SmartyAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\SmartyAdapter::clearCache
+	 * @covers \Veles\View\Adapters\SmartyAdapter::clearCache
 	 */
 	public function testClearCache()
 	{
@@ -139,7 +139,7 @@ class SmartyAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\SmartyAdapter::clearAllCache
+	 * @covers \Veles\View\Adapters\SmartyAdapter::clearAllCache
 	 */
 	public function testClearAllCache()
 	{
@@ -159,7 +159,7 @@ class SmartyAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\SmartyAdapter::isCached
+	 * @covers \Veles\View\Adapters\SmartyAdapter::isCached
 	 */
 	public function testIsCached()
 	{

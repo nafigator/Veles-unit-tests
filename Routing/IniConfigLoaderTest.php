@@ -24,8 +24,8 @@ class IniConfigLoaderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\IniConfigLoader::load
-	 * @covers Veles\Routing\IniConfigLoader::buildTree
+	 * @covers \Veles\Routing\IniConfigLoader::load
+	 * @covers \Veles\Routing\IniConfigLoader::buildTree
 	 */
 	public function testLoad()
 	{

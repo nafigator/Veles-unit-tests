@@ -31,7 +31,7 @@ class CurlAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\CurlAbstract::getErrorCode
+	 * @covers \Veles\CurlRequest\CurlAbstract::getErrorCode
 	 */
 	public function testGetErrorCode()
 	{
@@ -43,7 +43,7 @@ class CurlAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\CurlAbstract::getError
+	 * @covers \Veles\CurlRequest\CurlAbstract::getError
 	 */
 	public function testGetError()
 	{
@@ -55,7 +55,7 @@ class CurlAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\CurlAbstract::getInfo
+	 * @covers \Veles\CurlRequest\CurlAbstract::getInfo
 	 *
 	 * @dataProvider getInfoProvider
 	 *
@@ -81,7 +81,7 @@ class CurlAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\CurlAbstract::getResource
+	 * @covers \Veles\CurlRequest\CurlAbstract::getResource
 	 */
 	public function testGetResource()
 	{

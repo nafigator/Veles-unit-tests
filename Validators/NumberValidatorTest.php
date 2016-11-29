@@ -23,7 +23,7 @@ use Veles\Validators\NumberValidator;
 class NumberValidatorTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @covers Veles\Validators\NumberValidator::check
+	 * @covers \Veles\Validators\NumberValidator::check
 	 * @group  Validators
 	 * @see	   NumberValidator::check()
 	 * @dataProvider checkProvider
@@ -48,7 +48,7 @@ class NumberValidatorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Validators\NumberValidator::__construct
+	 * @covers \Veles\Validators\NumberValidator::__construct
 	 * @group  Validators
 	 * @see	   NumberValidator::__construct()
 	 */

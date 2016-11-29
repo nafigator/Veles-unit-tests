@@ -24,7 +24,7 @@ class FatalErrorHandlerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\ErrorHandler\FatalErrorHandler::run
+	 * @covers       \Veles\ErrorHandler\FatalErrorHandler::run
 	 */
 	public function testRun()
 	{

@@ -48,7 +48,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\Subscribers\ErrorRenderer::update
+	 * @covers \Veles\ErrorHandler\Subscribers\ErrorRenderer::update
 	 */
 	public function testUpdate()
 	{
@@ -66,7 +66,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\Subscribers\ErrorRenderer::setMessageBuilder
+	 * @covers \Veles\ErrorHandler\Subscribers\ErrorRenderer::setMessageBuilder
 	 */
 	public function testSetMessageBuilder()
 	{
@@ -78,7 +78,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\Subscribers\ErrorRenderer::getMessageBuilder
+	 * @covers \Veles\ErrorHandler\Subscribers\ErrorRenderer::getMessageBuilder
 	 * @depends testSetMessageBuilder
 	 */
 	public function testGetMessageBuilder()

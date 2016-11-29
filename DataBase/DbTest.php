@@ -31,7 +31,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Db::setAdapter
+	 * @covers \Veles\DataBase\Db::setAdapter
 	 */
 	public function testSetAdapter()
 	{
@@ -45,7 +45,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Db::getAdapter
+	 * @covers \Veles\DataBase\Db::getAdapter
 	 */
 	public function testGetAdapter()
 	{
@@ -58,7 +58,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Db::getAdapter
+	 * @covers \Veles\DataBase\Db::getAdapter
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Adapter not set!
 	 */
@@ -68,7 +68,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Db::connection
+	 * @covers \Veles\DataBase\Db::connection
 	 */
 	public function testConnection()
 	{
@@ -87,7 +87,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\DataBase\Db::value
+	 * @covers       \Veles\DataBase\Db::value
 	 *
 	 * @dataProvider valueProvider
 	 *
@@ -154,7 +154,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\DataBase\Db::row
+	 * @covers       \Veles\DataBase\Db::row
 	 *
 	 * @dataProvider rowProvider
 	 *
@@ -221,7 +221,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\DataBase\Db::rows
+	 * @covers       \Veles\DataBase\Db::rows
 	 *
 	 * @dataProvider rowsProvider
 	 *
@@ -288,7 +288,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\DataBase\Db::query
+	 * @covers       \Veles\DataBase\Db::query
 	 *
 	 * @dataProvider queryProvider
 	 *
@@ -355,7 +355,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Db::begin
+	 * @covers \Veles\DataBase\Db::begin
 	 */
 	public function testBegin()
 	{
@@ -371,7 +371,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Db::rollback
+	 * @covers \Veles\DataBase\Db::rollback
 	 */
 	public function testRollback()
 	{
@@ -387,7 +387,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Db::commit
+	 * @covers \Veles\DataBase\Db::commit
 	 */
 	public function testCommit()
 	{
@@ -403,7 +403,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Db::getLastInsertId
+	 * @covers \Veles\DataBase\Db::getLastInsertId
 	 */
 	public function testGetLastInsertId()
 	{
@@ -419,7 +419,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Db::getFoundRows
+	 * @covers \Veles\DataBase\Db::getFoundRows
 	 */
 	public function testGetFoundRows()
 	{
@@ -435,7 +435,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Db::escape
+	 * @covers \Veles\DataBase\Db::escape
 	 */
 	public function testEscape()
 	{

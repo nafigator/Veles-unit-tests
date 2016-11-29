@@ -32,7 +32,7 @@ class UserErrorHandlerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\UserErrorHandler::run
+	 * @covers \Veles\ErrorHandler\UserErrorHandler::run
 	 */
 	public function testRun()
 	{

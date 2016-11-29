@@ -32,7 +32,7 @@ class RouteStaticTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\RouteStatic::check
+	 * @covers \Veles\Routing\RouteStatic::check
 	 * @dataProvider testCheckProvider
 	 */
 	public function testCheck($pattern, $url, $expected)

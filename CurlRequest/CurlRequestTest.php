@@ -33,7 +33,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\CurlRequest::__construct
+	 * @covers \Veles\CurlRequest\CurlRequest::__construct
 	 *
 	 * @dataProvider constructProvider
 	 *
@@ -76,7 +76,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\CurlRequest::__destruct
+	 * @covers \Veles\CurlRequest\CurlRequest::__destruct
 	 */
 	public function test__destruct()
 	{
@@ -87,7 +87,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\CurlRequest::exec
+	 * @covers \Veles\CurlRequest\CurlRequest::exec
 	 */
 	public function testExec()
 	{
@@ -99,7 +99,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\CurlRequest::setHeaders
+	 * @covers \Veles\CurlRequest\CurlRequest::setHeaders
 	 *
 	 * @dataProvider setHeadersProvider
 	 *
@@ -144,7 +144,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\CurlRequest::getHeaders
+	 * @covers \Veles\CurlRequest\CurlRequest::getHeaders
 	 *
 	 * @dataProvider getHeadersProvider
 	 *
@@ -168,7 +168,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\CurlRequest\CurlRequest::setOption
+	 * @covers       \Veles\CurlRequest\CurlRequest::setOption
 	 *
 	 * @dataProvider setOptionProvider
 	 *
@@ -215,7 +215,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\CurlRequest::setArrayOptions
+	 * @covers \Veles\CurlRequest\CurlRequest::setArrayOptions
 	 *
 	 * @dataProvider setArrayOptionsProvider
 	 *
@@ -261,7 +261,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\CurlRequest::setAuth
+	 * @covers \Veles\CurlRequest\CurlRequest::setAuth
 	 */
 	public function testSetAuth()
 	{

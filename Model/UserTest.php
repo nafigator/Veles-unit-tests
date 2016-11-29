@@ -37,7 +37,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\User::getId
+	 * @covers \Veles\Model\User::getId
 	 */
 	public function testGetId()
 	{
@@ -72,7 +72,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\User::getHash
+	 * @covers \Veles\Model\User::getHash
 	 */
 	public function testGetHash()
 	{
@@ -107,7 +107,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\User::getCookieHash
+	 * @covers \Veles\Model\User::getCookieHash
 	 */
 	public function testGetCookieHash()
 	{
@@ -142,7 +142,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\User::getSalt
+	 * @covers \Veles\Model\User::getSalt
 	 */
 	public function testGetSalt()
 	{
@@ -177,7 +177,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\User::getGroup
+	 * @covers \Veles\Model\User::getGroup
 	 */
 	public function testGetGroup()
 	{

@@ -23,8 +23,8 @@ class RouteRegexTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Routing\RouteRegex::check
-	 * @covers       Veles\Routing\RouteRegex::unsetNumericKeys
+	 * @covers       \Veles\Routing\RouteRegex::check
+	 * @covers       \Veles\Routing\RouteRegex::unsetNumericKeys
 	 * @dataProvider testCheckProvider
 	 *
 	 * @param $pattern
@@ -54,7 +54,7 @@ class RouteRegexTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\RouteRegex::getParams
+	 * @covers \Veles\Routing\RouteRegex::getParams
 	 */
 	public function testGetParams()
 	{

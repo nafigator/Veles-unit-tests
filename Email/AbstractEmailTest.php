@@ -33,8 +33,8 @@ class AbstractEmailTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Email\AbstractEmail::send
-	 * @covers       Veles\Email\AbstractEmail::realSend
+	 * @covers       \Veles\Email\AbstractEmail::send
+	 * @covers       \Veles\Email\AbstractEmail::realSend
 	 * @dataProvider sendProvider
 	 *
 	 * @param array $receivers
@@ -71,7 +71,7 @@ class AbstractEmailTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Email\AbstractEmail::setReceivers
+	 * @covers \Veles\Email\AbstractEmail::setReceivers
 	 */
 	public function testSetReceivers()
 	{
@@ -83,7 +83,7 @@ class AbstractEmailTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Email\AbstractEmail::setSubject
+	 * @covers \Veles\Email\AbstractEmail::setSubject
 	 */
 	public function testSetSubject()
 	{
@@ -96,7 +96,7 @@ class AbstractEmailTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Email\AbstractEmail::getCharset
+	 * @covers \Veles\Email\AbstractEmail::getCharset
 	 */
 	public function testGetCharset()
 	{
@@ -108,7 +108,7 @@ class AbstractEmailTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Email\AbstractEmail::setCharset
+	 * @covers \Veles\Email\AbstractEmail::setCharset
 	 */
 	public function testSetCharset()
 	{
@@ -120,7 +120,7 @@ class AbstractEmailTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Email\AbstractEmail::getEncoding
+	 * @covers \Veles\Email\AbstractEmail::getEncoding
 	 */
 	public function testGetEncoding()
 	{
@@ -132,7 +132,7 @@ class AbstractEmailTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Email\AbstractEmail::setEncoding
+	 * @covers \Veles\Email\AbstractEmail::setEncoding
 	 */
 	public function testSetEncoding()
 	{

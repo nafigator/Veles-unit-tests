@@ -24,8 +24,8 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Auth\Strategies\CookieStrategy::identify
-	 * @covers       Veles\Auth\Strategies\AbstractAuthStrategy::findUser
+	 * @covers       \Veles\Auth\Strategies\CookieStrategy::identify
+	 * @covers       \Veles\Auth\Strategies\AbstractAuthStrategy::findUser
 	 * @dataProvider identifyProvider
 	 *
 	 * @param $id
@@ -71,7 +71,7 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Auth\Strategies\CookieStrategy::__construct
+	 * @covers       \Veles\Auth\Strategies\CookieStrategy::__construct
 	 * @dataProvider constructProvider
 	 *
 	 * @param $id
@@ -98,7 +98,7 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\Strategies\CookieStrategy::setPasswordHash
+	 * @covers \Veles\Auth\Strategies\CookieStrategy::setPasswordHash
 	 */
 	public function testSetPasswordHash()
 	{
@@ -113,7 +113,7 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\Strategies\CookieStrategy::getPasswordHash
+	 * @covers \Veles\Auth\Strategies\CookieStrategy::getPasswordHash
 	 * @depends testSetPasswordHash
 	 */
 	public function testGetPasswordHash()
@@ -130,7 +130,7 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\Strategies\CookieStrategy::setId
+	 * @covers \Veles\Auth\Strategies\CookieStrategy::setId
 	 */
 	public function testSetId()
 	{
@@ -145,7 +145,7 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\Strategies\CookieStrategy::getId
+	 * @covers \Veles\Auth\Strategies\CookieStrategy::getId
 	 * @depends testSetId
 	 */
 	public function testGetId()

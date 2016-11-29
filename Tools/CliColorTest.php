@@ -32,7 +32,7 @@ class CliColorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Tools\CliColor::__invoke
+	 * @covers       \Veles\Tools\CliColor::__invoke
 	 * @dataProvider invokeProvider
 	 *
 	 * @param $obj
@@ -67,9 +67,9 @@ class CliColorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Tools\CliColor::__toString
-	 * @covers       Veles\Tools\CliColor::getStyle
-	 * @covers       Veles\Tools\CliColor::getColor
+	 * @covers       \Veles\Tools\CliColor::__toString
+	 * @covers       \Veles\Tools\CliColor::getStyle
+	 * @covers       \Veles\Tools\CliColor::getColor
 	 * @dataProvider toStringProvider
 	 *
 	 * @param CliColor $obj
@@ -104,7 +104,7 @@ class CliColorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\CliColor::setString
+	 * @covers \Veles\Tools\CliColor::setString
 	 */
 	public function testSetString()
 	{
@@ -119,7 +119,7 @@ class CliColorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\CliColor::setString
+	 * @covers \Veles\Tools\CliColor::setString
 	 * @expectedException \Exception
 	 * @expectedExceptionMessage Not valid string!
 	 */
@@ -129,7 +129,7 @@ class CliColorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers          Veles\Tools\CliColor::setStyle
+	 * @covers          \Veles\Tools\CliColor::setStyle
 	 * @dataProvider    setStyleProvider
 	 *
 	 * @param $style
@@ -156,7 +156,7 @@ class CliColorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers          Veles\Tools\CliColor::setStyle
+	 * @covers          \Veles\Tools\CliColor::setStyle
 	 * @expectedException \Exception
 	 */
 	public function testSetStyleException()
@@ -166,7 +166,7 @@ class CliColorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Tools\CliColor::setColor
+	 * @covers       \Veles\Tools\CliColor::setColor
 	 * @dataProvider setColorProvider
 	 *
 	 * @param $expected
@@ -193,7 +193,7 @@ class CliColorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Tools\CliColor::setColor
+	 * @covers       \Veles\Tools\CliColor::setColor
 	 * @dataProvider setColorExceptionProvider
 	 * @expectedException \Exception
 	 *
@@ -214,7 +214,7 @@ class CliColorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Tools\CliColor::__construct
+	 * @covers       \Veles\Tools\CliColor::__construct
 	 */
 	public function testConstruct()
 	{

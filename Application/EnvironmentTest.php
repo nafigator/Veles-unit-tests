@@ -32,7 +32,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Application\Environment::setStaticPath
+	 * @covers \Veles\Application\Environment::setStaticPath
 	 */
 	public function testSetStaticPath()
 	{
@@ -44,7 +44,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Application\Environment::getStaticPath
+	 * @covers \Veles\Application\Environment::getStaticPath
 	 */
 	public function testGetStaticPath()
 	{
@@ -58,7 +58,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Application\Environment::setName
+	 * @covers \Veles\Application\Environment::setName
 	 */
 	public function testSetName()
 	{
@@ -70,7 +70,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Application\Environment::getName
+	 * @covers \Veles\Application\Environment::getName
 	 */
 	public function testGetName()
 	{

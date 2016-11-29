@@ -26,7 +26,7 @@ class HelperTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Unit-test for Helper::getStr
 	 * @group RootClasses
-	 * @covers Veles\Helper::genStr
+	 * @covers \Veles\Helper::genStr
 	 * @dataProvider genStrProvider
 	 * @see Helper::getStr
 	 */
@@ -75,7 +75,7 @@ class HelperTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Unit-test for Helper::validateEmail
 	 * @group RootClasses
-	 * @covers Veles\Helper::validateEmail
+	 * @covers \Veles\Helper::validateEmail
 	 * @dataProvider validateEmailProvider
 	 * @see Helper::validateEmail
 	 */
@@ -112,7 +112,7 @@ class HelperTest extends PHPUnit_Framework_TestCase
 	 * @group RootClasses
 	 *
 	 * @large
-	 * @covers Veles\Helper::checkEmailDomain
+	 * @covers \Veles\Helper::checkEmailDomain
 	 * @dataProvider checkEmailDomainProvider
 	 * @see Helper::checkEmailDomain
 	 */
@@ -139,7 +139,7 @@ class HelperTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Unit-test for Helper::translit
 	 * @group RootClasses
-	 * @covers Veles\Helper::translit
+	 * @covers \Veles\Helper::translit
 	 * @dataProvider translitProvider
 	 * @see Helper::translit
 	 */
@@ -167,7 +167,7 @@ class HelperTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Unit-test for Helper::makeAlias
 	 * @group RootClasses
-	 * @covers Veles\Helper::makeAlias
+	 * @covers \Veles\Helper::makeAlias
 	 * @depends testTranslit
 	 * @dataProvider makeAliasProvider
 	 * @see Helper::makeAlias

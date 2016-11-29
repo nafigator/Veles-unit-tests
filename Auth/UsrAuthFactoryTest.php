@@ -31,7 +31,7 @@ class UsrAuthFactoryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\UsrAuthFactory::create
+	 * @covers \Veles\Auth\UsrAuthFactory::create
 	 */
 	public function testCreate()
 	{

@@ -25,7 +25,7 @@ class GuestStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\Strategies\GuestStrategy::identify
+	 * @covers \Veles\Auth\Strategies\GuestStrategy::identify
 	 */
 	public function testIdentify()
 	{

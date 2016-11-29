@@ -37,7 +37,7 @@ class UploadedFileValidatorTest extends \PHPUnit_Framework_TestCase
 	}
 
     /**
-     * @covers       Veles\Validators\UploadedFileValidator::__construct
+     * @covers       \Veles\Validators\UploadedFileValidator::__construct
      * @dataProvider constructProvider
      *
      * @param $object
@@ -64,7 +64,7 @@ class UploadedFileValidatorTest extends \PHPUnit_Framework_TestCase
     }
 
 	/**
-	 * @covers       Veles\Validators\UploadedFileValidator::check
+	 * @covers       \Veles\Validators\UploadedFileValidator::check
 	 * @dataProvider checkProvider
 	 *
 	 * @param $name
@@ -120,7 +120,7 @@ class UploadedFileValidatorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Validators\UploadedFileValidator::getMimeByExtension
+	 * @covers       \Veles\Validators\UploadedFileValidator::getMimeByExtension
 	 * @dataProvider getMimeByExtensionProvider
 	 *
 	 * @param $extension

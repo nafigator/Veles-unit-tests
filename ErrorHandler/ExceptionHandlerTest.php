@@ -24,7 +24,7 @@ class ExceptionHandlerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\ErrorHandler\ExceptionHandler::run
+	 * @covers       \Veles\ErrorHandler\ExceptionHandler::run
 	 * @dataProvider runProvider
 	 *
 	 * @param $e

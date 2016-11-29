@@ -24,8 +24,8 @@ class UsrAuthTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\UsrAuth::instance
-	 * @covers Veles\Auth\UsrAuth::__construct
+	 * @covers \Veles\Auth\UsrAuth::instance
+	 * @covers \Veles\Auth\UsrAuth::__construct
 	 */
 	public function testInstance()
 	{
@@ -38,7 +38,7 @@ class UsrAuthTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\UsrAuth::getErrors
+	 * @covers \Veles\Auth\UsrAuth::getErrors
 	 */
 	public function testGetErrors()
 	{
@@ -49,7 +49,7 @@ class UsrAuthTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Auth\UsrAuth::hasAccess
+	 * @covers       \Veles\Auth\UsrAuth::hasAccess
 	 * @dataProvider testHasAccessProvider
 	 *
 	 * @param $group
@@ -75,7 +75,7 @@ class UsrAuthTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Auth\UsrAuth::getUser
+	 * @covers \Veles\Auth\UsrAuth::getUser
 	 */
 	public function testGetUser()
 	{

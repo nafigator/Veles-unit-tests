@@ -43,7 +43,7 @@ class TimerTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\Timer::start
+	 * @covers \Veles\Tools\Timer::start
 	 * @group Tools
 	 * @see Timer::start
 	 */
@@ -66,7 +66,7 @@ class TimerTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\Timer::start
+	 * @covers \Veles\Tools\Timer::start
 	 * @group Tools
 	 * @see Timer::start
 	 */
@@ -96,7 +96,7 @@ class TimerTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\Timer::reset
+	 * @covers \Veles\Tools\Timer::reset
 	 * @group Tools
 	 * @depends testStart
 	 * @see Timer::reset
@@ -115,7 +115,7 @@ class TimerTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers  Veles\Tools\Timer::stop
+	 * @covers  \Veles\Tools\Timer::stop
 	 * @group Tools
 	 * @depends testStart
 	 * @depends testReset
@@ -139,7 +139,7 @@ class TimerTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Tools\Timer::get
+	 * @covers       \Veles\Tools\Timer::get
 	 * @group        Tools
 	 * @dataProvider getProvider
 	 * @depends      testStop
@@ -186,7 +186,7 @@ class TimerTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Tools\Timer::get
+	 * @covers       \Veles\Tools\Timer::get
 	 * @group        Tools
 	 * @depends      testStop
 	 * @dataProvider getPrecisionProvider

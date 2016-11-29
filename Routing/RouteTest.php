@@ -35,9 +35,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\Route::init
-	 * @covers Veles\Routing\Route::execNotFoundHandler
-	 * @covers Veles\Routing\Route::getUri
+	 * @covers \Veles\Routing\Route::init
+	 * @covers \Veles\Routing\Route::execNotFoundHandler
+	 * @covers \Veles\Routing\Route::getUri
 	 *
 	 * @expectedException \Veles\Routing\Exceptions\NotFoundException
 	 */
@@ -49,7 +49,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\Route::getUri
+	 * @covers \Veles\Routing\Route::getUri
 	 */
 	public function testGetUri()
 	{
@@ -66,9 +66,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Routing\Route::isAjax
-	 * @covers       Veles\Routing\Route::checkAjax
-	 * @covers       Veles\Routing\Route::getUri
+	 * @covers       \Veles\Routing\Route::isAjax
+	 * @covers       \Veles\Routing\Route::checkAjax
+	 * @covers       \Veles\Routing\Route::getUri
 	 *
 	 * @dataProvider isAjaxProvider
 	 *
@@ -102,7 +102,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\Route::checkAjax
+	 * @covers \Veles\Routing\Route::checkAjax
 	 * @expectedException Exception
 	 * @expectedExceptionMessage AJAX-route got non-AJAX request!
 	 */
@@ -113,7 +113,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\Route::getController
+	 * @covers \Veles\Routing\Route::getController
 	 */
 	public function testGetController()
 	{
@@ -164,7 +164,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\Route::getActionName
+	 * @covers \Veles\Routing\Route::getActionName
 	 */
 	public function testGetActionName()
 	{
@@ -187,7 +187,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\Route::getAdapter
+	 * @covers \Veles\Routing\Route::getAdapter
 	 */
 	public function testGetAdapter()
 	{
@@ -210,7 +210,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\Route::getName
+	 * @covers \Veles\Routing\Route::getName
 	 */
 	public function testGetName()
 	{
@@ -223,8 +223,8 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Routing\Route::getParams
-	 * @covers       Veles\Routing\Route::init
+	 * @covers       \Veles\Routing\Route::getParams
+	 * @covers       \Veles\Routing\Route::init
 	 * @dataProvider getParamsProvider
 	 *
 	 * @param $uri
@@ -257,8 +257,8 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\Route::getTemplate
-	 * @covers Veles\Routing\Route::init
+	 * @covers \Veles\Routing\Route::getTemplate
+	 * @covers \Veles\Routing\Route::init
 	 */
 	public function testGetTemplate()
 	{

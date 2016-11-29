@@ -18,7 +18,7 @@ class ModelParamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Tools\ModelParams::getType
+	 * @covers       \Veles\Tools\ModelParams::getType
 	 * @dataProvider getTypeProvider
 	 *
 	 * @param $type
@@ -58,7 +58,7 @@ class ModelParamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Tools\ModelParams::getType
+	 * @covers       \Veles\Tools\ModelParams::getType
 	 * @expectedException \RuntimeException
 	 * @expectedExceptionMessage Unknown data type
 	 */

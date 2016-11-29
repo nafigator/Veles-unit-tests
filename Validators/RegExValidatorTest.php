@@ -23,8 +23,8 @@ use Veles\Validators\RegExValidator;
 class RegExValidatorTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Veles\Validators\RegExValidator::check
-	 * @covers Veles\Validators\RegExValidator::__construct
+     * @covers \Veles\Validators\RegExValidator::check
+	 * @covers \Veles\Validators\RegExValidator::__construct
      * @group Validators
 	 * @see RegExValidator::check()
 	 * @dataProvider checkProvider
@@ -64,7 +64,7 @@ class RegExValidatorTest extends PHPUnit_Framework_TestCase
 	}
 
     /**
-     * @covers Veles\Validators\RegExValidator::validate
+     * @covers \Veles\Validators\RegExValidator::validate
 	 * @group Validators
 	 * @see RegExValidator::validate()
 	 * @dataProvider validateProvider

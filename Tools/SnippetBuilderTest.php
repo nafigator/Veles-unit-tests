@@ -15,7 +15,7 @@ class SnippetBuilderTest extends \PHPUnit_Framework_TestCase
 	protected $object;
 
 	/**
-	 * @covers Veles\Tools\SnippetBuilder::__construct()
+	 * @covers \Veles\Tools\SnippetBuilder::__construct()
 	 */
 	public function testConstruct()
 	{
@@ -40,7 +40,7 @@ class SnippetBuilderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\SnippetBuilder::build
+	 * @covers \Veles\Tools\SnippetBuilder::build
 	 */
 	public function testBuild()
 	{

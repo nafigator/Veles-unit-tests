@@ -37,7 +37,7 @@ class MemcacheAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheAdapter::__construct
+	 * @covers \Veles\Cache\Adapters\MemcacheAdapter::__construct
 	 */
 	public function testInstance()
 	{
@@ -49,7 +49,7 @@ class MemcacheAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheAdapter::get
+	 * @covers \Veles\Cache\Adapters\MemcacheAdapter::get
 	 */
 	public function testGet()
 	{
@@ -71,7 +71,7 @@ class MemcacheAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheAdapter::set
+	 * @covers \Veles\Cache\Adapters\MemcacheAdapter::set
 	 */
 	public function testSet()
 	{
@@ -93,7 +93,7 @@ class MemcacheAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheAdapter::has
+	 * @covers \Veles\Cache\Adapters\MemcacheAdapter::has
 	 */
 	public function testHas()
 	{
@@ -120,7 +120,7 @@ class MemcacheAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheAdapter::del
+	 * @covers \Veles\Cache\Adapters\MemcacheAdapter::del
 	 */
 	public function testDel()
 	{
@@ -147,7 +147,7 @@ class MemcacheAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheAdapter::increment
+	 * @covers \Veles\Cache\Adapters\MemcacheAdapter::increment
 	 */
 	public function testIncrement()
 	{
@@ -179,7 +179,7 @@ class MemcacheAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheAdapter::decrement
+	 * @covers \Veles\Cache\Adapters\MemcacheAdapter::decrement
 	 */
 	public function testDecrement()
 	{
@@ -210,7 +210,7 @@ class MemcacheAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheAdapter::clear
+	 * @covers \Veles\Cache\Adapters\MemcacheAdapter::clear
 	 */
 	public function testClear()
 	{
@@ -238,7 +238,7 @@ class MemcacheAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheAdapter::delByTemplate
+	 * @covers \Veles\Cache\Adapters\MemcacheAdapter::delByTemplate
 	 */
 	public function testDelByTemplate()
 	{

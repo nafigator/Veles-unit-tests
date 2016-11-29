@@ -24,7 +24,7 @@ class BaseErrorHandlerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\ErrorHandler\BaseErrorHandler::getVars
+	 * @covers \Veles\ErrorHandler\BaseErrorHandler::getVars
 	 */
 	public function testGetVars()
 	{
@@ -39,7 +39,7 @@ class BaseErrorHandlerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\ErrorHandler\BaseErrorHandler::setTime
+	 * @covers       \Veles\ErrorHandler\BaseErrorHandler::setTime
 	 * @dataProvider setTimeProvider
 	 *
 	 * @param $expected
@@ -61,7 +61,7 @@ class BaseErrorHandlerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\ErrorHandler\BaseErrorHandler::getTime
+	 * @covers       \Veles\ErrorHandler\BaseErrorHandler::getTime
 	 * @dataProvider getTimeProvider
 	 * @depends      testSetTime
 	 *

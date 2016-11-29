@@ -24,9 +24,9 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::identify
-	 * @covers       Veles\Auth\Strategies\AbstractAuthStrategy::setCookie
-	 * @covers       Veles\Auth\Strategies\AbstractAuthStrategy::delCookie
+	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::identify
+	 * @covers       \Veles\Auth\Strategies\AbstractAuthStrategy::setCookie
+	 * @covers       \Veles\Auth\Strategies\AbstractAuthStrategy::delCookie
 	 * @dataProvider identifyProvider
 	 *
 	 * @param $mail
@@ -69,7 +69,7 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::__construct
+	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::__construct
 	 * @dataProvider constructProvider
 	 *
 	 * @param $mail
@@ -96,7 +96,7 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::setLogin
+	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::setLogin
 	 */
 	public function testSetLogin()
 	{
@@ -110,7 +110,7 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::getLogin
+	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::getLogin
 	 * @depends testSetLogin
 	 */
 	public function testGetLogin()
@@ -126,7 +126,7 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::setPassword
+	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::setPassword
 	 */
 	public function testSetPassword()
 	{
@@ -140,7 +140,7 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Auth\Strategies\LoginFormStrategy::getPassword
+	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::getPassword
 	 * @depends testSetPassword
 	 */
 	public function testGetPassword()

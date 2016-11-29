@@ -23,7 +23,7 @@ class CacheAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\CacheAdapterAbstract::setDriver
+	 * @covers \Veles\Cache\Adapters\CacheAdapterAbstract::setDriver
 	 */
 	public function testSetDriver()
 	{
@@ -36,7 +36,7 @@ class CacheAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\CacheAdapterAbstract::getDriver
+	 * @covers \Veles\Cache\Adapters\CacheAdapterAbstract::getDriver
 	 * @depends testSetDriver
 	 */
 	public function testGetDriver()
@@ -51,8 +51,8 @@ class CacheAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\CacheAdapterAbstract::instance
-	 * @covers Veles\Cache\Adapters\CacheAdapterAbstract::invokeLazyCalls
+	 * @covers \Veles\Cache\Adapters\CacheAdapterAbstract::instance
+	 * @covers \Veles\Cache\Adapters\CacheAdapterAbstract::invokeLazyCalls
 	 */
 	public function testInstance()
 	{
@@ -82,7 +82,7 @@ class CacheAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\CacheAdapterAbstract::AddCall
+	 * @covers \Veles\Cache\Adapters\CacheAdapterAbstract::AddCall
 	 */
 	public function testAddCall()
 	{

@@ -33,7 +33,7 @@ class CustomJsonAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\CustomJsonAdapter::show
+	 * @covers \Veles\View\Adapters\CustomJsonAdapter::show
 	 */
 	public function testShow()
 	{
@@ -50,7 +50,7 @@ class CustomJsonAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\CustomJsonAdapter::set
+	 * @covers \Veles\View\Adapters\CustomJsonAdapter::set
 	 */
 	public function testSet()
 	{
@@ -62,7 +62,7 @@ class CustomJsonAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\CustomJsonAdapter::get
+	 * @covers \Veles\View\Adapters\CustomJsonAdapter::get
 	 */
 	public function testGet()
 	{
@@ -75,7 +75,7 @@ class CustomJsonAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\CustomJsonAdapter::isCached
+	 * @covers \Veles\View\Adapters\CustomJsonAdapter::isCached
 	 */
 	public function testIsCached()
 	{
@@ -87,7 +87,7 @@ class CustomJsonAdapterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\CustomJsonAdapter::__construct
+	 * @covers \Veles\View\Adapters\CustomJsonAdapter::__construct
 	 */
 	public function testConstruct()
 	{

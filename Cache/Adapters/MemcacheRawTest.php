@@ -29,7 +29,7 @@ class MemcacheRawTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheRaw::__construct
+	 * @covers \Veles\Cache\Adapters\MemcacheRaw::__construct
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Can not connect to Memcache. Host: localhost Port: 11213
 	 */
@@ -47,7 +47,7 @@ class MemcacheRawTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheRaw::setConnectionParams
+	 * @covers \Veles\Cache\Adapters\MemcacheRaw::setConnectionParams
 	 */
 	public function testSetConnectionParams()
 	{
@@ -72,7 +72,7 @@ class MemcacheRawTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheRaw::disconnect
+	 * @covers \Veles\Cache\Adapters\MemcacheRaw::disconnect
 	 */
 	public function testDisconnect()
 	{
@@ -92,7 +92,7 @@ class MemcacheRawTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheRaw::command
+	 * @covers \Veles\Cache\Adapters\MemcacheRaw::command
 	 */
 	public function testCommand()
 	{
@@ -110,9 +110,9 @@ class MemcacheRawTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheRaw::getSlabs
-	 * @covers Veles\Cache\Adapters\MemcacheRaw::delByTemplate
-	 * @covers Veles\Cache\Adapters\MemcacheRaw::delete
+	 * @covers \Veles\Cache\Adapters\MemcacheRaw::getSlabs
+	 * @covers \Veles\Cache\Adapters\MemcacheRaw::delByTemplate
+	 * @covers \Veles\Cache\Adapters\MemcacheRaw::delete
 	 */
 	public function testDelByTemplate()
 	{
@@ -148,7 +148,7 @@ class MemcacheRawTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Cache\Adapters\MemcacheRaw::query
+	 * @covers \Veles\Cache\Adapters\MemcacheRaw::query
 	 */
 	public function testQuery()
 	{

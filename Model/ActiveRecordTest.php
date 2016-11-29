@@ -40,7 +40,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\ActiveRecord::getMap
+	 * @covers \Veles\Model\ActiveRecord::getMap
 	 */
 	public function testGetMap()
 	{
@@ -57,8 +57,8 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Model\ActiveRecord::getById
-	 * @covers       Veles\Model\ActiveRecord::getResult
+	 * @covers       \Veles\Model\ActiveRecord::getById
+	 * @covers       \Veles\Model\ActiveRecord::getResult
 	 * @dataProvider getByIdProvider
 	 *
 	 * @param $id
@@ -123,7 +123,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\ActiveRecord::getAll
+	 * @covers \Veles\Model\ActiveRecord::getAll
 	 */
 	public function testGetAll()
 	{
@@ -168,9 +168,9 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\ActiveRecord::save
-	 * @covers Veles\Model\ActiveRecord::update
-	 * @covers Veles\Model\ActiveRecord::insert
+	 * @covers \Veles\Model\ActiveRecord::save
+	 * @covers \Veles\Model\ActiveRecord::update
+	 * @covers \Veles\Model\ActiveRecord::insert
 	 */
 	public function testSave()
 	{
@@ -212,7 +212,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\ActiveRecord::delete
+	 * @covers \Veles\Model\ActiveRecord::delete
 	 */
 	public function testDelete()
 	{
@@ -235,7 +235,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\ActiveRecord::setProperties
+	 * @covers \Veles\Model\ActiveRecord::setProperties
 	 */
 	public function testSetProperties()
 	{
@@ -263,7 +263,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\ActiveRecord::getProperties
+	 * @covers \Veles\Model\ActiveRecord::getProperties
 	 */
 	public function testGetProperties()
 	{
@@ -297,7 +297,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Model\ActiveRecord::find
+	 * @covers       \Veles\Model\ActiveRecord::find
 	 * @dataProvider findProvider
 	 *
 	 * @param $id
@@ -352,7 +352,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Model\ActiveRecord::setBuilder
+	 * @covers \Veles\Model\ActiveRecord::setBuilder
 	 */
 	public function testSetBuilder()
 	{
@@ -364,7 +364,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Model\ActiveRecord::query
+	 * @covers       \Veles\Model\ActiveRecord::query
 	 * @dataProvider queryProvider
 	 *
 	 * @param $pager

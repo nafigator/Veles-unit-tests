@@ -35,7 +35,7 @@ class AbstractConfigLoaderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\AbstractConfigLoader::__construct
+	 * @covers \Veles\Routing\AbstractConfigLoader::__construct
 	 */
 	public function testConstruct()
 	{
@@ -44,7 +44,7 @@ class AbstractConfigLoaderTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\AbstractConfigLoader::getPath
+	 * @covers \Veles\Routing\AbstractConfigLoader::getPath
 	 */
 	public function testGetPath()
 	{

@@ -33,8 +33,8 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\ViewAdapterAbstract::instance
-	 * @covers Veles\View\Adapters\ViewAdapterAbstract::invokeLazyCalls
+	 * @covers \Veles\View\Adapters\ViewAdapterAbstract::instance
+	 * @covers \Veles\View\Adapters\ViewAdapterAbstract::invokeLazyCalls
 	 */
 	public function testInstance()
 	{
@@ -68,7 +68,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\ViewAdapterAbstract::setDriver
+	 * @covers \Veles\View\Adapters\ViewAdapterAbstract::setDriver
 	 */
 	public function testSetDriver()
 	{
@@ -86,7 +86,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\ViewAdapterAbstract::getDriver
+	 * @covers \Veles\View\Adapters\ViewAdapterAbstract::getDriver
 	 * @depends testSetDriver
 	 */
 	public function testGetDriver()
@@ -109,8 +109,8 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\ViewAdapterAbstract::__call
-	 * @covers Veles\View\Adapters\ViewAdapterAbstract::addCall
+	 * @covers \Veles\View\Adapters\ViewAdapterAbstract::__call
+	 * @covers \Veles\View\Adapters\ViewAdapterAbstract::addCall
 	 */
 	public function test__call()
 	{
@@ -131,7 +131,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\ViewAdapterAbstract::__call
+	 * @covers \Veles\View\Adapters\ViewAdapterAbstract::__call
 	 * @expectedException \Exception
 	 */
 	public function testCallException()
@@ -140,7 +140,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\ViewAdapterAbstract::set
+	 * @covers \Veles\View\Adapters\ViewAdapterAbstract::set
 	 */
 	public function testSet()
 	{
@@ -155,7 +155,7 @@ class ViewAdapterAbstractTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\View\Adapters\ViewAdapterAbstract::del
+	 * @covers \Veles\View\Adapters\ViewAdapterAbstract::del
 	 */
 	public function testDel()
 	{

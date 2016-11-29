@@ -76,7 +76,7 @@ EOF;
 
 	/**
 	 * Unit-test for View::setAdapter
-	 * @covers Veles\View\View::setAdapter
+	 * @covers \Veles\View\View::setAdapter
 	 * @see Veles\View\View::setAdapter
 	 */
 	public function testSetAdapter()
@@ -96,7 +96,7 @@ EOF;
 
 	/**
 	 * Unit-test for View::getAdapter
-	 * @covers Veles\View\View::getAdapter
+	 * @covers \Veles\View\View::getAdapter
 	 * @see Veles\View\View::getAdapter
 	 */
 	public function testGetAdapter()
@@ -118,7 +118,7 @@ EOF;
 	}
 
 	/**
-	 * @covers Veles\View\View::getAdapter
+	 * @covers \Veles\View\View::getAdapter
 	 * @expectedExceptionMessage View adapter not set!
 	 * @expectedException \Exception
 	 */
@@ -131,7 +131,7 @@ EOF;
 	/**
 	 * Unit-test for View::set
 	 *
-	 * @covers       Veles\View\View::set
+	 * @covers       \Veles\View\View::set
 	 * @dataProvider setProvider
 	 * @see          Veles\View\View::set
 	 *
@@ -161,7 +161,7 @@ EOF;
 	/**
 	 * Unit-test for View::del
 	 *
-	 * @covers       Veles\View\View::del
+	 * @covers       \Veles\View\View::del
 	 * @dataProvider delProvider
 	 * @see          Veles\View\View::del
 	 *
@@ -209,7 +209,7 @@ EOF;
 
 	/**
 	 * Unit-test for View::isCached
-	 * @covers Veles\View\View::isCached
+	 * @covers \Veles\View\View::isCached
 	 * @depends testGetAdapter
 	 * @see Veles\View\View::isCached
 	 */
@@ -227,7 +227,7 @@ EOF;
 
 	/**
 	 * Unit-test for View::show
-	 * @covers Veles\View\View::show
+	 * @covers \Veles\View\View::show
 	 * @depends testSet
 	 * @see Veles\View\View::show
 	 */
@@ -240,7 +240,7 @@ EOF;
 
 	/**
 	 * Unit-test for View::get
-	 * @covers Veles\View\View::get
+	 * @covers \Veles\View\View::get
 	 * @depends testSet
 	 * @see Veles\View\View::get
 	 */

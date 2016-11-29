@@ -41,8 +41,8 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Controllers\BaseController::getApplication
-	 * @covers Veles\Controllers\BaseController::__construct
+	 * @covers \Veles\Controllers\BaseController::getApplication
+	 * @covers \Veles\Controllers\BaseController::__construct
 	 */
 	public function testGetApplication()
 	{
@@ -54,7 +54,7 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Controllers\BaseController::setApplication
+	 * @covers \Veles\Controllers\BaseController::setApplication
 	 */
 	public function testSetApplication()
 	{
@@ -66,7 +66,7 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Controllers\BaseController::getParam
+	 * @covers \Veles\Controllers\BaseController::getParam
 	 *
 	 * @param $uri
 	 * @param $expected

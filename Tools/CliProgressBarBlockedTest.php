@@ -65,7 +65,7 @@ class CliProgressBarBlockedTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\CliProgressBarBlocked::update
+	 * @covers \Veles\Tools\CliProgressBarBlocked::update
 	 */
 	public function testUpdate()
 	{

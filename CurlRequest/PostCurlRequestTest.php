@@ -27,7 +27,7 @@ class PostCurlRequestTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\CurlRequest\PostCurlRequest::setData
+	 * @covers \Veles\CurlRequest\PostCurlRequest::setData
 	 *
 	 * @dataProvider setDataProvider
 	 *

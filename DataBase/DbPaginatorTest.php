@@ -52,7 +52,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbPaginator::__toString
+	 * @covers \Veles\DataBase\DbPaginator::__toString
 	 */
 	public function test__toString()
 	{
@@ -80,7 +80,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbPaginator::getOffset
+	 * @covers \Veles\DataBase\DbPaginator::getOffset
 	 */
 	public function testGetOffset()
 	{
@@ -91,7 +91,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbPaginator::getLimit
+	 * @covers \Veles\DataBase\DbPaginator::getLimit
 	 */
 	public function testGetLimit()
 	{
@@ -103,7 +103,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbPaginator::setLimit
+	 * @covers \Veles\DataBase\DbPaginator::setLimit
 	 * @dataProvider setLimitProvider
 	 */
 	public function testSetLimit($limit, $expected)
@@ -123,7 +123,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbPaginator::getSqlLimit
+	 * @covers \Veles\DataBase\DbPaginator::getSqlLimit
 	 */
 	public function testGetSqlLimit()
 	{
@@ -134,7 +134,7 @@ EOL;
 	}
 
 	/**
-	 * @covers       Veles\DataBase\DbPaginator::getMaxPages
+	 * @covers       \Veles\DataBase\DbPaginator::getMaxPages
 	 */
 	public function testGetMaxPages()
 	{
@@ -159,7 +159,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbPaginator::calcMaxPages
+	 * @covers \Veles\DataBase\DbPaginator::calcMaxPages
 	 */
 	public function testCalcMaxPages()
 	{
@@ -180,7 +180,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbPaginator::getCurrPage
+	 * @covers \Veles\DataBase\DbPaginator::getCurrPage
 
 	 */
 	public function testGetCurrPage()
@@ -198,7 +198,7 @@ EOL;
 	}
 
 	/**
-	 * @covers Veles\DataBase\DbPaginator::__construct
+	 * @covers \Veles\DataBase\DbPaginator::__construct
 	 */
 	public function testConstruct()
 	{

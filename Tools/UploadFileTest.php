@@ -28,7 +28,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	protected $object;
 
 	/**
-	 * @covers Veles\Tools\UploadFile::setOrigName
+	 * @covers \Veles\Tools\UploadFile::setOrigName
 	 * @group Tools
 	 * @see UploadFile::setOrigName
 	 */
@@ -50,7 +50,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::getOrigName
+	 * @covers \Veles\Tools\UploadFile::getOrigName
 	 * @group Tools
 	 * @depends testSetOrigName
 	 * @see UploadFile::getOrigName
@@ -66,7 +66,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::setHash
+	 * @covers \Veles\Tools\UploadFile::setHash
 	 * @group Tools
 	 * @see UploadFile::setHash
 	 */
@@ -88,7 +88,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::getHash
+	 * @covers \Veles\Tools\UploadFile::getHash
 	 * @group Tools
 	 * @depends testSetHash
 	 * @see UploadFile::getHash
@@ -104,7 +104,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::setSubDir
+	 * @covers \Veles\Tools\UploadFile::setSubDir
 	 * @group Tools
 	 * @see UploadFile::setSubDir
 	 */
@@ -126,7 +126,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::getSubDir
+	 * @covers \Veles\Tools\UploadFile::getSubDir
 	 * @group Tools
 	 * @depends testSetSubDir
 	 * @see UploadFile::getSubDir
@@ -142,7 +142,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::setTmpPath
+	 * @covers \Veles\Tools\UploadFile::setTmpPath
 	 * @group Tools
 	 * @see UploadFile::setTmpPath
 	 */
@@ -164,7 +164,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::getTmpPath
+	 * @covers \Veles\Tools\UploadFile::getTmpPath
 	 * @group Tools
 	 * @depends testSetTmpPath
 	 * @see UploadFile::getTmpPath
@@ -180,7 +180,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::initStorageName
+	 * @covers \Veles\Tools\UploadFile::initStorageName
 	 * @group Tools
 	 * @depends testSetHash
 	 * @depends testSetSubDir
@@ -285,7 +285,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::setDirMask
+	 * @covers \Veles\Tools\UploadFile::setDirMask
 	 * @group Tools
 	 * @see UploadFile::setDirMask
 	 */
@@ -307,7 +307,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::getDirMask
+	 * @covers \Veles\Tools\UploadFile::getDirMask
 	 * @group Tools
 	 * @see UploadFile::getDirMask
 	 */
@@ -323,7 +323,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::setWwwPath
+	 * @covers \Veles\Tools\UploadFile::setWwwPath
 	 * @group Tools
 	 * @see UploadFile::setWwwPath
 	 */
@@ -345,7 +345,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::getWwwPath
+	 * @covers \Veles\Tools\UploadFile::getWwwPath
 	 * @group Tools
 	 * @depends testSetWwwPath
 	 * @see UploadFile::getWwwPath
@@ -361,7 +361,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::setHashAlgorithm
+	 * @covers \Veles\Tools\UploadFile::setHashAlgorithm
 	 * @group Tools
 	 * @see UploadFile::setHashAlgorithm
 	 */
@@ -383,7 +383,7 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Tools\UploadFile::getHashAlgorithm
+	 * @covers \Veles\Tools\UploadFile::getHashAlgorithm
 	 * @group Tools
 	 * @see UploadFile::getHashAlgorithm
 	 */
@@ -399,8 +399,8 @@ class UploadFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers       Veles\Tools\UploadFile::save
-	 * @covers       Veles\Tools\UploadFile::moveUploadedFile
+	 * @covers       \Veles\Tools\UploadFile::save
+	 * @covers       \Veles\Tools\UploadFile::moveUploadedFile
 	 *
 	 * @group        Tools
 	 * @depends      testGetTmpPath

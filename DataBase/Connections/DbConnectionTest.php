@@ -25,7 +25,7 @@ class DbConnectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Connections\DbConnection::__construct
+	 * @covers \Veles\DataBase\Connections\DbConnection::__construct
 	 */
 	public function testConstructor()
 	{
@@ -37,7 +37,7 @@ class DbConnectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Connections\DbConnection::setResource
+	 * @covers \Veles\DataBase\Connections\DbConnection::setResource
 	 */
 	public function testSetResource()
 	{
@@ -49,7 +49,7 @@ class DbConnectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Connections\DbConnection::getResource
+	 * @covers \Veles\DataBase\Connections\DbConnection::getResource
 	 */
 	public function testGetResource()
 	{
@@ -73,7 +73,7 @@ class DbConnectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Connections\DbConnection::getName
+	 * @covers \Veles\DataBase\Connections\DbConnection::getName
 	 */
 	public function testGetName()
 	{
@@ -85,7 +85,7 @@ class DbConnectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Connections\DbConnection::setPassword
+	 * @covers \Veles\DataBase\Connections\DbConnection::setPassword
 	 */
 	public function testSetPassword()
 	{
@@ -100,7 +100,7 @@ class DbConnectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Connections\DbConnection::getPassword
+	 * @covers \Veles\DataBase\Connections\DbConnection::getPassword
 	 * @depends testSetPassword
 	 */
 	public function testGetPassword()
@@ -115,7 +115,7 @@ class DbConnectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Connections\DbConnection::setUserName
+	 * @covers \Veles\DataBase\Connections\DbConnection::setUserName
 	 */
 	public function testSetUserName()
 	{
@@ -130,7 +130,7 @@ class DbConnectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\DataBase\Connections\DbConnection::getUserName
+	 * @covers \Veles\DataBase\Connections\DbConnection::getUserName
 	 * @depends testSetUserName
 	 */
 	public function testGetUserName()

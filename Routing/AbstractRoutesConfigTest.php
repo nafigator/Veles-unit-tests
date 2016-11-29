@@ -27,7 +27,7 @@ class AbstractRoutesConfigTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Routing\AbstractRoutesConfig::__construct
+	 * @covers \Veles\Routing\AbstractRoutesConfig::__construct
 	 */
 	public function testConstruct()
 	{

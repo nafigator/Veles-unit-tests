@@ -27,7 +27,7 @@ class AutoLoaderTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Unit-test for AutoLoader::init
 	 * @group RootClasses
-	 * @covers Veles\AutoLoader::init
+	 * @covers \Veles\AutoLoader::init
 	 * @see    Veles\AutoLoader::init
 	 */
 	public function testInit()
@@ -51,7 +51,7 @@ class AutoLoaderTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Unit-test for AutoLoader::load
 	 * @group RootClasses
-	 * @covers Veles\AutoLoader::load
+	 * @covers \Veles\AutoLoader::load
 	 * @see    AutoLoader::load()
 	 */
 	public function testLoad()

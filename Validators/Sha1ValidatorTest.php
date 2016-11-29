@@ -44,7 +44,7 @@ class Sha1ValidatorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Veles\Validators\Sha1Validator::check
+	 * @covers \Veles\Validators\Sha1Validator::check
 	 * @dataProvider checkProvider
 	 */
 	public function testCheck($value, $expected)
