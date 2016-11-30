@@ -37,7 +37,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers \Veles\Routing\Route::init
 	 * @covers \Veles\Routing\Route::execNotFoundHandler
-	 * @covers \Veles\Routing\Route::getUri
+	 * @covers \Veles\Routing\Route::parseUri
 	 *
 	 * @expectedException \Veles\Routing\Exceptions\NotFoundException
 	 */
@@ -51,7 +51,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers       \Veles\Routing\Route::isAjax
 	 * @covers       \Veles\Routing\Route::checkAjax
-	 * @covers       \Veles\Routing\Route::getUri
+	 * @covers       \Veles\Routing\Route::parseUri
 	 *
 	 * @dataProvider isAjaxProvider
 	 *
