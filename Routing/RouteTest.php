@@ -25,7 +25,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	protected function setUp()
 	{
 		$this->object = $this->getMockBuilder('\Veles\Routing\Route')
-			->setMethods(['getUri'])
+			->setMethods(['parseUri'])
 			->getMock();
 
 		$config = new RoutesConfig(
@@ -43,26 +43,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testNotFoundException()
 	{
-		$this->object->method('getUri')->willReturn('/not-found');
+		$this->object->method('parseUri')->willReturn(['/not-found', 'not-found']);
 
 		$this->object->init();
-	}
-
-	/**
-	 * @covers \Veles\Routing\Route::getUri
-	 */
-	public function testGetUri()
-	{
-		$route = new Route;
-		$config = new RoutesConfig(
-			new IniConfigLoader(TEST_DIR . '/Project/routes.ini')
-		);
-		$route->setConfigHandler($config);
-		$route->setNotFoundException(null);
-		$result = $route->init();
-
-		$msg = 'Route::getUri() wrong behavior!';
-		$this->assertSame($route, $result, $msg);
 	}
 
 	/**
@@ -72,19 +55,19 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider isAjaxProvider
 	 *
-	 * @param $uri
+	 * @param $parse_result
 	 * @param $expected
 	 */
-	public function testIsAjax($uri, $expected)
+	public function testIsAjax($parse_result, $expected)
 	{
 		$this->object = $this->getMockBuilder('\Veles\Routing\Route')
-			->setMethods(['getUri', 'checkAjax'])
+			->setMethods(['parseUri', 'checkAjax'])
 			->getMock();
 		$config = new RoutesConfig(
 			new IniConfigLoader(TEST_DIR . '/Project/routes.ini')
 		);
 		$this->object->setConfigHandler($config);
-		$this->object->method('getUri')->willReturn($uri);
+		$this->object->method('parseUri')->willReturn($parse_result);
 		$this->object->method('checkAjax')->willReturn($expected);
 
 		$result = $this->object->init()->isAjax();
@@ -96,8 +79,8 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	public function isAjaxProvider()
 	{
 		return [
-			['/', false],
-			['/contacts', true]
+			[['/', ''], false],
+			[['/contacts', 'contacts'], true]
 		];
 	}
 
@@ -108,7 +91,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCheckAjaxException()
 	{
-		$this->object->method('getUri')->willReturn('/contacts');
+		$this->object->method('parseUri')->willReturn(['/contacts', 'contacts']);
 		$this->object->init()->getController();
 	}
 
@@ -118,17 +101,17 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	public function testGetController()
 	{
 		$route = $this->getMockBuilder('\Veles\Routing\Route')
-			->setMethods(['getUri'])
+			->setMethods(['parseUri'])
 			->getMock();
 
 		$config = new RoutesConfig(
 			new IniConfigLoader(TEST_DIR . '/Project/routes.ini')
 		);
-		$route->method('getUri')->willReturn('/');
+		$route->method('parseUri')->willReturn(['/', '']);
 		$route->setConfigHandler($config)->init();
 		$application = (new Application)->setRoute($route);
 
-		$this->object->method('getUri')->willReturn('/');
+		$this->object->method('parseUri')->willReturn(['/', '']);
 
 		$expected = $controller = new Home($application);
 		$result = $this->object->init()->getController($application);
@@ -149,17 +132,17 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	public function testGetControllerException()
 	{
 		$route = $this->getMockBuilder('\Veles\Routing\Route')
-			->setMethods(['getUri'])
+			->setMethods(['parseUri'])
 			->getMock();
 
 		$config = new RoutesConfig(
 			new IniConfigLoader(TEST_DIR . '/Project/routes.ini')
 		);
-		$route->method('getUri')->willReturn('/');
+		$route->method('parseUri')->willReturn(['/', '']);
 		$route->setConfigHandler($config)->init();
 		$application = (new Application)->setRoute($route);
 
-		$this->object->method('getUri')->willReturn('/user');
+		$this->object->method('parseUri')->willReturn(['/user', 'user']);
 		$this->object->init()->getController($application);
 	}
 
@@ -168,7 +151,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetActionName()
 	{
-		$this->object->method('getUri')->willReturn('/');
+		$this->object->method('parseUri')->willReturn(['/', '']);
 		$expected = 'index';
 		$result = $this->object->init()->getActionName();
 
@@ -182,7 +165,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetActionNameException()
 	{
-		$this->object->method('getUri')->willReturn('/user');
+		$this->object->method('parseUri')->willReturn(['/user', 'user']);
 		$this->object->init()->getActionName();
 	}
 
@@ -191,7 +174,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetAdapter()
 	{
-		$this->object->method('getUri')->willReturn('/');
+		$this->object->method('parseUri')->willReturn(['/', '']);
 		$expected = NativeAdapter::instance();
 		$result = $this->object->init()->getAdapter();
 
@@ -205,7 +188,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetAdapterException()
 	{
-		$this->object->method('getUri')->willReturn('/user');
+		$this->object->method('parseUri')->willReturn(['/user', 'user']);
 		$this->object->init()->getAdapter();
 	}
 
@@ -214,7 +197,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetName()
 	{
-		$this->object->method('getUri')->willReturn('/');
+		$this->object->method('parseUri')->willReturn(['/', '']);
 		$expected = 'Home';
 		$result = $this->object->init()->getName();
 
@@ -227,12 +210,12 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 * @covers       \Veles\Routing\Route::init
 	 * @dataProvider getParamsProvider
 	 *
-	 * @param $uri
+	 * @param $parse_result
 	 * @param $expected
 	 */
-	public function testGetParams($uri, $expected)
+	public function testGetParams($parse_result, $expected)
 	{
-		$this->object->method('getUri')->willReturn($uri);
+		$this->object->method('parseUri')->willReturn($parse_result);
 		$this->object->init();
 
 		$msg = 'Route::$params wrong value!';
@@ -247,12 +230,12 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	public function getParamsProvider()
 	{
 		return [
-			['/page-2.html', ['page' => '2']],
-			['/page-8.html', ['page' => '8']],
-			['/book/5/user/4', ['book_id' => '5', 'user_id' => '4']],
-			['/book/5000/user/43', ['book_id' => '5000', 'user_id' => '43']],
-			['/book/15/user/14', ['book_id' => '15', 'user_id' => '14']],
-			['/book/500/user/143', ['book_id' => '500', 'user_id' => '143']]
+			[['/page/2', 'page'], ['page' => '2']],
+			[['/page/8', 'page'], ['page' => '8']],
+			[['/book/5/user/4', 'book'], ['book_id' => '5', 'user_id' => '4']],
+			[['/book/5000/user/43', 'book'], ['book_id' => '5000', 'user_id' => '43']],
+			[['/book/15/user/14', 'book'], ['book_id' => '15', 'user_id' => '14']],
+			[['/book/500/user/143', 'book'], ['book_id' => '500', 'user_id' => '143']]
 		];
 	}
 
@@ -262,7 +245,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetTemplate()
 	{
-		$this->object->method('getUri')->willReturn('/');
+		$this->object->method('parseUri')->willReturn(['/', '']);
 		$expected = 'Frontend/index.phtml';
 		$result = $this->object->init()->getTemplate();
 

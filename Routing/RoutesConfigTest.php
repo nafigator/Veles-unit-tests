@@ -39,43 +39,65 @@ class RoutesConfigTest extends \PHPUnit_Framework_TestCase
 	public function testGetData()
 	{
 		$expected = [
-			'Home'     =>
-				[
-					'class'      => 'Veles\\Routing\\RouteRegex',
-					'view'       => 'Veles\\View\\Adapters\\NativeAdapter',
-					'route'      => '#^\\/(?:index.html|page\\-(?<page>\\d+)\\.html)?$#',
+			''         => [
+				'Home'  => [
+					'class'      => 'Veles\Routing\RouteStatic',
+					'view'       => 'Veles\View\Adapters\NativeAdapter',
+					'route'      => '/',
 					'tpl'        => 'Frontend/index.phtml',
-					'controller' => 'Frontend\\Home',
-					'action'     => 'index'
+					'controller' => 'Frontend\Home',
+					'action'     => 'index',
 				],
-			'TestMap'  =>
-				[
-					'class'      => 'Veles\\Routing\\RouteRegex',
-					'view'       => 'Veles\\View\\Adapters\\NativeAdapter',
+				'Home1' => [
+					'class'      => 'Veles\Routing\RouteStatic',
+					'view'       => 'Veles\View\Adapters\NativeAdapter',
+					'route'      => '/index.html',
+					'tpl'        => 'Frontend/index.phtml',
+					'controller' => 'Frontend\Home',
+					'action'     => 'index',
+				],
+			],
+			'page'     => [
+				'Home2' => [
+					'class'      => 'Veles\Routing\RouteRegex',
+					'view'       => 'Veles\View\Adapters\NativeAdapter',
+					'route'      => '#^\\/page\\/(?<page>\\d+)$#',
+					'tpl'        => 'Frontend/index.phtml',
+					'controller' => 'Frontend\Home',
+					'action'     => 'index',
+				],
+			],
+			'book'     => [
+				'TestMap' => [
+					'class'      => 'Veles\Routing\RouteRegex',
+					'view'       => 'Veles\View\Adapters\NativeAdapter',
 					'route'      => '#^\\/book\\/(?<book_id>\\d+)\\/user\\/(?<user_id>\\d+)$#',
 					'tpl'        => 'Frontend/index.phtml',
-					'controller' => 'Frontend\\Home',
-					'action'     => 'book'
+					'controller' => 'Frontend\Home',
+					'action'     => 'book',
 				],
-			'Contacts' =>
-				[
-					'class'      => 'Veles\\Routing\\RouteStatic',
+			],
+			'contacts' => [
+				'Contacts' => [
+					'class'      => 'Veles\Routing\RouteStatic',
 					'route'      => '/contacts',
-					'controller' => 'Frontend\\Contacts',
+					'controller' => 'Frontend\Contacts',
 					'action'     => 'getAddress',
 					'ajax'       => '1',
 				],
-			'User'     =>
-				[
-					'class' => 'Veles\\Routing\\RouteStatic',
+			],
+			'user'     => [
+				'User' => [
+					'class' => 'Veles\Routing\RouteStatic',
 					'route' => '/user',
 				],
+			],
 		];
-		$result = $this->object->getData();
+		$actual = $this->object->getData();
 		$msg = 'RoutesConfig::getData() returns wrong value!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
 
-		$result = $this->object->getData();
-		$this->assertSame($expected, $result, $msg);
+		$actual = $this->object->getData();
+		$this->assertSame($expected, $actual, $msg);
 	}
 }

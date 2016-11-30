@@ -30,42 +30,64 @@ class IniConfigLoaderTest extends \PHPUnit_Framework_TestCase
 	public function testLoad()
 	{
 		$expected = [
-			'Home'     =>
-				[
-					'class'      => 'Veles\Routing\RouteRegex',
+			''         => [
+				'Home'  => [
+					'class'      => 'Veles\Routing\RouteStatic',
 					'view'       => 'Veles\View\Adapters\NativeAdapter',
-					'route'      => '#^\/(?:index.html|page\-(?<page>\d+)\.html)?$#',
+					'route'      => '/',
 					'tpl'        => 'Frontend/index.phtml',
 					'controller' => 'Frontend\Home',
-					'action'     => 'index'
+					'action'     => 'index',
 				],
-			'TestMap'  =>
-				[
-					'class'      => 'Veles\Routing\RouteRegex',
+				'Home1' => [
+					'class'      => 'Veles\Routing\RouteStatic',
 					'view'       => 'Veles\View\Adapters\NativeAdapter',
-					'route'      => '#^\/book\/(?<book_id>\d+)\/user\/(?<user_id>\d+)$#',
+					'route'      => '/index.html',
 					'tpl'        => 'Frontend/index.phtml',
 					'controller' => 'Frontend\Home',
-					'action'     => 'book'
+					'action'     => 'index',
 				],
-			'Contacts' =>
-				[
+			],
+			'page'     => [
+				'Home2' => [
+					'class'      => 'Veles\Routing\RouteRegex',
+					'view'       => 'Veles\View\Adapters\NativeAdapter',
+					'route'      => '#^\\/page\\/(?<page>\\d+)$#',
+					'tpl'        => 'Frontend/index.phtml',
+					'controller' => 'Frontend\Home',
+					'action'     => 'index',
+				],
+			],
+			'book'     => [
+				'TestMap' => [
+					'class'      => 'Veles\Routing\RouteRegex',
+					'view'       => 'Veles\View\Adapters\NativeAdapter',
+					'route'      => '#^\\/book\\/(?<book_id>\\d+)\\/user\\/(?<user_id>\\d+)$#',
+					'tpl'        => 'Frontend/index.phtml',
+					'controller' => 'Frontend\Home',
+					'action'     => 'book',
+				],
+			],
+			'contacts' => [
+				'Contacts' => [
 					'class'      => 'Veles\Routing\RouteStatic',
 					'route'      => '/contacts',
 					'controller' => 'Frontend\Contacts',
 					'action'     => 'getAddress',
 					'ajax'       => '1',
 				],
-			'User'     =>
-				[
-					'class' => 'Veles\\Routing\\RouteStatic',
+			],
+			'user'     => [
+				'User' => [
+					'class' => 'Veles\Routing\RouteStatic',
 					'route' => '/user',
 				],
+			],
 		];
 
-		$result = $this->object->load();
+		$actual = $this->object->load();
 
 		$msg = 'IniConfigLoader::load() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
 	}
 }

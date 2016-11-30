@@ -50,42 +50,68 @@ class RoutesCacheDecoratorTest extends \PHPUnit_Framework_TestCase
 	public function testGetData()
 	{
 		$expected = [
-			'Home'     => [
-				'class'      => 'Veles\Routing\RouteRegex',
-				'view'       => 'Veles\View\Adapters\NativeAdapter',
-				'route'      => '#^\/(?:index.html|page\-(?<page>\d+)\.html)?$#',
-				'tpl'        => 'Frontend/index.phtml',
-				'controller' => 'Frontend\Home',
-				'action'     => 'index'
+			''         => [
+				'Home'  => [
+					'class'      => 'Veles\Routing\RouteStatic',
+					'view'       => 'Veles\View\Adapters\NativeAdapter',
+					'route'      => '/',
+					'tpl'        => 'Frontend/index.phtml',
+					'controller' => 'Frontend\Home',
+					'action'     => 'index',
+				],
+				'Home1' => [
+					'class'      => 'Veles\Routing\RouteStatic',
+					'view'       => 'Veles\View\Adapters\NativeAdapter',
+					'route'      => '/index.html',
+					'tpl'        => 'Frontend/index.phtml',
+					'controller' => 'Frontend\Home',
+					'action'     => 'index',
+				],
 			],
-			'TestMap'  => [
-				'class'      => 'Veles\Routing\RouteRegex',
-				'view'       => 'Veles\View\Adapters\NativeAdapter',
-				'route'      => '#^\/book\/(?<book_id>\d+)\/user\/(?<user_id>\d+)$#',
-				'tpl'        => 'Frontend/index.phtml',
-				'controller' => 'Frontend\Home',
-				'action'     => 'book'
+			'page'     => [
+				'Home2' => [
+					'class'      => 'Veles\Routing\RouteRegex',
+					'view'       => 'Veles\View\Adapters\NativeAdapter',
+					'route'      => '#^\\/page\\/(?<page>\\d+)$#',
+					'tpl'        => 'Frontend/index.phtml',
+					'controller' => 'Frontend\Home',
+					'action'     => 'index',
+				],
 			],
-			'Contacts' => [
-				'class'      => 'Veles\Routing\RouteStatic',
-				'route'      => '/contacts',
-				'controller' => 'Frontend\Contacts',
-				'action'     => 'getAddress',
-				'ajax'       => '1',
+			'book'     => [
+				'TestMap' => [
+					'class'      => 'Veles\Routing\RouteRegex',
+					'view'       => 'Veles\View\Adapters\NativeAdapter',
+					'route'      => '#^\\/book\\/(?<book_id>\\d+)\\/user\\/(?<user_id>\\d+)$#',
+					'tpl'        => 'Frontend/index.phtml',
+					'controller' => 'Frontend\Home',
+					'action'     => 'book',
+				],
 			],
-			'User'     => [
-				'class' => 'Veles\Routing\RouteStatic',
-				'route' => '/user',
-			]
+			'contacts' => [
+				'Contacts' => [
+					'class'      => 'Veles\Routing\RouteStatic',
+					'route'      => '/contacts',
+					'controller' => 'Frontend\Contacts',
+					'action'     => 'getAddress',
+					'ajax'       => '1',
+				],
+			],
+			'user'     => [
+				'User' => [
+					'class' => 'Veles\Routing\RouteStatic',
+					'route' => '/user',
+				],
+			],
 		];
 
 		$msg = 'RoutesCacheDecorator::getData returns wrong result!';
 		// test without cache
-		$result = $this->object->getData();
-		$this->assertSame($expected, $result, $msg);
+		$actual = $this->object->getData();
+		$this->assertSame($expected, $actual, $msg);
 		// test with cache
-		$result = $this->object->getData();
-		$this->assertSame($expected, $result, $msg);
+		$actual = $this->object->getData();
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**
@@ -94,10 +120,10 @@ class RoutesCacheDecoratorTest extends \PHPUnit_Framework_TestCase
 	public function testGetPrefix()
 	{
 		$expected = 'VELES-UNIT-TESTS::ROUTES-CONFIG';
-		$result = $this->object->getPrefix();
+		$actual = $this->object->getPrefix();
 
 		$msg = 'RoutesCacheDecorator::getPrefix() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**

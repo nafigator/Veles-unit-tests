@@ -28,21 +28,23 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Unit-test for Application::run
+	 *
 	 * @covers       \Veles\Application\Application::run
 	 * @dataProvider runProvider
 	 *
 	 * @param $url
+	 * @param $parse_result
 	 * @param $expected
 	 */
-	public function testRun($url, $expected)
+	public function testRun($url, $parse_result, $expected)
 	{
 		$this->expectOutputString($expected['output']);
 
 		/** @var \Veles\Routing\Route $route */
 		$route = $this->getMockBuilder('\Veles\Routing\Route')
-			->setMethods(['getUri'])
+			->setMethods(['parseUri'])
 			->getMock();
-		$route->method('getUri')->willReturn($url);
+		$route->method('parseUri')->willReturn($parse_result);
 
 		$config = new RoutesConfig(
 			new IniConfigLoader(TEST_DIR . '/Project/routes.ini')
@@ -52,10 +54,10 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 		$app = new Application;
 		$app->setRoute($route)->run();
 
-		$result = $app->getRoute()->getParams();
+		$actual = $app->getRoute()->getParams();
 
 		$msg = "Wrong Route::params in $url";
-		$this->assertSame($expected['params'], $result, $msg);
+		$this->assertSame($expected['params'], $actual, $msg);
 	}
 
 	/**
@@ -63,9 +65,10 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 	 */
 	public function runProvider()
 	{
-		$uri      = '/page-2.html';
+		$uri = '/page/2';
+		$parse_result = [$uri, 'page'];
 		$expected = [
-			'params'    => ['page' => '2'],
+			'params' => ['page' => '2'],
 			'output' => <<<EOF
 <!DOCTYPE html>
 <html>
@@ -85,7 +88,7 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 EOF
 		];
 
-		return [[$uri, $expected]];
+		return [[$uri, $parse_result, $expected]];
 	}
 
 	/**

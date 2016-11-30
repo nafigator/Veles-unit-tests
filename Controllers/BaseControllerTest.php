@@ -28,7 +28,7 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 	protected function setUp()
 	{
 		$this->route = $this->getMockBuilder('\Veles\Routing\Route')
-			->setMethods(['getUri'])
+			->setMethods(['parseUri'])
 			->getMock();
 
 		$config = new RoutesConfig(
@@ -66,16 +66,16 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers \Veles\Controllers\BaseController::getParam
+	 * @covers       \Veles\Controllers\BaseController::getParam
 	 *
-	 * @param $uri
+	 * @param $parse_result
 	 * @param $expected
 	 *
 	 * @dataProvider getParamProvider
 	 */
-	public function testGetParam($uri, $expected)
+	public function testGetParam($parse_result, $expected)
 	{
-		$this->route->method('getUri')->willReturn($uri);
+		$this->route->method('parseUri')->willReturn($parse_result);
 		$this->route->init();
 
 		$actual = $this->object->book();
@@ -88,18 +88,12 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 	{
 		return [
 			[
-				'/book/5/user/8',
-				[
-					'book' => '5',
-					'user' => '8'
-				]
+				['/book/5/user/8', 'book'],
+				['book' => '5', 'user' => '8']
 			],
 			[
-				'/book/575/user/82',
-				[
-					'book' => '575',
-					'user' => '82'
-				]
+				['/book/575/user/82', 'book'],
+				['book' => '575', 'user' => '82']
 			]
 		];
 	}
