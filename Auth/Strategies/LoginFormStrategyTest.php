@@ -31,40 +31,49 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @param $mail
 	 * @param $pass
+	 * @param $db_result
 	 * @param $expected
+	 * @param $expected_errors
 	 */
-	public function testIdentify($mail, $pass, $expected)
+	public function testIdentify($mail, $pass, $db_result, $expected, $expected_errors)
 	{
-		$user_result = [
+		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+			->setMethods(['row'])
+			->getMock();
+		$adapter->expects($this->once())
+			->method('row')
+			->willReturn($db_result);
+
+		Db::setAdapter($adapter);
+
+		$object = new LoginFormStrategy($mail, $pass, new User);
+		$actual = $object->identify();
+
+		$msg = 'LoginFormStrategy::identify() returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
+
+		$msg = 'LoginFormStrategy::identify() wrong behavior!';
+		$this->assertAttributeSame($expected_errors, 'errors', $object, $msg);
+	}
+
+	public function identifyProvider()
+	{
+		$true_result = [
 			'id'         => 1,
 			'email'      => 'mail@mail.org',
 			'hash'       => '$2a$07$usesomesillystringforeGlOaUExBSD9HxuEYk2ZFaeDhggU716O',
 			'group'      => 'uzzy',
 			'last_login' => '1980-12-12'
 		];
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
-			->setMethods(['row'])
-			->getMock();
-		$adapter->expects($this->once())
-			->method('row')
-			->willReturn($user_result);
 
-		Db::setAdapter($adapter);
+		$false_result = false;
 
-		$object = new LoginFormStrategy($mail, $pass, new User);
-		$result = $object->identify();
-
-		$msg = 'LoginFormStrategy::identify() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
-	}
-
-	public function identifyProvider()
-	{
 		return [
-			['mail@mail.org', 'superpass', true],
-			['mail500@mail.org', 'asf1900', false],
-			['mail@mail.org', 'superpasslakj()', false],
-			['mail@mail.org', 'usell', false]
+			['mail@mail.org', 'superpass', $true_result, true, 0],
+			['mail@mail.org', 'bad_pass', $true_result, false, 2],
+			['mail500@mail.org', 'asf1900', $false_result, false, 1],
+			['mail@maild.org', 'superpasslakj()', $false_result, false, 1],
+			['mail@mails.org', 'usell', $false_result, false, 1]
 		];
 	}
 
