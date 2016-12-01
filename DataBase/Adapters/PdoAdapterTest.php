@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\DataBase\Adapters;
 
+use PDOStatement;
 use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\ConnectionPools\ConnectionPool;
 use Veles\DataBase\Connections\PdoConnection;
@@ -84,7 +85,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	public function testGetResource()
 	{
 		$expected = 100;
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -92,7 +93,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($expected);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -120,7 +121,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testValue($stmt, $expected, $params, $types)
 	{
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
 			->getMock();
@@ -128,7 +129,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('prepare')
 			->willReturn($stmt);
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -136,7 +137,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -154,14 +155,14 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 100;
 
-		$stmt1 = $this->getMockBuilder('\PDOStatement')
+		$stmt1 = $this->getMockBuilder(PDOStatement::class)
 			->setMethods(['fetchColumn'])
 			->getMock();
 		$stmt1->expects($this->once())
 			->method('fetchColumn')
 			->willReturn($expected);
 
-		$stmt2 = $this->getMockBuilder('\PDOStatement')
+		$stmt2 = $this->getMockBuilder(PDOStatement::class)
 			->setMethods(['fetchColumn', 'bindValue'])
 			->getMock();
 		$stmt2->expects($this->once())
@@ -191,7 +192,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	public function testValueException()
 	{
 		$exception_msg = 'SQLSTATE[22P02]: Invalid text representation: 7 ERROR: invalid input syntax for integer';
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
 			->getMock();
@@ -199,7 +200,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('prepare')
 			->will($this->throwException(new \PDOException($exception_msg)));
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -207,7 +208,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -229,14 +230,14 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 100;
 
-		$stmt = $this->getMockBuilder('\PDOStatement')
+		$stmt = $this->getMockBuilder(PDOStatement::class)
 			->setMethods(['fetch'])
 			->getMock();
 		$stmt->expects($this->once())
 			->method('fetch')
 			->willReturn($expected);
 
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
 			->getMock();
@@ -244,7 +245,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('prepare')
 			->willReturn($stmt);
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -252,7 +253,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -274,7 +275,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	public function testRowException()
 	{
 		$exception_msg = 'SQLSTATE[22P02]: Invalid text representation: 7 ERROR: invalid input syntax for integer';
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
 			->getMock();
@@ -282,7 +283,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('prepare')
 			->will($this->throwException(new \PDOException($exception_msg)));
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -290,7 +291,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -312,14 +313,14 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 100;
 
-		$stmt = $this->getMockBuilder('\PDOStatement')
+		$stmt = $this->getMockBuilder(PDOStatement::class)
 			->setMethods(['fetchAll'])
 			->getMock();
 		$stmt->expects($this->once())
 			->method('fetchAll')
 			->willReturn($expected);
 
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
 			->getMock();
@@ -327,7 +328,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('prepare')
 			->willReturn($stmt);
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -335,7 +336,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -357,7 +358,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	public function testRowsException()
 	{
 		$exception_msg = 'SQLSTATE[22P02]: Invalid text representation: 7 ERROR: invalid input syntax for integer';
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
 			->getMock();
@@ -365,7 +366,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('prepare')
 			->will($this->throwException(new \PDOException($exception_msg)));
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -373,7 +374,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -395,7 +396,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 100;
 
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['beginTransaction'])
 			->getMock();
@@ -403,7 +404,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('beginTransaction')
 			->willReturn($expected);
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -411,7 +412,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -433,7 +434,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	public function testBeginException()
 	{
 		$exception_msg = 'SQLSTATE[22P02]: Invalid text representation: 7 ERROR: invalid input syntax for integer';
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['beginTransaction'])
 			->getMock();
@@ -441,7 +442,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('beginTransaction')
 			->will($this->throwException(new \PDOException($exception_msg)));
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -449,7 +450,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -468,7 +469,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 100;
 
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['rollBack'])
 			->getMock();
@@ -476,7 +477,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('rollBack')
 			->willReturn($expected);
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -484,7 +485,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -506,7 +507,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	public function testRollbackException()
 	{
 		$exception_msg = 'SQLSTATE[22P02]: Invalid text representation: 7 ERROR: invalid input syntax for integer';
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['rollBack'])
 			->getMock();
@@ -514,7 +515,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('rollBack')
 			->will($this->throwException(new \PDOException($exception_msg)));
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -522,7 +523,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -541,7 +542,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 100;
 
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['commit'])
 			->getMock();
@@ -549,7 +550,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('commit')
 			->willReturn($expected);
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -557,7 +558,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -579,7 +580,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	public function testCommitException()
 	{
 		$exception_msg = 'SQLSTATE[22P02]: Invalid text representation: 7 ERROR: invalid input syntax for integer';
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['commit'])
 			->getMock();
@@ -587,7 +588,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('commit')
 			->will($this->throwException(new \PDOException($exception_msg)));
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -595,7 +596,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -621,7 +622,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testQuery($resource, $expected, $params, $types)
 	{
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -629,7 +630,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -647,7 +648,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	{
 		$stmt1 = $expected = true;
 
-		$resource1 = $this->getMockBuilder('\PDO')
+		$resource1 = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['query'])
 			->getMock();
@@ -655,14 +656,14 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('query')
 			->willReturn($stmt1);
 
-		$stmt2 = $this->getMockBuilder('\PDOStatement')
+		$stmt2 = $this->getMockBuilder(PDOStatement::class)
 			->setMethods(['execute'])
 			->getMock();
 		$stmt2->expects($this->once())
 			->method('execute')
 			->willReturn($expected);
 
-		$resource2 = $this->getMockBuilder('\PDO')
+		$resource2 = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
 			->getMock();
@@ -670,7 +671,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('prepare')
 			->willReturn($stmt2);
 
-		$stmt3 = $this->getMockBuilder('\PDOStatement')
+		$stmt3 = $this->getMockBuilder(PDOStatement::class)
 			->setMethods(['bindValue', 'execute'])
 			->getMock();
 		$stmt3->expects($this->exactly(2))
@@ -683,7 +684,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('execute')
 			->willReturn($expected);
 
-		$resource3 = $this->getMockBuilder('\PDO')
+		$resource3 = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
 			->getMock();
@@ -706,7 +707,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	public function testQueryException()
 	{
 		$exception_msg = 'SQLSTATE[22P02]: Invalid text representation: 7 ERROR: invalid input syntax for integer';
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['query'])
 			->getMock();
@@ -714,7 +715,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('query')
 			->will($this->throwException(new \PDOException($exception_msg)));
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -722,7 +723,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -744,7 +745,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 100;
 
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['lastInsertId'])
 			->getMock();
@@ -752,7 +753,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('lastInsertId')
 			->willReturn($expected);
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -760,7 +761,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -782,7 +783,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	public function testGetLastInsertIdException()
 	{
 		$exception_msg = 'SQLSTATE[22P02]: Invalid text representation: 7 ERROR: invalid input syntax for integer';
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['lastInsertId'])
 			->getMock();
@@ -790,7 +791,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('lastInsertId')
 			->will($this->throwException(new \PDOException($exception_msg)));
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -798,7 +799,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -817,14 +818,14 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 100;
 
-		$stmt = $this->getMockBuilder('\PDOStatement')
+		$stmt = $this->getMockBuilder(PDOStatement::class)
 			->setMethods(['fetchColumn'])
 			->getMock();
 		$stmt->expects($this->once())
 			->method('fetchColumn')
 			->willReturn($expected);
 
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
 			->getMock();
@@ -832,7 +833,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('prepare')
 			->willReturn($stmt);
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -840,7 +841,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -859,13 +860,13 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetStmt()
 	{
-		$stmt = $this->getMockBuilder('\PDOStatement')
+		$stmt = $this->getMockBuilder(PDOStatement::class)
 			->setMethods(['fetchColumn'])
 			->getMock();
 		$stmt->expects($this->once())
 			->method('fetchColumn');
 
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
 			->getMock();
@@ -873,7 +874,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('prepare')
 			->willReturn($stmt);
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -881,7 +882,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -904,7 +905,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 'escaped string';
 
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['quote'])
 			->getMock();
@@ -912,7 +913,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('quote')
 			->willReturn($expected);
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -920,7 +921,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())
@@ -942,7 +943,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	public function testEscapeException()
 	{
 		$exception_msg = 'SQLSTATE[22P02]: Invalid text representation: 7 ERROR: invalid input syntax for integer';
-		$resource = $this->getMockBuilder('\PDO')
+		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['quote'])
 			->getMock();
@@ -950,7 +951,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('quote')
 			->will($this->throwException(new \PDOException($exception_msg)));
 
-		$conn = $this->getMockBuilder('\Veles\DataBase\Connections\PdoConnection')
+		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
 			->setMethods(['getResource'])
 			->getMock();
@@ -958,7 +959,7 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			->method('getResource')
 			->willReturn($resource);
 
-		$pool = $this->getMockBuilder('\Veles\DataBase\ConnectionPools\ConnectionPool')
+		$pool = $this->getMockBuilder(ConnectionPool::class)
 			->setMethods(['getConnection'])
 			->getMock();
 		$pool->expects($this->once())

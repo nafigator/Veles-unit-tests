@@ -2,6 +2,7 @@
 namespace Veles\Tests\Model;
 
 use Veles\Auth\UsrGroup;
+use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Db;
 use Veles\DataBase\DbFilter;
 use Veles\DataBase\DbPaginator;
@@ -38,7 +39,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 		$group = UsrGroup::GUEST;
 		$hash  = md5('lalala');
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['escape'])
 			->getMock();
 		$adapter->expects($this->exactly(2))
@@ -84,7 +85,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 		$user->group      = $group;
 		$user->last_login = '1980-12-01';
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['escape'])
 			->getMock();
 		$adapter->expects($this->exactly(3))

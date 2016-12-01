@@ -2,6 +2,7 @@
 namespace Veles\Tests\Auth\Strategies;
 
 use Veles\Auth\Strategies\LoginFormStrategy;
+use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Db;
 use Veles\Model\User;
 use Veles\Tests\DataBase\DbCopy;
@@ -37,7 +38,7 @@ class LoginFormStrategyTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testIdentify($mail, $pass, $db_result, $expected, $expected_errors)
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter->expects($this->once())

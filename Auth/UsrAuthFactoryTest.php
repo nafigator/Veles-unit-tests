@@ -1,6 +1,9 @@
 <?php
 namespace Veles\Tests\Auth;
 
+use Veles\Auth\Strategies\CookieStrategy;
+use Veles\Auth\Strategies\GuestStrategy;
+use Veles\Auth\Strategies\LoginFormStrategy;
 use Veles\Auth\UsrAuthFactory;
 
 /**
@@ -20,7 +23,7 @@ class UsrAuthFactoryTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = $this->getMockBuilder('\Veles\Auth\UsrAuthFactory')
+		$this->object = $this->getMockBuilder(UsrAuthFactory::class)
 			->setMethods(['getPost', 'getCookies'])
 			->getMock();
 	}
@@ -35,12 +38,12 @@ class UsrAuthFactoryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreate()
 	{
-		$object = $this->getMockBuilder('\Veles\Auth\UsrAuthFactory')
+		$object = $this->getMockBuilder(UsrAuthFactory::class)
 			->setMethods(['getPost', 'getCookies'])
 			->getMock();
 
 		$result = $object->create();
-		$expected = 'Veles\Auth\Strategies\GuestStrategy';
+		$expected = GuestStrategy::class;
 
 		$msg = 'UsrAuthFactory::create() return wrong result!';
 		$this->assertInstanceOf($expected, $result, $msg);
@@ -50,12 +53,12 @@ class UsrAuthFactoryTest extends \PHPUnit_Framework_TestCase
 			->willReturn(['ln' => 'login', 'pw' => 'password']);
 
 		$result = $object->create();
-		$expected = 'Veles\Auth\Strategies\LoginFormStrategy';
+		$expected = LoginFormStrategy::class;
 
 		$msg = 'UsrAuthFactory::create() return wrong result!';
 		$this->assertInstanceOf($expected, $result, $msg);
 
-		$object = $this->getMockBuilder('\Veles\Auth\UsrAuthFactory')
+		$object = $this->getMockBuilder(UsrAuthFactory::class)
 			->setMethods(['getPost', 'getCookies'])
 			->getMock();
 
@@ -64,7 +67,7 @@ class UsrAuthFactoryTest extends \PHPUnit_Framework_TestCase
 			->willReturn(['id' => 1111, 'pw' => 'password']);
 
 		$result = $object->create();
-		$expected = 'Veles\Auth\Strategies\CookieStrategy';
+		$expected = CookieStrategy::class;
 
 		$msg = 'UsrAuthFactory::create() return wrong result!';
 		$this->assertInstanceOf($expected, $result, $msg);

@@ -74,7 +74,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 'connection name';
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['setConnection'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -114,7 +114,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params1 = [1, 1];
 		$types1  = 'is';
 
-		$adapter1 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter1 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['value'])
 			->getMock();
 		$adapter1->expects($this->once())
@@ -126,7 +126,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params2 = [1, 2];
 		$types2  = null;
 
-		$adapter2 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter2 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['value'])
 			->getMock();
 		$adapter2->expects($this->once())
@@ -138,7 +138,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params3 = [];
 		$types3  = null;
 
-		$adapter3 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter3 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['value'])
 			->getMock();
 		$adapter3->expects($this->once())
@@ -181,7 +181,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params1 = [1, 1];
 		$types1  = 'is';
 
-		$adapter1 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter1 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter1->expects($this->once())
@@ -193,7 +193,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params2 = [1, 2];
 		$types2  = null;
 
-		$adapter2 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter2 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter2->expects($this->once())
@@ -205,7 +205,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params3 = [];
 		$types3  = null;
 
-		$adapter3 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter3 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter3->expects($this->once())
@@ -248,7 +248,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params1 = [1, 1];
 		$types1  = 'is';
 
-		$adapter1 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter1 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['rows'])
 			->getMock();
 		$adapter1->expects($this->once())
@@ -260,7 +260,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params2 = [1, 2];
 		$types2  = null;
 
-		$adapter2 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter2 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['rows'])
 			->getMock();
 		$adapter2->expects($this->once())
@@ -272,7 +272,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params3 = [];
 		$types3  = null;
 
-		$adapter3 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter3 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['rows'])
 			->getMock();
 		$adapter3->expects($this->once())
@@ -315,7 +315,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params1 = [1, 1];
 		$types1  = 'is';
 
-		$adapter1 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter1 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['query'])
 			->getMock();
 		$adapter1->expects($this->once())
@@ -327,7 +327,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params2 = [1, 2];
 		$types2  = null;
 
-		$adapter2 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter2 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['query'])
 			->getMock();
 		$adapter2->expects($this->once())
@@ -339,7 +339,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 		$params3 = [];
 		$types3  = null;
 
-		$adapter3 = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter3 = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['query'])
 			->getMock();
 		$adapter3->expects($this->once())
@@ -359,7 +359,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testBegin()
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['begin'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -375,7 +375,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRollback()
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['rollback'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -391,7 +391,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCommit()
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['commit'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -407,7 +407,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetLastInsertId()
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['getLastInsertId'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -423,7 +423,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetFoundRows()
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['getFoundRows'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -441,7 +441,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 'string';
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['escape'])
 			->getMock();
 		$adapter->expects($this->once())

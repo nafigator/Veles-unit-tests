@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\Model;
 
+use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Db;
 use Veles\DataBase\DbFilter;
 use Veles\DataBase\DbPaginator;
@@ -67,7 +68,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetById($id, $expected, $db_result)
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -138,7 +139,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 			];
 		}
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['rows', 'getFoundRows'])
 			->getMock();
 		$adapter->expects($this->at(0))
@@ -174,7 +175,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSave()
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['query', 'escape', 'getLastInsertId'])
 			->getMock();
 		$adapter->expects($this->exactly(2))
@@ -216,7 +217,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testDelete()
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['query'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -274,7 +275,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 			'author' => 'author_3'
 		];
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -323,7 +324,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 			]
 			: [];
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -373,7 +374,7 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testQuery($pager, $expected, $found_rows)
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['rows', 'getFoundRows'])
 			->getMock();
 		$adapter->expects($this->once())

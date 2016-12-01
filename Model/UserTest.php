@@ -2,6 +2,7 @@
 namespace Veles\Tests\Model;
 
 use Veles\Auth\UsrGroup;
+use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Db;
 use Veles\Model\User;
 use Veles\Tests\DataBase\DbCopy;
@@ -56,7 +57,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 			'last_login' => 'string'
 		];
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -91,7 +92,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 			'last_login' => 'string'
 		];
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -126,7 +127,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 			'last_login' => 'string'
 		];
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -161,7 +162,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 			'last_login' => 'string'
 		];
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -196,7 +197,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 			'last_login' => 'string'
 		];
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter->expects($this->once())

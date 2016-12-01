@@ -27,7 +27,7 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->route = $this->getMockBuilder('\Veles\Routing\Route')
+		$this->route = $this->getMockBuilder(Route::class)
 			->setMethods(['parseUri'])
 			->getMock();
 

@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\CurlRequest;
 
+use Veles\CurlRequest\AuthStrategies\HttpBasic;
 use Veles\CurlRequest\CurlRequest;
 
 require_once 'curl_errno.php';
@@ -265,7 +266,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetAuth()
 	{
-		$auth = $this->getMockBuilder('\Veles\CurlRequest\AuthStrategies\HttpBasic')
+		$auth = $this->getMockBuilder(HttpBasic::class)
 			->setMethods(['apply'])
 			->getMock();
 		$auth->expects($this->once())

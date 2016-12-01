@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\DataBase;
 
+use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Db;
 use Veles\DataBase\DbFilter;
 use Veles\DataBase\DbPaginator;
@@ -56,7 +57,7 @@ EOL;
 	 */
 	public function test__toString()
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['rows', 'getFoundRows'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -140,7 +141,7 @@ EOL;
 	{
 		$expected = 4;
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['getFoundRows'])
 			->getMock();
 		$adapter->expects($this->once())
@@ -165,7 +166,7 @@ EOL;
 	{
 		$expected = 3;
 
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['getFoundRows'])
 			->getMock();
 		$adapter->expects($this->once())

@@ -2,6 +2,7 @@
 namespace Veles\Tests\Auth\Strategies;
 
 use Veles\Auth\Strategies\CookieStrategy;
+use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Db;
 use Veles\Model\User;
 use Veles\Tests\DataBase\DbCopy;
@@ -35,7 +36,7 @@ class CookieStrategyTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testIdentify($id, $hash, $expected, $user_result)
 	{
-		$adapter = $this->getMockBuilder('\Veles\DataBase\Adapters\PdoAdapter')
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
 			->setMethods(['row'])
 			->getMock();
 		$adapter->expects($this->once())
