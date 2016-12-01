@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\ErrorHandler\HtmlBuilders;
 
+use Exception;
 use Veles\ErrorHandler\ExceptionHandler;
 use Veles\ErrorHandler\FatalErrorHandler;
 use Veles\ErrorHandler\HtmlBuilders\ErrorBuilder;
@@ -42,13 +43,25 @@ EOL;
 	}
 
 	/**
-	 * @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getHtml
-	 * @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::convertTypeToString
-	 * @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::formatBacktrace
+	 * @covers       \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getHtml
+	 * @covers       \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::convertTypeToString
+	 * @covers       \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::formatBacktrace
+	 *
+	 * @dataProvider getHtmlProvider
+	 *
+	 * @param $trace
 	 */
-	public function testGetHtml()
+	public function testGetHtml($trace)
 	{
-		$exception = new \Exception($this->message);
+		$exception = $this->getMockBuilder(Exception::class)
+			->setMethods(['getTrace'])
+			->setConstructorArgs([$this->message])
+			->getMock();
+
+		$exception->expects($this->once())
+			->method('getTrace')
+			->willReturn($trace);
+
 		$handler = new ExceptionHandler;
 
 		$this->object->setTemplate('Errors/exception.phtml');
@@ -60,6 +73,30 @@ EOL;
 
 		$handler->attach($renderer);
 		$handler->run($exception);
+	}
+
+	public function getHtmlProvider()
+	{
+		return [
+			[
+				[
+					[
+						'file'     => "phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php",
+						'line'     => 844,
+						'function' => "runTest",
+						'class'    => "PHPUnit_Framework_TestCase",
+						'type'     => "->",
+						'args'     => []
+					],
+					[
+						'file'     => "phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php",
+						'line'     => 844,
+						'function' => "test",
+						'args'     => []
+					]
+				]
+			]
+		];
 	}
 
 	/**
