@@ -36,7 +36,12 @@ class ErrorBuilderTest extends \PHPUnit_Framework_TestCase
 	<title></title>
 </head>
 <body>
-	$this->message</body>
+	2016-10-10 12:23:00<br>
+	USER NOTICE<br>
+	$this->message<br>
+	index.php<br>
+	23<br>
+</body>
 </html>
 
 EOL;
@@ -53,26 +58,22 @@ EOL;
 	 */
 	public function testGetHtml($trace)
 	{
-		$exception = $this->getMockBuilder(Exception::class)
-			->setMethods(['getTrace'])
-			->setConstructorArgs([$this->message])
+		$handler = $this->getMockBuilder(ExceptionHandler::class)
+			->setMethods(['getVars'])
 			->getMock();
 
-		$exception->expects($this->once())
-			->method('getTrace')
+		$handler->expects($this->once())
+			->method('getVars')
 			->willReturn($trace);
-
-		$handler = new ExceptionHandler;
 
 		$this->object->setTemplate('Errors/exception.phtml');
 		$this->object->setHandler($handler);
-		$renderer = new ErrorRenderer;
-		$renderer->setMessageBuilder($this->object);
 
-		$this->expectOutputString($this->html);
+		$expected = $this->html;
+		$actual = $this->object->getHtml();
 
-		$handler->attach($renderer);
-		$handler->run($exception);
+		$msg = 'ErrorBuilder::getHtml() returns wrong result!';
+		$this->assertSame($actual, $expected, $msg);
 	}
 
 	public function getHtmlProvider()
@@ -80,20 +81,28 @@ EOL;
 		return [
 			[
 				[
-					[
-						'file'     => "phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php",
-						'line'     => 844,
-						'function' => "runTest",
-						'class'    => "PHPUnit_Framework_TestCase",
-						'type'     => "->",
-						'args'     => []
+					'time'    => '2016-10-10 12:23:00',
+					'message' => $this->message,
+					'file'    => 'index.php',
+					'line'    => 23,
+					'stack'   => [
+						[
+							'file'     => "phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php",
+							'line'     => 844,
+							'function' => "runTest",
+							'class'    => "PHPUnit_Framework_TestCase",
+							'type'     => "->",
+							'args'     => []
+						],
+						[
+							'file'     => "phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php",
+							'line'     => 844,
+							'function' => "test",
+							'args'     => []
+						]
 					],
-					[
-						'file'     => "phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php",
-						'line'     => 844,
-						'function' => "test",
-						'args'     => []
-					]
+					'type'    => 1024,
+					'defined' => ['exception' => new Exception($this->message)]
 				]
 			]
 		];
