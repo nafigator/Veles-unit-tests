@@ -42,6 +42,9 @@ class CustomJsonAdapterTest extends \PHPUnit_Framework_TestCase
 		$msg = 'CustomJsonAdapter::show() wrong behavior!';
 		$this->assertAttributeSame($expected, 'variables', $this->object, $msg);
 
+		$this->expectOutputString('');
+		$this->object->show(null);
+
         $expected = '{"prop":"this is json-string"}';
 		$this->object->set($expected);
 
