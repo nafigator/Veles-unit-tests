@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\ErrorHandler\Subscribers;
 
+use Exception;
 use Veles\ErrorHandler\ExceptionHandler;
 use Veles\ErrorHandler\HtmlBuilders\ErrorBuilder;
 use Veles\ErrorHandler\Subscribers\ErrorRenderer;
@@ -33,7 +34,12 @@ class ErrorRendererTest extends \PHPUnit_Framework_TestCase
 	<title></title>
 </head>
 <body>
-	$this->message</body>
+	2016-10-10 12:23:00<br>
+	USER NOTICE<br>
+	$this->message<br>
+	index.php<br>
+	23<br>
+</body>
 </html>
 
 EOL;
@@ -48,21 +54,64 @@ EOL;
 	}
 
 	/**
-	 * @covers \Veles\ErrorHandler\Subscribers\ErrorRenderer::update
+	 * @covers       \Veles\ErrorHandler\Subscribers\ErrorRenderer::update
+	 *
+	 * @dataProvider updateProvider
+	 *
+	 * @param $vars
 	 */
-	public function testUpdate()
+	public function testUpdate($vars)
 	{
+		$handler = $this->getMockBuilder(ExceptionHandler::class)
+			->setMethods(['getVars'])
+			->getMock();
+
+		$handler->expects($this->once())
+			->method('getVars')
+			->willReturn($vars);
+
 		$builder = new ErrorBuilder;
 		$builder->setTemplate('Errors/exception.phtml');
 
-		$exception = new \Exception($this->message);
-		$handler = new ExceptionHandler;
+		$exception = new Exception($this->message);
 		$handler->run($exception);
 
 		$this->expectOutputString($this->html);
 
 		$this->object->setMessageBuilder($builder);
 		$this->object->update($handler);
+	}
+
+	public function updateProvider()
+	{
+		return [
+			[
+				[
+					'time'    => '2016-10-10 12:23:00',
+					'message' => $this->message,
+					'file'    => 'index.php',
+					'line'    => 23,
+					'stack'   => [
+						[
+							'file'     => "phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php",
+							'line'     => 844,
+							'function' => "runTest",
+							'class'    => "PHPUnit_Framework_TestCase",
+							'type'     => "->",
+							'args'     => []
+						],
+						[
+							'file'     => "phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php",
+							'line'     => 844,
+							'function' => "test",
+							'args'     => []
+						]
+					],
+					'type'    => 1024,
+					'defined' => ['exception' => new Exception($this->message)]
+				]
+			]
+		];
 	}
 
 	/**

@@ -54,9 +54,9 @@ EOL;
 	 *
 	 * @dataProvider getHtmlProvider
 	 *
-	 * @param $trace
+	 * @param $vars
 	 */
-	public function testGetHtml($trace)
+	public function testGetHtml($vars)
 	{
 		$handler = $this->getMockBuilder(ExceptionHandler::class)
 			->setMethods(['getVars'])
@@ -64,7 +64,7 @@ EOL;
 
 		$handler->expects($this->once())
 			->method('getVars')
-			->willReturn($trace);
+			->willReturn($vars);
 
 		$this->object->setTemplate('Errors/exception.phtml');
 		$this->object->setHandler($handler);
