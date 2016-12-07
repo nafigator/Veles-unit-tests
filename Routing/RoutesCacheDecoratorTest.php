@@ -103,6 +103,9 @@ class RoutesCacheDecoratorTest extends \PHPUnit_Framework_TestCase
 					'route' => '/user',
 				],
 			],
+			'fake-route' => [
+				'Key'  => 'value'
+			]
 		];
 
 		$msg = 'RoutesCacheDecorator::getData returns wrong result!';

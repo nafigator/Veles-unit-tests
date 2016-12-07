@@ -92,6 +92,9 @@ class RoutesConfigTest extends \PHPUnit_Framework_TestCase
 					'route' => '/user',
 				],
 			],
+			'fake-route' => [
+				'Key'  => 'value'
+			]
 		];
 		$actual = $this->object->getData();
 		$msg = 'RoutesConfig::getData() returns wrong value!';

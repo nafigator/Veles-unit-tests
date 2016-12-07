@@ -83,6 +83,9 @@ class IniConfigLoaderTest extends \PHPUnit_Framework_TestCase
 					'route' => '/user',
 				],
 			],
+			'fake-route' => [
+				'Key'  => 'value'
+			]
 		];
 
 		$actual = $this->object->load();
