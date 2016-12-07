@@ -2,6 +2,7 @@
 namespace Veles\Tests\ErrorHandler\Subscribers;
 
 use Exception;
+use Tests\ErrorHandler\Subscribers\UpdateTestHandler;
 use Veles\ErrorHandler\ExceptionHandler;
 use Veles\ErrorHandler\HtmlBuilders\ErrorBuilder;
 use Veles\ErrorHandler\Subscribers\ErrorRenderer;
@@ -43,14 +44,6 @@ class ErrorRendererTest extends \PHPUnit_Framework_TestCase
 </html>
 
 EOL;
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
 	}
 
 	/**
@@ -112,6 +105,16 @@ EOL;
 				]
 			]
 		];
+	}
+
+	public function testUpdateNull()
+	{
+		$handler  = new UpdateTestHandler;
+		$expected = null;
+		$actual   = $this->object->update($handler);
+		$msg      = 'ErrorRenderer::update() returns wrong result!';
+
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**

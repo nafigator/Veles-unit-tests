@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\ErrorHandler\Subscribers;
 
+use Tests\ErrorHandler\Subscribers\UpdateTestHandler;
 use Veles\ErrorHandler\ExceptionHandler;
 use Veles\ErrorHandler\HtmlBuilders\ErrorBuilder;
 use Veles\ErrorHandler\Subscribers\EmailNotifier;
@@ -47,6 +48,16 @@ class EmailNotifierTest extends \PHPUnit_Framework_TestCase
 		$handler->run($exception);
 
 		$stub->update($handler);
+	}
+
+	public function testUpdateNull()
+	{
+		$handler  = new UpdateTestHandler;
+		$expected = null;
+		$actual   = $this->object->update($handler);
+		$msg      = 'ErrorRenderer::update() returns wrong result!';
+
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**
