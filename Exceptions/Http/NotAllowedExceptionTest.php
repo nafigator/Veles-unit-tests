@@ -1,6 +1,8 @@
 <?php
 namespace Veles\Tests\Exceptions\Http;
 
+use Tests\Controllers\RestApiExampleController;
+use Veles\Application\Application;
 use Veles\Exceptions\Http\NotAllowedException;
 
 /**
@@ -9,24 +11,29 @@ use Veles\Exceptions\Http\NotAllowedException;
  */
 class NotAllowedExceptionTest extends \PHPUnit_Framework_TestCase
 {
+	public function tearDown()
+	{
+		unset($_SERVER['REQUEST_METHOD']);
+	}
+
 	public function testConstruct()
 	{
-		//new NotAllowedException(new Device);
-		//$msg = 'NotAllowedException::__construct() wrong behavior!';
-		//$this->assertSame(405, http_response_code(), $msg);
-		//
-		//$expected = 'Allowed: POST';
-		//$result   = '';
-		//
-		//foreach (xdebug_get_headers() as $header) {
-		//	if (strstr($header, 'Allowed:')) {
-		//		$result = $header;
-		//		break;
-		//	}
-		//}
-		//
-		//$this->assertSame($expected, $result, $msg);
+		$_SERVER['REQUEST_METHOD'] = 'HEAD';
 
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		new NotAllowedException(new RestApiExampleController(new Application));
+		$msg = 'NotAllowedException::__construct() wrong behavior!';
+		$this->assertSame(405, http_response_code(), $msg);
+
+		$expected = 'Allowed: GET, POST, PUT, DELETE';
+		$actual   = '';
+
+		foreach (xdebug_get_headers() as $header) {
+			if (strstr($header, 'Allowed:')) {
+				$actual = $header;
+				break;
+			}
+		}
+
+		$this->assertSame($expected, $actual, $msg);
 	}
 }
