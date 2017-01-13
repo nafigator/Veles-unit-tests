@@ -140,4 +140,60 @@ class RoutesCacheDecoratorTest extends \PHPUnit_Framework_TestCase
 		$msg = 'RoutesCacheDecorator::setPrefix() wrong behavior!';
 		$this->assertAttributeSame($expected, 'prefix', $this->object, $msg);
 	}
+
+	/**
+	 * @covers       \Veles\Routing\RoutesCacheDecorator::getSection
+	 *
+	 * @dataProvider getSectionProvider
+	 *
+	 * @param $name
+	 * @param $expected
+	 */
+	public function testGetSection($name, $expected)
+	{
+		$actual = $this->object->getSection($name);
+//var_export($actual);exit;
+		$msg = 'RoutesCacheDecorator::setPrefix() wrong behavior!';
+		$this->assertSame($expected, $actual, $msg);
+	}
+
+	public function getSectionProvider()
+	{
+		return [
+			[
+				'',
+				[
+					'Home'  => [
+						'class'      => 'Veles\\Routing\\RouteStatic',
+						'view'       => 'Veles\\View\\Adapters\\NativeAdapter',
+						'route'      => '/',
+						'tpl'        => 'Frontend/index.phtml',
+						'controller' => 'Frontend\\Home',
+						'action'     => 'index',
+					],
+					'Home1' => [
+						'class'      => 'Veles\\Routing\\RouteStatic',
+						'view'       => 'Veles\\View\\Adapters\\NativeAdapter',
+						'route'      => '/index.html',
+						'tpl'        => 'Frontend/index.phtml',
+						'controller' => 'Frontend\\Home',
+						'action'     => 'index',
+					],
+				]
+			],
+			[
+				'page',
+				[
+					'Home2' => [
+						'class'      => 'Veles\\Routing\\RouteRegex',
+						'view'       => 'Veles\\View\\Adapters\\NativeAdapter',
+						'route'      => '#^\\/page\\/(?<page>\\d+)$#',
+						'tpl'        => 'Frontend/index.phtml',
+						'controller' => 'Frontend\\Home',
+						'action'     => 'index',
+					],
+				]
+			]
+		];
+	}
 }
