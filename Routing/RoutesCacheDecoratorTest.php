@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\Routing;
 
+use Veles\Cache\Cache;
 use Veles\Routing\IniConfigLoader;
 use Veles\Routing\RoutesCacheDecorator;
 use Veles\Routing\RoutesConfig;
@@ -36,6 +37,7 @@ class RoutesCacheDecoratorTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
+		Cache::del('VELES-UNIT-TESTS::ROUTES-CONFIG');
 	}
 
 	public function testConstruct()
@@ -151,9 +153,13 @@ class RoutesCacheDecoratorTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetSection($name, $expected)
 	{
+		$msg = 'RoutesCacheDecorator::getSection() wrong behavior!';
+
+		// test without cache
 		$actual = $this->object->getSection($name);
-//var_export($actual);exit;
-		$msg = 'RoutesCacheDecorator::setPrefix() wrong behavior!';
+		$this->assertSame($expected, $actual, $msg);
+		// test with cache
+		$actual = $this->object->getSection($name);
 		$this->assertSame($expected, $actual, $msg);
 	}
 
