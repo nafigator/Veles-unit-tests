@@ -38,6 +38,7 @@
 			<!--<directory suffix=".php">../Form</directory>-->
 			<directory suffix=".php">../Helpers</directory>
 			<directory suffix=".php">../Model</directory>
+			<directory suffix=".php">../Request</directory>
 			<directory suffix=".php">../Routing</directory>
 			<directory suffix=".php">../Tools</directory>
 			<directory suffix=".php">../Traits</directory>
