@@ -21,7 +21,6 @@
 namespace Veles\Tests;
 
 use Veles\AutoLoader;
-use Veles\Cache\Adapters\MemcacheAdapter;
 use Veles\Cache\Adapters\MemcachedAdapter;
 use Veles\Cache\Adapters\MemcacheRaw;
 use Veles\Cache\Cache;
@@ -50,5 +49,4 @@ View::setAdapter($view_adapter);
 // Cache initialization
 MemcacheRaw::setConnectionParams('localhost', 11211);
 MemcachedAdapter::addCall('addServer', ['localhost', 11211]);
-MemcacheAdapter::addCall('addServer', ['localhost', 11211]);
 Cache::setAdapter(MemcachedAdapter::instance());
