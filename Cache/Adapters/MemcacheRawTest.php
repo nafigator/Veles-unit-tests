@@ -12,12 +12,23 @@ use Veles\Cache\Cache;
  */
 class MemcacheRawTest extends \PHPUnit_Framework_TestCase
 {
+	protected static $tpl;
+
 	/**
 	 * Cache adapter can be reset in other tests
 	 */
 	public static function setUpBeforeClass()
 	{
 		Cache::setAdapter(MemcachedAdapter::instance());
+
+		$prefix = uniqid();
+		self::$tpl = uniqid("$prefix::VELES::UNIT-TEST::");
+		Cache::set(self::$tpl, uniqid(), 10);
+	}
+
+	public static function tearDownAfterClass()
+	{
+		Cache::del(self::$tpl);
 	}
 
 	/**
@@ -116,35 +127,32 @@ class MemcacheRawTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testDelByTemplate()
 	{
-		$keys   = [];
-		$prefix = uniqid();
+		$keys     = [];
+		$postfix  = uniqid();
+		$template = "VELES::UNIT-TEST::$postfix::";
 
 		for ($i = 0; $i < 5; ++$i) {
-			$key    = uniqid("VELES::UNIT-TEST::$prefix::");
-			$value  = uniqid();
-			Cache::set($key, $value, 10);
+			$key    = uniqid($template);
+			Cache::set($key, uniqid(), 10);
 			$keys[] = $key;
 		}
 
-		$template = "VELES::UNIT-TEST::$prefix::";
-
 		$object = new MemcacheRaw;
-
 		$result = $object->delByTemplate($template);
 
 		$msg = 'MemcacheRaw::delByTemplate return wrong result!';
 		$this->assertTrue($result instanceof MemcacheRaw, $msg);
 
-		$expected = $result = false;
+		$expected = $actual = false;
 		foreach ($keys as $key) {
 			if (Cache::has($key)) {
-				$result = true;
+				$actual = true;
 				break;
 			}
 		}
 
 		$msg = 'MemcacheRaw::delByTemplate malfunction!';
-		$this->assertSame($expected, $result, $msg);
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**
