@@ -62,6 +62,8 @@ class PhpFiltersTest extends \PHPUnit_Framework_TestCase
 	 * @covers       \Veles\Request\Validator\PhpFilters::check
 	 * @covers       \Veles\Request\Validator\PhpFilters::processResult
 	 * @covers       \Veles\Request\Validator\PhpFilters::checkField
+	 * @covers       \Veles\Request\Validator\PhpFilters::buildRequiredError
+	 * @covers       \Veles\Request\Validator\PhpFilters::buildNotValidError
 	 *
 	 * @dataProvider checkProvider
 	 *
