@@ -151,7 +151,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 		$user->id = 1;
 
 		return [
-			[1, "
+			[[1], "
 			DELETE FROM
 				\"users\"
 			WHERE
@@ -162,24 +162,8 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 				\"users\"
 			WHERE
 				id IN (1,2,3)
-		", $user],
-			[null, "
-			DELETE FROM
-				\"users\"
-			WHERE
-				id IN (1)
-		", $user],
+		", $user]
 		];
-	}
-
-	/**
-	 * @expectedException \Exception
-	 * @expectedExceptionMessage Not found model id!
-	 */
-	public function testDeleteException()
-	{
-		$user = new User;
-		$this->object->delete($user, false);
 	}
 
 	/**

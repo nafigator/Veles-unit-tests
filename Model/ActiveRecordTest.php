@@ -40,6 +40,14 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 		DbCopy::unsetAdapter();
 	}
 
+	public function testConstruct()
+	{
+		$expected = new QueryBuilder;
+
+		$msg = 'ActiveRecord::__construct() wrong behavior!';
+		$this->assertAttributeEquals($expected, 'builder', $this->object, $msg);
+	}
+
 	/**
 	 * @covers \Veles\Model\ActiveRecord::getMap
 	 */
@@ -233,6 +241,17 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 		$result = $news->delete();
 		$msg = 'ActiveRecord::delete() returns wrong result!';
 		$this->assertSame($expected, $result, $msg);
+	}
+
+	/**
+	 * @covers \Veles\Model\ActiveRecord::delete
+	 *
+	 * @expectedException \Exception
+	 * @expectedExceptionMessage Not found model id!
+	 */
+	public function testDeleteException()
+	{
+		(new News)->delete();
 	}
 
 	/**
