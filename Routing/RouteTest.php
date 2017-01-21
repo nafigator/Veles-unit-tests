@@ -57,7 +57,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers       \Veles\Routing\Route::isAjax
-	 * @covers       \Veles\Routing\Route::checkAjax
 	 * @covers       \Veles\Routing\Route::parseUri
 	 *
 	 * @dataProvider isAjaxProvider
@@ -89,28 +88,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 			[['/', ''], false],
 			[['/contacts', 'contacts'], true]
 		];
-	}
-
-	/**
-	 * @covers \Veles\Routing\Route::checkAjax
-	 * @expectedException Exception
-	 * @expectedExceptionMessage AJAX-route got non-AJAX request!
-	 */
-	public function testCheckAjaxException()
-	{
-		$this->object->method('parseUri')->willReturn(['/contacts', 'contacts']);
-		$this->object->init();
-	}
-
-	/**
-	 * @covers \Veles\Routing\Route::checkAjax
-	 */
-	public function testCheckAjaxReturnCase()
-	{
-		$_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
-
-		$this->object->method('parseUri')->willReturn(['/contacts', 'contacts']);
-		$this->object->init();
 	}
 
 	/**

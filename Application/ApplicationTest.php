@@ -16,6 +16,7 @@ namespace Veles\Tests\Application;
 use PHPUnit_Framework_TestCase;
 use Veles\Application\Application;
 use Veles\Application\Environment;
+use Veles\Request\HttpGetRequest;
 use Veles\Routing\IniConfigLoader;
 use Veles\Routing\Route;
 use Veles\Routing\RoutesConfig;
@@ -178,6 +179,34 @@ EOF
 		$actual = $object->getEnvironment();
 
 		$msg = 'Application::getEnvironment() returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
+	}
+
+	/**
+	 * @covers \Veles\Application\Application::setRequest
+	 */
+	public function testSetRequest()
+	{
+		$expected = new HttpGetRequest;
+
+		$object = (new Application)->setRequest($expected);
+
+		$msg = 'Application::setRequest() wrong behavior!';
+		$this->assertAttributeSame($expected, 'request', $object, $msg);
+	}
+
+	/**
+	 * @covers \Veles\Application\Application::getRequest
+	 */
+	public function testGetRequest()
+	{
+		$expected = new HttpGetRequest;
+
+		$object = (new Application)->setRequest($expected);
+
+		$actual = $object->getRequest();
+
+		$msg = 'Application::getRequest() returns wrong result!';
 		$this->assertSame($expected, $actual, $msg);
 	}
 }
