@@ -61,4 +61,25 @@ class Home extends BaseController
 	{
 		$this->getApplication()->setRoute($route);
 	}
+
+	public function read()
+	{
+		$definitions = [
+			'email'    => [
+				'filter'  => FILTER_VALIDATE_EMAIL,
+				'flag'    => FILTER_REQUIRE_SCALAR,
+				'options' => ['required' => true]
+			],
+			'password' => [
+				'filter'  => FILTER_VALIDATE_REGEXP,
+				'flag'    => FILTER_REQUIRE_SCALAR,
+				'options' => [
+					'required' => true,
+					'regexp'   => '/.{6,32}/'
+				]
+			]
+		];
+
+		return $this->getData($definitions);
+	}
 }

@@ -3,6 +3,7 @@ namespace Tests\Controllers;
 
 use Controllers\Frontend\Home;
 use Veles\Application\Application;
+use Veles\Request\HttpGetRequest;
 use Veles\Routing\IniConfigLoader;
 use Veles\Routing\Route;
 use Veles\Routing\RoutesConfig;
@@ -38,6 +39,11 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 
 		$this->application = (new Application)->setRoute($this->route);
 		$this->object = new Home($this->application);
+	}
+
+	protected function tearDown()
+	{
+		unset($_POST);
 	}
 
 	/**
@@ -96,5 +102,54 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 				['book' => '575', 'user' => '82']
 			]
 		];
+	}
+
+	/**
+	 * @covers       \Veles\Controllers\BaseController::getData
+	 */
+	public function testGetData()
+	{
+		$_POST       = [
+			'email'    => 'mail@mail.ru',
+			'password' => 'superpass'
+		];
+		$definitions = [
+			'email'    => [
+				'filter'  => FILTER_VALIDATE_EMAIL,
+				'flag'    => FILTER_REQUIRE_SCALAR,
+				'options' => ['required' => true]
+			],
+			'password' => [
+				'filter'  => FILTER_VALIDATE_REGEXP,
+				'flag'    => FILTER_REQUIRE_SCALAR,
+				'options' => [
+					'required' => true,
+					'regexp'   => '/.{6,32}/'
+				]
+			]
+		];
+		$expected    = [
+			[
+				'email'    => 'mail@mail.ru',
+				'password' => 'superpass'
+			]
+		];
+
+		$request = $this->getMockBuilder(HttpGetRequest::class)
+			->setMethods(['getData'])
+			->getMock();
+
+		$request->expects($this->once())
+			->method('getData')
+			->with($definitions)
+			->willReturn($expected);
+
+		$this->application->setRequest($request);
+
+
+		$actual = $this->object->read();
+
+		$msg = 'BaseController::getData() returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
 	}
 }
