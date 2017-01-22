@@ -85,7 +85,7 @@ class HttpPostRequestTest extends \PHPUnit_Framework_TestCase
 		$definitions1 = uniqid();
 
 		$validator1 = $this->getMockBuilder(Validator::class)
-			->setMethods(['check', 'isValid'])
+			->setMethods(['check', 'isValid', 'getData'])
 			->getMock();
 
 		$validator1->expects($this->once())
@@ -96,11 +96,15 @@ class HttpPostRequestTest extends \PHPUnit_Framework_TestCase
 			->method('isValid')
 			->willReturn(true);
 
+		$validator1->expects($this->once())
+			->method('getData')
+			->willReturn($post1);
+
 		$post2 = [uniqid()];
 		$definitions2 = uniqid();
 
 		$validator2 = $this->getMockBuilder(Validator::class)
-			->setMethods(['check', 'isValid'])
+			->setMethods(['check', 'isValid', 'getData'])
 			->getMock();
 
 		$validator2->expects($this->once())
@@ -110,6 +114,10 @@ class HttpPostRequestTest extends \PHPUnit_Framework_TestCase
 		$validator2->expects($this->once())
 			->method('isValid')
 			->willReturn(true);
+
+		$validator2->expects($this->once())
+			->method('getData')
+			->willReturn($post2);
 
 		return [
 			[

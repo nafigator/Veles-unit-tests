@@ -83,12 +83,16 @@ class HttpRequestAbstractTest extends \PHPUnit_Framework_TestCase
 		$_POST = $expected;
 
 		$validator = $this->getMockBuilder(Validator::class)
-			->setMethods(['isValid'])
+			->setMethods(['isValid', 'getData'])
 			->getMock();
 
 		$validator->expects($this->once())
 			->method('isValid')
 			->willReturn(true);
+
+		$validator->expects($this->once())
+			->method('getData')
+			->willReturn($expected);
 
 		$adapter = $this->getMockBuilder(JsonSchemaAdapter::class)
 			->setMethods(['check'])

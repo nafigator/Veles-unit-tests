@@ -164,6 +164,73 @@ class PhpFiltersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @covers       \Veles\Request\Validator\PhpFilters::getData
+	 *
+	 * @dataProvider getDataProvider
+	 *
+	 * @param $data
+	 * @param $definitions
+	 * @param $expected
+	 */
+	public function testGetData($data, $definitions, $expected)
+	{
+		$this->object->check($data, $definitions);
+
+		$actual = $this->object->getData();
+		$msg = 'PhpFilters::getData() returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
+	}
+
+	public function getDataProvider()
+	{
+		$definitions = [
+			'id'    => [
+				'filter'  => FILTER_VALIDATE_INT,
+				'flag'    => FILTER_REQUIRE_SCALAR,
+				'options' => ['required' => true]
+			],
+			'email'    => [
+				'filter'  => FILTER_VALIDATE_EMAIL,
+				'flag'    => FILTER_REQUIRE_SCALAR,
+				'options' => ['required' => true]
+			],
+			'password' => [
+				'filter'  => FILTER_VALIDATE_REGEXP,
+				'flag'    => FILTER_REQUIRE_SCALAR,
+				'options' => [
+					'required' => true,
+					'regexp'   => '/.{6,32}/'
+				]
+			],
+			'secret'   => [
+				'filter'  => FILTER_VALIDATE_REGEXP,
+				'flag'    => FILTER_REQUIRE_SCALAR,
+				'options' => [
+					'regexp' => '/.{6,32}/'
+				]
+			],
+		];
+
+		return [
+			[
+				[
+					'id'       => '1234',
+					'email'    => 'mail@mail.ru',
+					'password' => 'secret',
+					'secret'   => 'valid value'
+				],
+				$definitions,
+				[
+					'id'       => 1234,
+					'email'    => 'mail@mail.ru',
+					'password' => 'secret',
+					'secret'   => 'valid value'
+				]
+			]
+		];
+	}
+
+	/**
 	 * @covers       \Veles\Request\Validator\PhpFilters::isValid
 	 *
 	 * @dataProvider isValidProvider
