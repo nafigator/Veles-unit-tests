@@ -24,7 +24,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->object = new Validator;
 		$this->adapter = $this->getMockBuilder(JsonSchemaAdapter::class)
-			->setMethods(['addError', 'getErrors', 'check', 'isValid'])
+			->setMethods(['addError', 'getErrors', 'check', 'isValid', 'getData'])
 			->disableOriginalConstructor()
 			->getMock();
 		$this->object->setAdapter($this->adapter);
@@ -121,5 +121,21 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
 		$msg = 'Validator::setAdapter() wrong behavior!';
 		$this->assertAttributeSame($expected, 'adapter', $this->object, $msg);
+	}
+
+	/**
+	 * @covers \Veles\Request\Validator\Validator::getData
+	 */
+	public function testGetData()
+	{
+		$expected = [1,2,3];
+
+		$this->adapter->expects($this->once())
+			->method('getData')
+			->willReturn($expected);
+
+		$actual = $this->object->getData();
+		$msg = 'Validator::getData()returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
 	}
 }
