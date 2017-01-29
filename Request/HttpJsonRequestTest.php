@@ -63,10 +63,18 @@ class HttpJsonRequestTest extends \PHPUnit_Framework_TestCase
 				'options' => [
 					'regexp'   => '/^this is tests string$/'
 				]
+			],
+			'value' => [
+				'filter'  => FILTER_VALIDATE_INT,
+				'flag'    => FILTER_REQUIRE_SCALAR,
+				'options' => [
+					'min_range' => 1,
+					'max_range' => PHP_INT_MAX
+				]
 			]
 		];
-		$json = '{"message": "this is tests string"}';
-		$expected = ['message' => 'this is tests string'];
+		$json = '{"message": "this is tests string", "value": 1234}';
+		$expected = ['message' => 'this is tests string', 'value' => 1234];
 
 		$this->object = $this->getMockBuilder(HttpJsonRequest::class)
 			->setMethods(['getBody'])
