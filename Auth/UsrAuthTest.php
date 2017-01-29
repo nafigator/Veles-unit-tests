@@ -66,8 +66,8 @@ class UsrAuthTest extends \PHPUnit_Framework_TestCase
 	{
 		return [
 			[UsrGroup::ADMIN, false],
-			[UsrGroup::DELETED, false],
-			[UsrGroup::GUEST, true],
+			[UsrGroup::DELETED + UsrGroup::MANAGER, false],
+			[UsrGroup::GUEST + UsrGroup::DELETED, true],
 			[UsrGroup::MANAGER, false],
 			[UsrGroup::MODERATOR, false],
 			[UsrGroup::REGISTERED, false]
