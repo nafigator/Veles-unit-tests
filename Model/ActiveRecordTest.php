@@ -260,13 +260,12 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	public function testSetProperties()
 	{
 		$news = new News;
-		$properties = [
-			'id' => 21,
-			'title' => 'title_21',
+		$actual = $news->setProperties([
+			'id'      => 21,
+			'title'   => 'title_21',
 			'content' => 'content_21',
-			'author' => 'author_21'
-		];
-		$actual = $news->setProperties($properties);
+			'author'  => 'author_21'
+		]);
 
 		$expected = new News;
 		$expected->id = 21;
@@ -288,10 +287,10 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	public function testGetProperties()
 	{
 		$expected = [
-			'id' => '3',
-			'title' => 'title_3',
+			'id'      => '3',
+			'title'   => 'title_3',
 			'content' => 'content_3',
-			'author' => 'author_3'
+			'author'  => 'author_3'
 		];
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
@@ -306,10 +305,10 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 		$news = new News;
 		$news->getById(3);
 		$result = [
-			'id' => '',
-			'title' => '',
+			'id'      => '',
+			'title'   => '',
 			'content' => '',
-			'author' => ''
+			'author'  => ''
 		];
 		$news->getProperties($result);
 		$msg = 'ActiveRecord::getProperties() wrong behavior!';
