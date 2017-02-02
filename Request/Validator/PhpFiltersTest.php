@@ -82,23 +82,21 @@ class PhpFiltersTest extends \PHPUnit_Framework_TestCase
 	{
 		$definitions = [
 			'email' => [
-				'filter'  => FILTER_VALIDATE_EMAIL,
-				'flag'    => FILTER_REQUIRE_SCALAR,
-				'options' => ['required' => true]
+				'filter'   => FILTER_VALIDATE_EMAIL,
+				'flag'     => FILTER_REQUIRE_SCALAR,
+				'required' => true
 			],
 			'password' => [
-				'filter'  => FILTER_VALIDATE_REGEXP,
-				'flag'    => FILTER_REQUIRE_SCALAR,
-				'options' => [
-					'required' => true,
-					'regexp'   => '/.{6,32}/'
-				]
+				'filter'   => FILTER_VALIDATE_REGEXP,
+				'flag'     => FILTER_REQUIRE_SCALAR,
+				'options'  => ['regexp' => '/.{6,32}/'],
+				'required' => true
 			],
 			'secret' => [
 				'filter'  => FILTER_VALIDATE_REGEXP,
 				'flag'    => FILTER_REQUIRE_SCALAR,
 				'options' => [
-					'regexp'   => '/.{6,32}/'
+					'regexp' => '/.{6,32}/'
 				]
 			],
 		];
@@ -184,31 +182,28 @@ class PhpFiltersTest extends \PHPUnit_Framework_TestCase
 	public function getDataProvider()
 	{
 		$definitions = [
-			'id'    => [
-				'filter'  => FILTER_VALIDATE_INT,
-				'flag'    => FILTER_REQUIRE_SCALAR,
-				'options' => ['required' => true]
+			'id'       => [
+				'filter'   => FILTER_VALIDATE_INT,
+				'flag'     => FILTER_REQUIRE_SCALAR,
+				'required' => true
 			],
 			'email'    => [
-				'filter'  => FILTER_VALIDATE_EMAIL,
-				'flag'    => FILTER_REQUIRE_SCALAR,
-				'options' => ['required' => true]
+				'filter'   => FILTER_VALIDATE_EMAIL,
+				'flag'     => FILTER_REQUIRE_SCALAR,
+				'required' => true
 			],
 			'password' => [
-				'filter'  => FILTER_VALIDATE_REGEXP,
-				'flag'    => FILTER_REQUIRE_SCALAR,
-				'options' => [
-					'required' => true,
-					'regexp'   => '/.{6,32}/'
-				]
+				'filter'   => FILTER_VALIDATE_REGEXP,
+				'flag'     => FILTER_REQUIRE_SCALAR,
+				'options'  => ['regexp' => '/.{6,32}/'],
+				'required' => true
 			],
 			'secret'   => [
-				'filter'  => FILTER_VALIDATE_REGEXP,
-				'flag'    => FILTER_REQUIRE_SCALAR,
-				'options' => [
-					'regexp' => '/.{6,32}/'
-				]
-			],
+				'filter'   => FILTER_VALIDATE_REGEXP,
+				'flag'     => FILTER_REQUIRE_SCALAR,
+				'options'  => ['regexp' => '/.{6,32}/'],
+				'required' => true
+			]
 		];
 
 		return [
