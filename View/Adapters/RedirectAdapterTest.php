@@ -66,7 +66,7 @@ class RedirectAdapterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGet()
 	{
-		$expected = false;
+		$expected = '';
 		$actual = $this->object->get(null);
 
 		$msg = 'RedirectAdapter::get() wrong behavior!';
