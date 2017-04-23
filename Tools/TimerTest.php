@@ -13,7 +13,6 @@
 
 namespace Veles\Tests\Tools;
 
-use PHPUnit_Framework_TestCase;
 use ReflectionObject;
 use Veles\Tools\Timer;
 
@@ -22,7 +21,7 @@ use Veles\Tools\Timer;
  * @group timer
  * @group tools
  */
-class TimerTest extends PHPUnit_Framework_TestCase
+class TimerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Sets up the fixture, for example, opens a network connection.

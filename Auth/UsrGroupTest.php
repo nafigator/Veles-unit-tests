@@ -13,7 +13,6 @@
 
 namespace Veles\Tests\Auth;
 
-use PHPUnit_Framework_TestCase;
 use Veles\Auth\UsrGroup;
 
 /**
@@ -21,7 +20,7 @@ use Veles\Auth\UsrGroup;
  * @covers \Veles\Auth\UsrGroup
  * @group auth
  */
-class UsrGroupTest extends PHPUnit_Framework_TestCase
+class UsrGroupTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Unit-test for UsrGroup class
