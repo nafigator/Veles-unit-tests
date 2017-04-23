@@ -89,10 +89,10 @@ class TimerTest extends PHPUnit_Framework_TestCase
 		$this->assertInternalType('float', $result, $msg);
 
 		$msg = 'Wrong result of Timer::$start_time property';
-		$this->assertAttributeGreaterThan($time_before_start, 'start_time', new Timer, $msg);
+		$this->assertAttributeGreaterThanOrEqual($time_before_start, 'start_time', new Timer, $msg);
 
 		$msg = 'Wrong result of Timer::$start_time property';
-		$this->assertAttributeLessThan($time_after_start, 'start_time', new Timer, $msg);
+		$this->assertAttributeLessThanOrEqual($time_after_start, 'start_time', new Timer, $msg);
 	}
 
 	/**
