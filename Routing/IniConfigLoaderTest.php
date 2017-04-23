@@ -34,8 +34,6 @@ class IniConfigLoaderTest extends \PHPUnit_Framework_TestCase
 				'Home'  => [
 					'class'      => 'Veles\Routing\RouteStatic',
 					'view'       => 'Veles\View\Adapters\NativeAdapter',
-					'request'    => 'Veles\Request\HttpPostRequest',
-					'validator'  => 'Veles\Request\Validator\PhpFilters',
 					'route'      => '/',
 					'tpl'        => 'Frontend/index.phtml',
 					'controller' => 'Frontend\Home',
