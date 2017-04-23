@@ -27,8 +27,8 @@ class NotAllowedExceptionTest extends \PHPUnit_Framework_TestCase
 		$expected = 'Allowed: GET, POST, PUT, DELETE';
 		$actual   = '';
 
-		foreach (xdebug_get_headers() as $header) {
-			if (strstr($header, 'Allowed:')) {
+		foreach (headers_list() as $header) {
+			if (0 === strpos($header, 'Allowed:')) {
 				$actual = $header;
 				break;
 			}

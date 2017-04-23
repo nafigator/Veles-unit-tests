@@ -18,8 +18,8 @@ class UnauthorizedExceptionTest extends \PHPUnit_Framework_TestCase
 		$expected = 'WWW-Authenticate: Basic realm="Application Name"';
 		$result   = '';
 
-		foreach (xdebug_get_headers() as $header) {
-			if (strstr($header, 'WWW-Authenticate:')) {
+		foreach (headers_list() as $header) {
+			if (0 === strpos($header, 'WWW-Authenticate:')) {
 				$result = $header;
 				break;
 			}
