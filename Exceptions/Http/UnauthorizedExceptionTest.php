@@ -19,7 +19,7 @@ class UnauthorizedExceptionTest extends \PHPUnit_Framework_TestCase
 		$result   = '';
 
 		foreach (headers_list() as $header) {
-			if (0 === strpos($header, 'WWW-Authenticate:')) {
+			if (strstr($header, 'WWW-Authenticate:')) {
 				$result = $header;
 				break;
 			}

@@ -28,7 +28,7 @@ class NotAllowedExceptionTest extends \PHPUnit_Framework_TestCase
 		$actual   = '';
 
 		foreach (headers_list() as $header) {
-			if (0 === strpos($header, 'Allowed:')) {
+			if (strstr($header, 'Allowed:')) {
 				$actual = $header;
 				break;
 			}
