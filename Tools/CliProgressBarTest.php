@@ -60,8 +60,8 @@ class CliProgressBarTest extends \PHPUnit_Framework_TestCase
 		$expected = 'float';
 		$this->assertAttributeInternalType($expected, 'start_time', $this->object, $msg);
 
-		$this->assertAttributeGreaterThan($this->time_before_init, 'start_time', $this->object, $msg);
-		$this->assertAttributeLessThan($this->time_after_init, 'start_time', $this->object, $msg);
+		$this->assertAttributeGreaterThanOrEqual($this->time_before_init, 'start_time', $this->object, $msg);
+		$this->assertAttributeLessThanOrEqual($this->time_after_init, 'start_time', $this->object, $msg);
 
 		$expected = $this->getObjectAttribute($this->object, 'start_time');
 		$this->assertAttributeSame($expected, 'last_update_time', $this->object, $msg);
