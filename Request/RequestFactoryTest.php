@@ -41,9 +41,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreate($content_type, $expected)
 	{
-		$_SERVER['HTTP_CONTENT_TYPE'] = $content_type;
-
-		$actual = $this->object->create();
+		$actual = $this->object->create($content_type);
 		$msg = 'RequestFactory::create() returns wrong result!';
 		$this->assertInstanceOf($expected, $actual, $msg);
 	}
