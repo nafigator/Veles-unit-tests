@@ -50,6 +50,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 	{
 		return [
 			[null, 'Veles\Request\HttpGetRequest'],
+			['', 'Veles\Request\HttpGetRequest'],
 			['text/html', 'Veles\Request\HttpGetRequest'],
 			['text/html; charset=UTF-8', 'Veles\Request\HttpGetRequest'],
 			['application/x-www-form-urlencoded; charset=UTF-8', 'Veles\Request\HttpPostRequest'],
