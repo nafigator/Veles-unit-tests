@@ -86,8 +86,7 @@ class RestApiControllerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers \Veles\Controllers\RestApiController::post
-	 *
+	 * @covers \Veles\Controllers\RestApiController::__call()
 	 * @expectedException \Veles\Exceptions\Http\NotAllowedException
 	 */
 	public function testPost()
@@ -97,7 +96,7 @@ class RestApiControllerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers \Veles\Controllers\RestApiController::get
+	 * @covers \Veles\Controllers\RestApiController::__call()
 	 * @expectedException \Veles\Exceptions\Http\NotAllowedException
 	 */
 	public function testGet()
@@ -107,7 +106,7 @@ class RestApiControllerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers \Veles\Controllers\RestApiController::put
+	 * @covers \Veles\Controllers\RestApiController::__call()
 	 * @expectedException \Veles\Exceptions\Http\NotAllowedException
 	 */
 	public function testPut()
@@ -117,7 +116,8 @@ class RestApiControllerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers \Veles\Controllers\RestApiController::delete
+	 * @covers \Veles\Controllers\RestApiController::__call()
+	 *
 	 * @expectedException \Veles\Exceptions\Http\NotAllowedException
 	 */
 	public function testDelete()
