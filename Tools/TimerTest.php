@@ -131,9 +131,9 @@ class TimerTest extends \PHPUnit_Framework_TestCase
 		$expected = $time_after_stop - $time_before_start;
 
 		$msg = 'Timer::stop() wrong behavior!';
-		$this->assertAttributeGreaterThan($time_before_stop, 'stop_time', new Timer, $msg);
-		$this->assertAttributeLessThan($time_after_stop, 'stop_time', new Timer, $msg);
-		$this->assertAttributeLessThan($expected, 'diff', new Timer, $msg);
+		$this->assertAttributeGreaterThanOrEqual($time_before_stop, 'stop_time', new Timer, $msg);
+		$this->assertAttributeLessThanOrEqual($time_after_stop, 'stop_time', new Timer, $msg);
+		$this->assertAttributeLessThanOrEqual($expected, 'diff', new Timer, $msg);
 		$this->assertAttributeSame(0.0, 'start_time', new Timer, $msg);
 	}
 
