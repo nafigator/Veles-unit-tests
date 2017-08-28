@@ -316,6 +316,29 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @covers \Veles\Model\ActiveRecord::toArray
+	 */
+	public function testToArray()
+	{
+		$expected = [
+			'id'      => '3',
+			'title'   => 'title_3',
+			'content' => 'content_3',
+			'author'  => 'author_3'
+		];
+
+		$news = new News;
+		$news->id = '3';
+		$news->title = 'title_3';
+		$news->content = 'content_3';
+		$news->author = 'author_3';
+
+		$actual = $news->toArray();
+		$msg = 'ActiveRecord::toArray() returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
+	}
+
+	/**
 	 * @covers       \Veles\Model\ActiveRecord::find
 	 * @dataProvider findProvider
 	 *
