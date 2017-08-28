@@ -1,8 +1,6 @@
 <?php
 namespace Veles\Tests\Cache;
 
-use Veles\Cache\Adapters\ApcAdapter;
-
 /**
  * Class Cache
  *

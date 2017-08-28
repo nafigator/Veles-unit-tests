@@ -60,7 +60,7 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers       \Veles\Auth\Password::check
 	 * @dataProvider checkProvider
-	 * @see          Veles\Auth\Password::check
+	 * @see          \Veles\Auth\Password::check
 	 *
 	 * @param $user
 	 * @param $password
