@@ -88,10 +88,11 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	public function testSetWhere()
 	{
 		$where = 'where string';
-		$this->object->setWhere($where);
+		$result = $this->object->setWhere($where);
 		$expected = "WHERE $where";
 		$msg = 'Wrong DbFilter::getWhere() behavior!';
 		$this->assertAttributeSame($expected, 'where', $this->object, $msg);
+		$this->assertSame($this->object, $result);
 	}
 
 	/**
@@ -100,10 +101,11 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	public function testSetGroup()
 	{
 		$group = 'group string';
-		$this->object->setGroup($group);
+		$result = $this->object->setGroup($group);
 		$expected = "GROUP BY $group";
 		$msg = 'Wrong DbFilter::getGroup() behavior!';
 		$this->assertAttributeSame($expected, 'group', $this->object, $msg);
+		$this->assertSame($this->object, $result);
 	}
 
 	/**
@@ -112,10 +114,11 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	public function testSetHaving()
 	{
 		$having = 'having string';
-		$this->object->setHaving($having);
+		$result = $this->object->setHaving($having);
 		$expected = "HAVING $having";
 		$msg = 'Wrong DbFilter::getHaving() behavior!';
 		$this->assertAttributeSame($expected, 'having', $this->object, $msg);
+		$this->assertSame($this->object, $result);
 	}
 
 	/**
@@ -124,9 +127,10 @@ class DbFilterTest extends \PHPUnit_Framework_TestCase
 	public function testSetOrder()
 	{
 		$order = 'order string';
-		$this->object->setOrder($order);
+		$result = $this->object->setOrder($order);
 		$expected = "ORDER BY $order";
 		$msg = 'Wrong DbFilter::getOrder() behavior!';
 		$this->assertAttributeSame($expected, 'order', $this->object, $msg);
+		$this->assertSame($this->object, $result);
 	}
 }
