@@ -45,6 +45,7 @@ class ViewAdapterAbstractChild extends ViewAdapterAbstract
 	 */
 	public function get($path)
 	{
+		return '';
 	}
 
 	/**
@@ -55,6 +56,7 @@ class ViewAdapterAbstractChild extends ViewAdapterAbstract
 	 */
 	public function isCached($tpl)
 	{
+		return true;
 	}
 
 	public function addCalls($calls)
