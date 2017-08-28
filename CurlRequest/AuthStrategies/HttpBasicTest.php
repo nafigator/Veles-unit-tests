@@ -107,10 +107,13 @@ class HttpBasicTest extends \PHPUnit_Framework_TestCase
 		$expected = ["Authorization: Basic $hash"];
 
 		$request = new CurlRequest($url);
-		$this->object->apply($request);
+		$result = $this->object->apply($request);
 
 		$actual = $request->getHeaders();
 		$msg = 'HttpBasic::apply() wrong behavior!';
 		$this->assertSame($expected, $actual, $msg);
+
+		$msg = 'HttpBasic::apply() returns wrong result!';
+		$this->assertSame($this->object, $result, $msg);
 	}
 }
