@@ -112,12 +112,13 @@ class MemcacheRawTest extends \PHPUnit_Framework_TestCase
 		Cache::set($key, $value, 10);
 
 		$object = new MemcacheRawChild;
+		$result = $object->command("delete $key");
 
-		$object->command("delete $key");
-
-		$result = Cache::has($key);
-		$msg = 'MemcacheRaw::command malfunction!';
-		$this->assertSame(false, $result, $msg);
+		$actual = Cache::has($key);
+		$msg = 'MemcacheRaw::command() malfunction!';
+		$this->assertSame(false, $actual, $msg);
+		$msg = 'MemcacheRaw::command() returns wrong result!';
+		$this->assertSame("DELETED\r\n", $result, $msg);
 	}
 
 	/**
