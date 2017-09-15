@@ -38,7 +38,7 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 		$this->route->setConfigHandler($config);
 
 		$this->application = (new Application)->setRoute($this->route);
-		$this->object = new Home($this->application);
+		$this->object = (new Home)->setApplication($this->application);
 	}
 
 	protected function tearDown()
@@ -48,7 +48,6 @@ class BaseControllerTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers \Veles\Controllers\BaseController::getApplication
-	 * @covers \Veles\Controllers\BaseController::__construct
 	 */
 	public function testGetApplication()
 	{

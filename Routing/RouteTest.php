@@ -95,29 +95,13 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetController()
 	{
-		$route = $this->getMockBuilder('\Veles\Routing\Route')
-			->setMethods(['parseUri'])
-			->getMock();
-
-		$config = new RoutesConfig(
-			new IniConfigLoader(TEST_DIR . '/Project/routes.ini')
-		);
-		$route->method('parseUri')->willReturn(['/', '']);
-		$route->setConfigHandler($config)->init();
-		$application = (new Application)->setRoute($route);
-
 		$this->object->method('parseUri')->willReturn(['/', '']);
 
-		$expected = $controller = new Home($application);
-		$result = $this->object->init()->getController($application);
+		$expected = $controller = new Home;
+		$result = $this->object->init()->getController();
 
 		$msg = 'Route::getController() returns wrong result!';
 		$this->assertEquals($expected, $result, $msg);
-
-		$result = $controller->getRoute();
-		$expected = $route;
-		$msg = 'Route::getController() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
 	}
 
 	/**
