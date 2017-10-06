@@ -7,6 +7,7 @@ readonly UNIT_TESTS_DIR='/home/alex/veles/Tests'
 readonly CLASS_EXTENSION='.php'
 readonly VERSION='0.0.6'
 readonly CURRENT_DIR=$(pwd)
+readonly TEST_CASE_NAMESPACE='PHPUnit\Framework\TestCase'
 
 usage_help() {
 	print_version
@@ -240,6 +241,13 @@ perl -pi -e "${group_regex}" "${RELATIVE_TEST_PATH}"
 debug "Create class alias"
 readonly alias_regex=$(printf "%s %q%s" 's=(namespace .*;)\s=\1\n\nuse' "${FULL_CLASS_NAME}" ';\n=')
 perl -pi -e "${alias_regex}" "${RELATIVE_TEST_PATH}"
+
+debug "Change base class"
+perl -pi -e 's/\\PHPUnit_Framework_TestCase/TestCase/' "${RELATIVE_TEST_PATH}"
+
+debug "Add phpunit TestCase alias"
+readonly test_case_regex=$(printf "%s %q%s" 's=(namespace .*;)\s=\1\n\nuse' "${TEST_CASE_NAMESPACE}" ';=')
+perl -pi -e "${test_case_regex}" "${RELATIVE_TEST_PATH}"
 
 debug "Open tests dir ${UNIT_TESTS_DIR}"
 cd ${UNIT_TESTS_DIR} >/dev/null 2>&1
