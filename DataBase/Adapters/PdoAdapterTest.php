@@ -111,23 +111,29 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 	 * @covers       \Veles\DataBase\Adapters\PdoAdapter::value
 	 * @covers       \Veles\DataBase\Adapters\PdoAdapter::prepare
 	 * @covers       \Veles\DataBase\Adapters\PdoAdapter::bindParams
-	 *
-	 * @dataProvider valueProvider
-	 *
-	 * @param $stmt
-	 * @param $expected
-	 * @param $params
-	 * @param $types
 	 */
-	public function testValue($stmt, $expected, $params, $types)
+	public function testValue()
 	{
+		$expected = 100;
+		$params = [];
+		$types = null;
+
+		$stmt1 = $this->getMockBuilder(PDOStatement::class)
+			->setMethods(['fetchColumn'])
+			->getMock();
+		$stmt1->expects($this->once())
+			->method('fetchColumn')
+			->willReturn($expected);
+
+
+
 		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
 			->getMock();
 		$resource->expects($this->once())
 			->method('prepare')
-			->willReturn($stmt);
+			->willReturn($stmt1);
 
 		$conn = $this->getMockBuilder(PdoConnection::class)
 			->setConstructorArgs(['master'])
@@ -151,16 +157,16 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($expected, $actual, $msg);
 	}
 
-	public function valueProvider()
+	/**
+	 * @covers       \Veles\DataBase\Adapters\PdoAdapter::value
+	 * @covers       \Veles\DataBase\Adapters\PdoAdapter::prepare
+	 * @covers       \Veles\DataBase\Adapters\PdoAdapter::bindParams
+	 */
+	public function testValue1()
 	{
 		$expected = 100;
-
-		$stmt1 = $this->getMockBuilder(PDOStatement::class)
-			->setMethods(['fetchColumn'])
-			->getMock();
-		$stmt1->expects($this->once())
-			->method('fetchColumn')
-			->willReturn($expected);
+		$params = [200, 'string'];
+		$types = 'is';
 
 		$stmt2 = $this->getMockBuilder(PDOStatement::class)
 			->setMethods(['fetchColumn', 'bindValue'])
@@ -176,10 +182,34 @@ class PdoAdapterTest extends \PHPUnit_Framework_TestCase
 			)
 			->willReturn($expected);
 
-		return [
-			[$stmt1, $expected, [], null],
-			[$stmt2, $expected, [200, 'string'], 'is']
-		];
+		$resource = $this->getMockBuilder(PDO::class)
+			->disableOriginalConstructor()
+			->setMethods(['prepare'])
+			->getMock();
+		$resource->expects($this->once())
+			->method('prepare')
+			->willReturn($stmt2);
+
+		$conn = $this->getMockBuilder(PdoConnection::class)
+			->setConstructorArgs(['master'])
+			->setMethods(['getResource'])
+			->getMock();
+		$conn->expects($this->once())
+			->method('getResource')
+			->willReturn($resource);
+
+		$pool = $this->getMockBuilder(ConnectionPool::class)
+			->setMethods(['getConnection'])
+			->getMock();
+		$pool->expects($this->once())
+			->method('getConnection')
+			->willReturn($conn);
+
+		$this->object->setPool($pool);
+
+		$actual = $this->object->value('sql query', $params, $types);
+		$msg = 'PdoAdapter::value() returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
 	}
 
 	/**
