@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\View\Adapters;
 
+use PHPUnit\Framework\TestCase;
 use Veles\View\Adapters\SmartyAdapter;
 
 include_once 'Smarty/Smarty.class.php';
@@ -10,7 +11,7 @@ include_once 'Smarty/Smarty.class.php';
  *
  * @group view
  */
-class SmartyAdapterTest extends \PHPUnit_Framework_TestCase
+class SmartyAdapterTest extends TestCase
 {
 	/**
 	 * @var SmartyAdapter

@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\CurlRequest;
 
+use PHPUnit\Framework\TestCase;
 use Veles\CurlRequest\AuthStrategies\HttpBasic;
 use Veles\CurlRequest\CurlRequest;
 
@@ -15,7 +16,7 @@ require_once 'curl_exec.php';
  *
  * @group curl-request
  */
-class CurlRequestTest extends \PHPUnit_Framework_TestCase
+class CurlRequestTest extends TestCase
 {
 	/**
 	 * @var CurlRequest

@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use Veles\Auth\UsrGroup;
 use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Db;
@@ -12,7 +13,7 @@ use Veles\Tests\DataBase\DbCopy;
  *
  * @group model
  */
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends TestCase
 {
 	/**
 	 * @var User

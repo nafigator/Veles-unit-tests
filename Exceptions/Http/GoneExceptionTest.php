@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\Exceptions\Http;
 
+use PHPUnit\Framework\TestCase;
 use Veles\Exceptions\Http\GoneException;
 
 /**
@@ -8,7 +9,7 @@ use Veles\Exceptions\Http\GoneException;
  *
  * @group exceptions
  */
-class GoneExceptionTest extends \PHPUnit_Framework_TestCase
+class GoneExceptionTest extends TestCase
 {
 	public function testConstruct()
 	{

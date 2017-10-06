@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Db;
 use Veles\DataBase\DbFilter;
@@ -15,7 +16,7 @@ use Veles\Tests\DataBase\DbCopy;
  *
  * @group model
  */
-class ActiveRecordTest extends \PHPUnit_Framework_TestCase
+class ActiveRecordTest extends TestCase
 {
 	/**
 	 * @var ActiveRecord

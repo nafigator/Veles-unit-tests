@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\CurlRequest;
 
+use PHPUnit\Framework\TestCase;
 use Veles\CurlRequest\PostCurlRequest;
 
 /**
@@ -8,7 +9,7 @@ use Veles\CurlRequest\PostCurlRequest;
  *
  * @group curl-request
  */
-class PostCurlRequestTest extends \PHPUnit_Framework_TestCase
+class PostCurlRequestTest extends TestCase
 {
 	/**
 	 * @var PostCurlRequest

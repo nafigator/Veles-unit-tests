@@ -2,6 +2,7 @@
 namespace Veles\Tests\DataBase\Adapters;
 
 use PDOStatement;
+use PHPUnit\Framework\TestCase;
 use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\ConnectionPools\ConnectionPool;
 use Veles\DataBase\Connections\PdoConnection;
@@ -14,7 +15,7 @@ use \PDO;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class PdoAdapterTest extends \PHPUnit_Framework_TestCase
+class PdoAdapterTest extends TestCase
 {
 	/**
 	 * @var PdoAdapter

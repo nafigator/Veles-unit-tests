@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use Veles\Auth\UsrGroup;
 use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Db;
@@ -14,7 +15,7 @@ use Veles\Model\User;
  *
  * @group model
  */
-class QueryBuilderTest extends \PHPUnit_Framework_TestCase
+class QueryBuilderTest extends TestCase
 {
 	/**
 	 * @var QueryBuilder

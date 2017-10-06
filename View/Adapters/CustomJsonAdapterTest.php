@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\View\Adapters;
 
+use PHPUnit\Framework\TestCase;
 use Veles\View\Adapters\CustomJsonAdapter;
 
 /**
@@ -8,7 +9,7 @@ use Veles\View\Adapters\CustomJsonAdapter;
  *
  * @group view
  */
-class CustomJsonAdapterTest extends \PHPUnit_Framework_TestCase
+class CustomJsonAdapterTest extends TestCase
 {
 	/**
 	 * @var CustomJsonAdapter

@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\CurlRequest;
 
+use PHPUnit\Framework\TestCase;
 use Veles\CurlRequest\CurlRequest;
 
 require_once 'curl_errno.php';
@@ -12,7 +13,7 @@ require_once 'curl_getinfo.php';
  *
  * @group curl-request
  */
-class CurlAbstractTest extends \PHPUnit_Framework_TestCase
+class CurlAbstractTest extends TestCase
 {
 	/**
 	 * @var CurlRequest

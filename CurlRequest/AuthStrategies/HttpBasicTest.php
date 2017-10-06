@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\CurlRequest;
 
+use PHPUnit\Framework\TestCase;
 use Veles\CurlRequest\AuthStrategies\HttpBasic;
 use Veles\CurlRequest\CurlRequest;
 
@@ -9,7 +10,7 @@ use Veles\CurlRequest\CurlRequest;
  *
  * @group curl-request
  */
-class HttpBasicTest extends \PHPUnit_Framework_TestCase
+class HttpBasicTest extends TestCase
 {
 	/**
 	 * @var HttpBasic
