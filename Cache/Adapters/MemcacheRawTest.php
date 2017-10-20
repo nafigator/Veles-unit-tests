@@ -4,7 +4,6 @@ namespace Veles\Tests\Cache\Adapters;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use Veles\Cache\Adapters\MemcacheRaw;
-use Veles\Cache\Cache;
 
 require_once 'fsockopen_stub.php';
 require_once 'fclose_stub.php';
@@ -17,29 +16,6 @@ require_once 'fwrite_stub.php';
  */
 class MemcacheRawTest extends TestCase
 {
-	protected static $tpl;
-
-	/**
-	 * Cache adapter can be reset in other tests
-	 */
-	public static function setUpBeforeClass()
-	{
-
-	}
-
-	public static function tearDownAfterClass()
-	{
-		//Cache::del(self::$tpl);
-	}
-
-	/**
-	 * Restore correct memcache settings for next tests
-	 */
-	public function tearDown()
-	{
-		//MemcacheRaw::setConnectionParams('localhost', 11211);
-	}
-
 	/**
 	 * @covers \Veles\Cache\Adapters\MemcacheRaw::__construct
 
