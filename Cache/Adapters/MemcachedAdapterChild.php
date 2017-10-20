@@ -5,16 +5,8 @@ use Veles\Cache\Adapters\MemcachedAdapter;
 
 class MemcachedAdapterChild extends MemcachedAdapter
 {
-	public function getDriverForTest()
+	public function __construct($driver)
 	{
-		return $this->driver;
-	}
-
-	/**
-	 * @return MemcachedAdapterChild
-	 */
-	public static function getTestInstance()
-	{
-		return new self;
+		$this->driver = $driver;
 	}
 }

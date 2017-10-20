@@ -71,9 +71,40 @@ function fgets($handle)
 		}
 
 		return false;
+	} elseif ($handle['host'] === 'VELES_UNIT_TEST_MEMCACHED_ADAPTER') {
+		static $adapter;
+
+		if (null === $adapter) {
+			$adapter = 0;
+		}
+
+		++$adapter;
+
+		switch ($adapter) {
+			case 1:
+				return "STAT items:3:number 5\r\n";
+			case 2:
+				return "STAT items:3:age 0\r\n";
+			case 3:
+				return "STAT items:3:evicted 0\r\n";
+			case 4:
+				return "STAT items:3:evicted_nonzero 0\r\n";
+			case 5:
+				return false;
+			case 6:
+				return "ITEM VELES::UNIT-TEST::59ea1be2795cd::59ea1be279a8a [13 b; 1508514796 s]\r\n";
+			case 7:
+				return "ITEM VELES::UNIT-TEST::59ea1be2795cd::59ea1be2799a8 [13 b; 1508514796 s]\r\n";
+			case 8:
+				return "ITEM VELES::UNIT-TEST::59ea1be2795cd::59ea1be279903 [13 b; 1508514796 s]\r\n";
+			case 9:
+				return "ITEM VELES::UNIT-TEST::49ea1be2795cd::59ea1be279903 [13 b; 1508514796 s]\r\n";
+			case 10:
+				return false;
+		}
+
+		return false;
 	}
-
-
 
 	return true;
 }
