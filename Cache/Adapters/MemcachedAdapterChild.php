@@ -9,4 +9,9 @@ class MemcachedAdapterChild extends MemcachedAdapter
 	{
 		$this->driver = $driver;
 	}
+
+	public static function unsetInstance()
+	{
+		static::$instance = null;
+	}
 }

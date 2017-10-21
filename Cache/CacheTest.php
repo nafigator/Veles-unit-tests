@@ -22,7 +22,7 @@ class CacheTest extends TestCase
 {
 	public static function setUpBeforeClass()
 	{
-		MemcachedAdapter::unsetInstance();
+		MemcachedAdapterChild::unsetInstance();
 	}
 
 	/**
