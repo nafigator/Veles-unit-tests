@@ -1,7 +1,6 @@
 <?php
 namespace Veles\Tests\Cache\Adapters;
 
-use Exception;
 use Memcached;
 use PHPUnit\Framework\TestCase;
 use Veles\Cache\Adapters\MemcachedAdapter;
@@ -23,9 +22,10 @@ class MemcachedAdapterTest extends TestCase
 	 */
 	protected $object;
 
-	public static function tearDownAfterClass()
+	public static function setUpBeforeClass()
 	{
-		//MemcacheRaw::setConnectionParams('localhost', 11211);
+		MemcachedAdapter::unsetInstance();
+		MemcachedAdapter::addCall('addServer', ['localhost', 11211]);
 	}
 
 	/**
