@@ -9,6 +9,11 @@ use PHPUnit\Framework\TestCase;
  */
 class CacheAdapterAbstractTest extends TestCase
 {
+	public static function tearDownAfterClass()
+	{
+		CacheAdapterAbstractChild::addCalls([]);
+	}
+
 	/**
 	 * @covers \Veles\Cache\Adapters\CacheAdapterAbstract::setDriver
 	 */

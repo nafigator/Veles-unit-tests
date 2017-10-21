@@ -25,7 +25,6 @@ class MemcachedAdapterTest extends TestCase
 	public static function setUpBeforeClass()
 	{
 		MemcachedAdapter::unsetInstance();
-		MemcachedAdapter::addCall('addServer', ['localhost', 11211]);
 	}
 
 	/**
