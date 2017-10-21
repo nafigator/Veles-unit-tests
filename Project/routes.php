@@ -4,7 +4,7 @@
  *
  * @file    routes.php
  *
- * PHP version 5.6+
+ * PHP version 7.0+
  *
  * @author  Yancharuk Alexander <alex at itvault dot info>
  * @date    2015-05-24 18:11

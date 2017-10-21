@@ -3,7 +3,7 @@
  * Class for AutoLoader unit-test
  * @file      AutoLoaderFake.php
  *
- * PHP version 5.6+
+ * PHP version 7.0+
  *
  * @author    Alexander Yancharuk <alex at itvault dot info>
  * @copyright © 2012-2017 Alexander Yancharuk

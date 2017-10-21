@@ -3,7 +3,7 @@
  * Byte values validator
  * @file    NumberValidatorTest.php
  *
- * PHP version 5.6+
+ * PHP version 7.0+
  *
  * @author  Alexander Yancharuk <alex at itvault dot info>
  * @date    Вск Фев 17 10:48:43 2013

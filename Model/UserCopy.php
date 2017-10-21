@@ -4,7 +4,7 @@
  *
  * @file    UserCopy.php
  *
- * PHP version 5.6+
+ * PHP version 7.0+
  *
  * @author  Yancharuk Alexander <alex at itvault dot info>
  * @date    2014-12-27 17:42

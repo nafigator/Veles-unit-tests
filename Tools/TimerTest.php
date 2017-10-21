@@ -3,7 +3,7 @@
  * Юнит-тест для класса Timer
  * @file    TimerTest.php
  *
- * PHP version 5.6+
+ * PHP version 7.0+
  *
  * @author  Alexander Yancharuk <alex at itvault dot info>
  * @date    2013-02-06 21:58:55

@@ -3,7 +3,7 @@
  * Unit-test for File class
  * @file    TimerTest.php
  *
- * PHP version 5.6+
+ * PHP version 7.0+
  *
  * @author  Alexander Yancharuk <alex at itvault dot info>
  * @date    2013-07-27 20:49:51

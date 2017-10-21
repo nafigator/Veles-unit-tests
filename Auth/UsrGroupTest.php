@@ -3,7 +3,7 @@
  * Юнит-тест для класса UsrGroup
  * @file    UsrGroupTest.php
  *
- * PHP version 5.6+
+ * PHP version 7.0+
  *
  * @author  Alexander Yancharuk <alex at itvault dot info>
  * @date    Птн Янв 25 20:56:16 2013
