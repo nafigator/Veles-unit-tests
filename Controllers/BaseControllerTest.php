@@ -49,6 +49,7 @@ class BaseControllerTest extends TestCase
 
 	/**
 	 * @covers \Veles\Controllers\BaseController::getApplication
+	 * @covers \Veles\Application\ApplicationTrait::getApplication
 	 */
 	public function testGetApplication()
 	{
@@ -61,6 +62,7 @@ class BaseControllerTest extends TestCase
 
 	/**
 	 * @covers \Veles\Controllers\BaseController::setApplication
+	 * @covers \Veles\Application\ApplicationTrait::setApplication
 	 */
 	public function testSetApplication()
 	{
