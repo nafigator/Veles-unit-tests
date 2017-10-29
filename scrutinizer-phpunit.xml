@@ -18,7 +18,8 @@
 	stopOnFailure="false"
 	stopOnIncomplete="false"
 	stopOnSkipped="false"
-	verbose="true">
+	verbose="true"
+	stderr="true">
 	<filter>
 		<blacklist>
 			<directory suffix=".php">../Tests</directory>
