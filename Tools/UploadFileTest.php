@@ -420,7 +420,6 @@ class UploadFileTest extends TestCase
 		$this->object->initStorageName();
 		$result = $this->object->save();
 
-
 		$msg = 'Wrong result of UploadFile::save: ' . ($result)
 			? 'true' : 'false';
 		$this->assertSame($expected, $result, $msg);
@@ -447,6 +446,24 @@ class UploadFileTest extends TestCase
 				$files[$i]['tmp_name'],
 				uniqid('This is test content ', true)
 			);
+
+			/**
+			 * For case when file destination exists (in UploadFile::save())
+			 * emulate that existence
+			 */
+			if ($i === 3) {
+				$object = new UploadFile;
+				$object->setTmpPath($files[3]['tmp_name']);
+				$object->setOrigName($files[3]['name']);
+				$object->setDir($dir);
+				$object->initStorageName();
+				$bad_dir = $object->getDir();
+
+				is_dir($bad_dir) || mkdir($bad_dir, $object->getDirMask(), true);
+				is_writable($bad_dir) || chmod($bad_dir, $object->getDirMask());
+
+				copy($object->getTmpPath(), $object->getPath());
+			}
 		}
 
 		return [
@@ -464,14 +481,6 @@ class UploadFileTest extends TestCase
 	protected function setUp()
 	{
 		$this->object = new UploadFile;
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
 	}
 
 	public static function tearDownAfterClass()
