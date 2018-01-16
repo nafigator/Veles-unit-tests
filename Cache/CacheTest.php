@@ -124,6 +124,40 @@ class CacheTest extends TestCase
 	}
 
 	/**
+	 * @covers       \Veles\Cache\Cache::add
+	 * @depends      testSetAdapter
+	 * @depends      testGetAdapter
+	 *
+	 * @dataProvider setProvider
+	 *
+	 * @param $key
+	 * @param $value
+	 * @param $ttl
+	 * @param $expected
+	 */
+	public function testAdd($key, $value, $ttl, $expected)
+	{
+		/** @var Memcached $driver */
+		$driver = $this->getMockBuilder(Memcached::class)
+			->setMethods(['add'])
+			->getMock();
+
+		$driver->method('add')
+			->with($key, $value, $ttl)
+			->willReturn($expected);
+
+		$adapter = new MemcachedAdapterChild($driver);
+		Cache::setAdapter($adapter);
+
+		$actual = (0 === $ttl)
+			? Cache::add($key, $value)
+			: Cache::add($key, $value, $ttl);
+
+		$msg = 'Wrong Cache::add() result!';
+		$this->assertSame($expected, $actual, $msg);
+	}
+
+	/**
 	 * @covers \Veles\Cache\Cache::get
 	 * @depends testSetAdapter
 	 * @depends testGetAdapter

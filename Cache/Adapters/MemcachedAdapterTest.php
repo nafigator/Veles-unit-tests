@@ -100,6 +100,32 @@ class MemcachedAdapterTest extends TestCase
 	}
 
 	/**
+	 * @covers \Veles\Cache\Adapters\MemcachedAdapter::add
+	 */
+	public function testAdd()
+	{
+		$key = uniqid();
+		$value = uniqid();
+		$ttl = mt_rand(0, 100);
+		$expected = uniqid();
+
+		/** @var Memcached $route */
+		$driver = $this->getMockBuilder(Memcached::class)
+			->setMethods(['add'])
+			->getMock();
+
+		$driver->method('add')
+			->with($key, $value, $ttl)
+			->willReturn($expected);
+
+		$object = new MemcachedAdapterChild($driver);
+		$actual = $object->add($key, $value, $ttl);
+
+		$msg = 'Wrong MemcachedAdapter::add() result!';
+		$this->assertSame($expected, $actual, $msg);
+	}
+
+	/**
 	 * @covers \Veles\Cache\Adapters\MemcachedAdapter::has
 	 */
 	public function testHas()
