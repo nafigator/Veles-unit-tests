@@ -26,7 +26,7 @@ class CacheTest extends TestCase
 	}
 
 	/**
-	 * @covers       \Veles\Cache\Cache::setAdapter
+	 * @covers       \Veles\Cache\Traits\CacheAdapterTrait
 	 * @dataProvider setAdapterProvider
 	 *
 	 * @param CacheAdapterInterface $adapter Adapter
@@ -50,7 +50,7 @@ class CacheTest extends TestCase
 	}
 
 	/**
-	 * @covers \Veles\Cache\Cache::getAdapter
+	 * @covers \Veles\Cache\Traits\CacheAdapterTrait::getAdapter
 	 * @depends testSetAdapter
 	 */
 	public function testGetAdapter()
@@ -62,7 +62,7 @@ class CacheTest extends TestCase
 	}
 
 	/**
-	 * @covers \Veles\Cache\Cache::getAdapter
+	 * @covers \Veles\Cache\Traits\CacheAdapterTrait::getAdapter
 	 * @expectedException Exception
 	 */
 	public function testSetAdapterException()
