@@ -76,7 +76,7 @@ class RoutesCacheDecoratorTest extends TestCase
 			$driver->method('set')->with($this->object->getPrefix(), $expected);
 		}
 
-		$adapter = new MemcachedAdapterChild($driver);
+		$adapter = (new MemcachedAdapterChild())->setDriver($driver);
 		Cache::setAdapter($adapter);
 
 		$msg = 'RoutesCacheDecorator::getData() returns wrong result!';
@@ -211,7 +211,7 @@ class RoutesCacheDecoratorTest extends TestCase
 			$driver->method('set')->with($this->object->getPrefix(), $routes);
 		}
 
-		$adapter = new MemcachedAdapterChild($driver);
+		$adapter = (new MemcachedAdapterChild())->setDriver($driver);
 		Cache::setAdapter($adapter);
 
 		$msg = 'RoutesCacheDecorator::getSection() returns wrong result!';

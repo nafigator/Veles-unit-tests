@@ -21,10 +21,13 @@ class CacheAdapterAbstractTest extends TestCase
 	{
 		$expected = 'uq[0n;34nt';
 		$obj = CacheAdapterAbstractChild::instance();
-		$obj->setDriver($expected);
+		$actual = $obj->setDriver($expected);
 
 		$msg = 'Wrong behavior of CacheAdapterAbstract::setDriver()';
 		$this->assertAttributeSame($expected, 'driver', $obj, $msg);
+
+		$msg = 'CacheAdapterAbstract::setDriver() returns wrong result';
+		$this->assertSame($obj, $actual, $msg);
 	}
 
 	/**

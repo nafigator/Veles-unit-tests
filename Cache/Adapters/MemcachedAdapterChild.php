@@ -5,9 +5,8 @@ use Veles\Cache\Adapters\MemcachedAdapter;
 
 class MemcachedAdapterChild extends MemcachedAdapter
 {
-	public function __construct($driver)
+	public function __construct()
 	{
-		$this->driver = $driver;
 	}
 
 	public static function unsetInstance()

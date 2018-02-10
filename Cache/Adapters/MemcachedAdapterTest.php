@@ -66,7 +66,7 @@ class MemcachedAdapterTest extends TestCase
 			->with($key)
 			->willReturn($expected);
 
-		$object = new MemcachedAdapterChild($driver);
+		$object = (new MemcachedAdapterChild())->setDriver($driver);
 		$actual = $object->get($key);
 
 		$msg = 'Wrong MemcachedAdapter::get() result!';
@@ -92,7 +92,7 @@ class MemcachedAdapterTest extends TestCase
 			->with($key, $value, $ttl)
 			->willReturn($expected);
 
-		$object = new MemcachedAdapterChild($driver);
+		$object = (new MemcachedAdapterChild())->setDriver($driver);
 		$actual = $object->set($key, $value, $ttl);
 
 		$msg = 'Wrong MemcachedAdapter::set() result!';
@@ -118,7 +118,7 @@ class MemcachedAdapterTest extends TestCase
 			->with($key, $value, $ttl)
 			->willReturn($expected);
 
-		$object = new MemcachedAdapterChild($driver);
+		$object = (new MemcachedAdapterChild())->setDriver($driver);
 		$actual = $object->add($key, $value, $ttl);
 
 		$msg = 'Wrong MemcachedAdapter::add() result!';
@@ -143,7 +143,7 @@ class MemcachedAdapterTest extends TestCase
 			->with($key)
 			->willReturn($return);
 
-		$object = new MemcachedAdapterChild($driver);
+		$object = (new MemcachedAdapterChild())->setDriver($driver);
 		$actual = $object->has($key);
 
 		$msg = 'Wrong MemcachedAdapter::has() result!';
@@ -167,7 +167,7 @@ class MemcachedAdapterTest extends TestCase
 			->with($key)
 			->willReturn($expected);
 
-		$object = new MemcachedAdapterChild($driver);
+		$object = (new MemcachedAdapterChild())->setDriver($driver);
 		$actual = $object->del($key);
 
 		$msg = 'Wrong MemcachedAdapter::del() result!';
@@ -192,7 +192,7 @@ class MemcachedAdapterTest extends TestCase
 			->with($key, $offset)
 			->willReturn($expected);
 
-		$object = new MemcachedAdapterChild($driver);
+		$object = (new MemcachedAdapterChild())->setDriver($driver);
 		$actual = $object->increment($key, $offset);
 
 		$msg = 'Wrong MemcachedAdapter::increment() result!';
@@ -217,7 +217,7 @@ class MemcachedAdapterTest extends TestCase
 			->with($key, $offset)
 			->willReturn($expected);
 
-		$object = new MemcachedAdapterChild($driver);
+		$object = (new MemcachedAdapterChild())->setDriver($driver);
 		$actual = $object->decrement($key, $offset);
 
 		$msg = 'Wrong MemcachedAdapter::decrement() result!';
@@ -239,7 +239,7 @@ class MemcachedAdapterTest extends TestCase
 		$driver->method('flush')
 			->willReturn($expected);
 
-		$object = new MemcachedAdapterChild($driver);
+		$object = (new MemcachedAdapterChild())->setDriver($driver);
 		$actual = $object->clear();
 
 		$msg = 'Wrong MemcachedAdapter::clear() result!';
@@ -263,7 +263,7 @@ class MemcachedAdapterTest extends TestCase
 		/** @var Memcached $route */
 		$driver = $this->getMockBuilder(Memcached::class)->getMock();
 
-		$object = new MemcachedAdapterChild($driver);
+		$object = (new MemcachedAdapterChild())->setDriver($driver);
 		$actual = $object->delByTemplate($tpl);
 
 		$msg = 'Wrong MemcachedAdapter::delByTemplate() result!';

@@ -94,7 +94,7 @@ class CacheTest extends TestCase
 			->with($key, $value, $ttl)
 			->willReturn($expected);
 
-		$adapter = new MemcachedAdapterChild($driver);
+		$adapter = (new MemcachedAdapterChild())->setDriver($driver);
 		Cache::setAdapter($adapter);
 
 		$actual = (0 === $ttl)
@@ -146,7 +146,7 @@ class CacheTest extends TestCase
 			->with($key, $value, $ttl)
 			->willReturn($expected);
 
-		$adapter = new MemcachedAdapterChild($driver);
+		$adapter = (new MemcachedAdapterChild())->setDriver($driver);
 		Cache::setAdapter($adapter);
 
 		$actual = (0 === $ttl)
@@ -176,7 +176,7 @@ class CacheTest extends TestCase
 			->with($key)
 			->willReturn($expected);
 
-		$adapter = new MemcachedAdapterChild($driver);
+		$adapter = (new MemcachedAdapterChild())->setDriver($driver);
 		Cache::setAdapter($adapter);
 		$actual = Cache::get($key);
 
@@ -203,7 +203,7 @@ class CacheTest extends TestCase
 			->with($key)
 			->willReturn($expected);
 
-		$adapter = new MemcachedAdapterChild($driver);
+		$adapter = (new MemcachedAdapterChild())->setDriver($driver);
 		Cache::setAdapter($adapter);
 		$actual = Cache::has($key);
 
@@ -230,7 +230,7 @@ class CacheTest extends TestCase
 			->with($key)
 			->willReturn($expected);
 
-		$adapter = new MemcachedAdapterChild($driver);
+		$adapter = (new MemcachedAdapterChild())->setDriver($driver);
 		Cache::setAdapter($adapter);
 		$actual = Cache::del($key);
 
@@ -257,7 +257,7 @@ class CacheTest extends TestCase
 			->with($key, $offset)
 			->willReturn($expected);
 
-		$adapter = new MemcachedAdapterChild($driver);
+		$adapter = (new MemcachedAdapterChild())->setDriver($driver);
 		Cache::setAdapter($adapter);
 		$actual = ($offset > 1)
 			? Cache::increment($key, $offset)
@@ -302,7 +302,7 @@ class CacheTest extends TestCase
 			->with($key, $offset)
 			->willReturn($expected);
 
-		$adapter = new MemcachedAdapterChild($driver);
+		$adapter = (new MemcachedAdapterChild())->setDriver($driver);
 		Cache::setAdapter($adapter);
 		$actual = ($offset > 1)
 			? Cache::decrement($key, $offset)
@@ -329,7 +329,7 @@ class CacheTest extends TestCase
 		$driver->method('flush')
 			->willReturn($expected);
 
-		$adapter = new MemcachedAdapterChild($driver);
+		$adapter = (new MemcachedAdapterChild())->setDriver($driver);
 		Cache::setAdapter($adapter);
 		$actual = Cache::clear($key);
 
@@ -355,7 +355,7 @@ class CacheTest extends TestCase
 		/** @var Memcached $driver */
 		$driver = $this->getMockBuilder(Memcached::class)->getMock();
 
-		$adapter = new MemcachedAdapterChild($driver);
+		$adapter = (new MemcachedAdapterChild())->setDriver($driver);
 		Cache::setAdapter($adapter);
 		$actual = Cache::delByTemplate($tpl);
 
