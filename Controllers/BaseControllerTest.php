@@ -49,7 +49,7 @@ class BaseControllerTest extends TestCase
 
 	/**
 	 * @covers \Veles\Controllers\BaseController::getApplication
-	 * @covers \Veles\Application\ApplicationTrait::getApplication
+	 * @covers \Veles\Application\Traits\ApplicationTrait::getApplication
 	 */
 	public function testGetApplication()
 	{
@@ -62,7 +62,7 @@ class BaseControllerTest extends TestCase
 
 	/**
 	 * @covers \Veles\Controllers\BaseController::setApplication
-	 * @covers \Veles\Application\ApplicationTrait::setApplication
+	 * @covers \Veles\Application\Traits\ApplicationTrait::setApplication
 	 */
 	public function testSetApplication()
 	{
@@ -79,6 +79,7 @@ class BaseControllerTest extends TestCase
 	 * @param $parse_result
 	 * @param $expected
 	 *
+	 * @throws \Exception
 	 * @dataProvider getParamProvider
 	 */
 	public function testGetParam($parse_result, $expected)
