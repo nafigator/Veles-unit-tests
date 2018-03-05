@@ -15,6 +15,7 @@ namespace Veles\Tests\Tools;
 
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
+use Veles\Tools\Precision;
 use Veles\Tools\Timer;
 
 /**
@@ -40,29 +41,6 @@ class TimerTest extends TestCase
 	protected function tearDown()
 	{
 		Timer::reset();
-	}
-
-	/**
-	 * @covers \Veles\Tools\Timer::start
-	 * @group Tools
-	 * @see Timer::start
-	 */
-	public function testConstants()
-	{
-		$msg = 'Wrong value of Timer::SECONDS: ' . Timer::SECONDS;
-		$this->assertSame(0, Timer::SECONDS, $msg);
-
-		$msg = 'Wrong value of Timer::MILLISECONDS: ' . Timer::MILLISECONDS;
-		$this->assertSame(3, Timer::MILLISECONDS, $msg);
-
-		$msg = 'Wrong value of Timer::MICROSECONDS: ' . Timer::MICROSECONDS;
-		$this->assertSame(6, Timer::MICROSECONDS, $msg);
-
-		$msg = 'Wrong value of Timer::NANOSECONDS: ' . Timer::NANOSECONDS;
-		$this->assertSame(9, Timer::NANOSECONDS, $msg);
-
-		$msg = 'Wrong value of Timer::PICOSECONDS: ' . Timer::PICOSECONDS;
-		$this->assertSame(12, Timer::PICOSECONDS, $msg);
 	}
 
 	/**
@@ -176,11 +154,11 @@ class TimerTest extends TestCase
 	public function getProvider()
 	{
 		return [
-			[Timer::SECONDS, 0],
-			[Timer::MILLISECONDS, 3],
-			[Timer::MICROSECONDS, 6],
-			[Timer::NANOSECONDS, 9],
-			[Timer::PICOSECONDS, 12],
+			[Precision::SECONDS, 0],
+			[Precision::MILLISECONDS, 3],
+			[Precision::MICROSECONDS, 6],
+			[Precision::NANOSECONDS, 9],
+			[Precision::PICOSECONDS, 12],
 			[8, 6]
 		];
 	}
@@ -219,11 +197,11 @@ class TimerTest extends TestCase
 	public function getPrecisionProvider()
 	{
 		return [
-			[Timer::SECONDS],
-			[Timer::MILLISECONDS],
-			[Timer::MICROSECONDS],
-			[Timer::NANOSECONDS],
-			[Timer::PICOSECONDS]
+			[Precision::SECONDS],
+			[Precision::MILLISECONDS],
+			[Precision::MICROSECONDS],
+			[Precision::NANOSECONDS],
+			[Precision::PICOSECONDS]
 		];
 	}
 }
