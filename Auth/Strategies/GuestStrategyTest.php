@@ -43,7 +43,7 @@ class GuestStrategyTest extends TestCase
 	}
 
 	/**
-	 * @covers \Veles\Auth\Strategies\AbstractAuthStrategy::errorHandle()
+	 * @covers \Veles\Auth\Strategies\GuestStrategy::errorHandle()
 	 */
 	public function testErrorHandle()
 	{
