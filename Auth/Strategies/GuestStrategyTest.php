@@ -41,4 +41,15 @@ class GuestStrategyTest extends TestCase
 		$msg = 'Wrong GuestStrategy::identify() behavior!';
 		$this->assertSame($expected, $result, $msg);
 	}
+
+	/**
+	 * @covers \Veles\Auth\Strategies\AbstractAuthStrategy::errorHandle()
+	 */
+	public function testErrorHandle()
+	{
+		$expected = null;
+		$actual = $this->object->errorHandle([]);
+		$msg = 'Wrong GuestStrategy::errorHandle() behavior!';
+		$this->assertSame($expected, $actual, $msg);
+	}
 }
