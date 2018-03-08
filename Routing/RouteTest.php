@@ -188,6 +188,7 @@ class RouteTest extends TestCase
 	/**
 	 * @covers       \Veles\Routing\Route::getParams
 	 * @covers       \Veles\Routing\Route::init
+	 * @covers       \Veles\Routing\Route::process
 	 * @dataProvider getParamsProvider
 	 *
 	 * @param $parse_result
