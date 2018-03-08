@@ -641,6 +641,7 @@ class PdoAdapterTest extends TestCase
 
 	/**
 	 * @covers       \Veles\DataBase\Adapters\PdoAdapter::query
+	 * @covers       \Veles\DataBase\Adapters\PdoAdapter::execute
 	 *
 	 * @dataProvider queryProvider
 	 *
@@ -649,7 +650,7 @@ class PdoAdapterTest extends TestCase
 	 * @param $params
 	 * @param $types
 	 *
-	 * @internal     param $stmt
+	 * @throws \Veles\DataBase\Exceptions\DbException
 	 */
 	public function testQuery($resource, $expected, $params, $types)
 	{
