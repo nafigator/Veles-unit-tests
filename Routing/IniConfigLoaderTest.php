@@ -27,6 +27,7 @@ class IniConfigLoaderTest extends TestCase
 	/**
 	 * @covers \Veles\Routing\IniConfigLoader::load
 	 * @covers \Veles\Routing\IniConfigLoader::buildTree
+	 * @covers \Veles\Routing\IniConfigLoader::processConfig
 	 */
 	public function testLoad()
 	{
