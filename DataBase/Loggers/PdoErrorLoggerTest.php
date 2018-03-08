@@ -57,6 +57,7 @@ class PdoErrorLoggerTest extends TestCase
 
 	/**
 	 * @covers       \Veles\DataBase\Loggers\PdoErrorLogger::update
+	 * @covers       \Veles\DataBase\Loggers\PdoErrorLogger::updateConnParams
 	 * @dataProvider updateProvider
 	 *
 	 * @param $subject
@@ -77,23 +78,23 @@ class PdoErrorLoggerTest extends TestCase
 
 	public function updateProvider()
 	{
-		$subject_1 = new FakeSubject();
-		$conn_good = new FakeStmt();
+		$subject_1 = new FakeSubject;
+		$conn_good = new FakeStmt;
 		$conn_good->setErrorCode('00000');
 		$subject_1->setResource($conn_good);
 		$subject_1->setStmt($conn_good);
 
 		$info2 = [555, 555, 'This is first error!'];
-		$subject_2 = new FakeSubject();
-		$conn_bad  = new FakeStmt();
+		$subject_2 = new FakeSubject;
+		$conn_bad  = new FakeStmt;
 		$conn_bad->setErrorCode('11000');
 		$conn_bad->setErrorInfo($info2);
 		$subject_2->setResource($conn_good);
 		$subject_2->setStmt($conn_bad);
 
 		$info3 = [777, 777, 'This is second error!'];
-		$subject_3 = new FakeSubject();
-		$conn_bad1 = new FakeStmt();
+		$subject_3 = new FakeSubject;
+		$conn_bad1 = new FakeStmt;
 		$conn_bad1->setErrorCode('11000');
 		$conn_bad1->setErrorInfo($info3);
 		$subject_3->setResource($conn_bad1);
@@ -104,5 +105,24 @@ class PdoErrorLoggerTest extends TestCase
 			[$subject_2, $info2],
 			[$subject_3, $info3]
 		];
+	}
+
+	/**
+	 * @covers       \Veles\DataBase\Loggers\PdoErrorLogger::updateConnParams
+	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage $subject must be instance of InvalidArgumentException
+	 */
+	public function testConnParamsException()
+	{
+		$subject = new BadSubject;
+		$conn_good = new FakeStmt;
+		$conn_good->setErrorCode('00000');
+		$subject->setResource($conn_good);
+		$subject->setStmt($conn_good);
+
+		$log_path = __DIR__ . '/' . uniqid() . '.log';
+		$this->object->setPath($log_path);
+
+		$this->object->update($subject);
 	}
 }
