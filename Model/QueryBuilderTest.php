@@ -57,13 +57,7 @@ class QueryBuilderTest extends TestCase
 		$user->money = 2.22;
 		$user->date  = '1080-12-12';
 
-		$expected = "
-			INSERT
-				\"users\"
-				(\"id\", \"email\", \"hash\", \"group\", \"money\")
-			VALUES
-				(1, 'escaped-string', 'escaped-string', $group, 2.22)
-		";
+		$expected = "INSERT \"users\" (\"id\", \"email\", \"hash\", \"group\", \"money\") VALUES (1, 'escaped-string', 'escaped-string', $group, 2.22)";
 		$actual = $this->object->insert($user);
 
 		$msg = 'QueryBuilder::insert() returns wrong result!';
@@ -122,23 +116,9 @@ class QueryBuilderTest extends TestCase
 		$user1->group      = $group;
 		$user1->last_login = null;
 
-		$expected = "
-			UPDATE
-				\"users\"
-			SET
-				\"email\" = 'escaped-string', \"hash\" = 'escaped-string', \"group\" = 16, \"last_login\" = 'escaped-string'
-			WHERE
-				id = 1
-		";
+		$expected = "UPDATE \"users\" SET \"email\" = 'escaped-string', \"hash\" = 'escaped-string', \"group\" = 16, \"last_login\" = 'escaped-string' WHERE id = 1";
 
-		$expected1 = "
-			UPDATE
-				\"users\"
-			SET
-				\"email\" = 'escaped-string', \"hash\" = 'escaped-string', \"group\" = 16
-			WHERE
-				id = 1
-		";
+		$expected1 = "UPDATE \"users\" SET \"email\" = 'escaped-string', \"hash\" = 'escaped-string', \"group\" = 16 WHERE id = 1";
 
 		return [
 			[$user, $expected],
