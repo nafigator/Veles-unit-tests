@@ -73,8 +73,37 @@ class QueryBuilderTest extends TestCase
 	/**
 	 * @covers \Veles\Model\QueryBuilder::update
 	 * @covers \Veles\Model\QueryBuilder::sanitize
+	 *
+	 * @param $user
+	 * @param $expected
+	 *
+	 * @dataProvider updateProvider
+	 *
+	 * @throws \Exception
 	 */
-	public function testUpdate()
+	public function testUpdate($user, $expected)
+	{
+		$adapter = $this->getMockBuilder(PdoAdapter::class)
+			->setMethods(['escape'])
+			->getMock();
+
+		$expected_count = $user->last_login
+			? 3
+			: 2;
+
+		$adapter->expects($this->exactly($expected_count))
+			->method('escape')
+			->willReturn('\'escaped-string\'');
+
+		Db::setAdapter($adapter);
+
+		$actual = $this->object->update($user);
+
+		$msg = 'QueryBuilder::update() returns wrong result!';
+		$this->assertSame($expected, $actual, $msg);
+	}
+
+	public function updateProvider()
 	{
 		$group = UsrGroup::GUEST;
 		$hash = md5('lalala');
@@ -86,14 +115,12 @@ class QueryBuilderTest extends TestCase
 		$user->group      = $group;
 		$user->last_login = '1980-12-01';
 
-		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['escape'])
-			->getMock();
-		$adapter->expects($this->exactly(3))
-			->method('escape')
-			->willReturn('\'escaped-string\'');
-
-		Db::setAdapter($adapter);
+		$user1             = new User;
+		$user1->id         = 1;
+		$user1->email      = 'mail@mail.org';
+		$user1->hash       = $hash;
+		$user1->group      = $group;
+		$user1->last_login = null;
 
 		$expected = "
 			UPDATE
@@ -103,10 +130,20 @@ class QueryBuilderTest extends TestCase
 			WHERE
 				id = 1
 		";
-		$actual = $this->object->update($user);
 
-		$msg = 'QueryBuilder::update() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		$expected1 = "
+			UPDATE
+				\"users\"
+			SET
+				\"email\" = 'escaped-string', \"hash\" = 'escaped-string', \"group\" = 16
+			WHERE
+				id = 1
+		";
+
+		return [
+			[$user, $expected],
+			[$user1, $expected1],
+		];
 	}
 
 	/**
