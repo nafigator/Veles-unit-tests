@@ -14,6 +14,7 @@
 
 namespace Veles\Tests\Model;
 
+use Model\Type;
 use Veles\Model\User;
 
 /**
@@ -23,12 +24,11 @@ use Veles\Model\User;
 class UserCopy extends User
 {
 	protected $map = [
-		'id'         => 'int',
-		'email'      => 'string',
-		'hash'       => 'string',
-		'group'      => 'int',
-		'last_login' => 'string',
-		'money'      => 'float',
-		'date'       => 'date'
+		'id'         => Type::INT,
+		'email'      => Type::STRING,
+		'hash'       => Type::STRING,
+		'group'      => Type::INT,
+		'last_login' => Type::STRING,
+		'money'      => Type::FLOAT,
 	];
 }
