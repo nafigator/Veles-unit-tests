@@ -20,7 +20,8 @@ class ModelParamsTest extends TestCase
 
 	/**
 	 * @covers       \Veles\Tools\ModelParams::getType
-	 * @covers       \Veles\Tools\ModelParams::getStringPattern()
+	 * @covers       \Veles\Tools\ModelParams::getStringPattern
+	 * @covers       \Veles\Tools\ModelParams::getFloatPattern
 	 * @dataProvider getTypeProvider
 	 *
 	 * @param $type
