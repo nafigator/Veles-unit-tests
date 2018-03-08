@@ -36,6 +36,8 @@ class UsrAuthFactoryTest extends TestCase
 
 	/**
 	 * @covers \Veles\Auth\UsrAuthFactory::create
+	 * @covers \Veles\Auth\Strategies\LoginFormStrategy::errorHandle
+	 * @covers \Veles\Auth\Strategies\CookieStrategy::errorHandle
 	 */
 	public function testCreate()
 	{
