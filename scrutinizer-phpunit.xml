@@ -12,7 +12,6 @@
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	forceCoversAnnotation="false"
-	mapTestClassNameToCoveredClassName="false"
 	processIsolation="false"
 	stopOnError="false"
 	stopOnFailure="false"
@@ -21,10 +20,6 @@
 	verbose="true"
 	stderr="true">
 	<filter>
-		<blacklist>
-			<directory suffix=".php">../Tests</directory>
-			<directory suffix=".phtml">../Tests</directory>
-		</blacklist>
 		<whitelist>
 			<directory suffix=".php">../Application</directory>
 			<directory suffix=".php">../Auth</directory>
