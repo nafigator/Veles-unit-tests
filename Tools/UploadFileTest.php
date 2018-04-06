@@ -181,6 +181,8 @@ class UploadFileTest extends TestCase
 
 	/**
 	 * @covers \Veles\Tools\UploadFile::initStorageName
+	 * @covers \Veles\Tools\UploadFile::buildPath()
+	 * @covers \Veles\Tools\UploadFile::buildWwwPath()
 	 * @group Tools
 	 * @depends testSetHash
 	 * @depends testSetSubDir
