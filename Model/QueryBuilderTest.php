@@ -128,18 +128,12 @@ class QueryBuilderTest extends TestCase
 
 	/**
 	 * @covers \Veles\Model\QueryBuilder::getById
+	 * @covers \Veles\Model\Traits\TableNameHandler::getEscapedTableName()
 	 */
 	public function testGetById()
 	{
 		$user = new User;
-		$expected = "
-			SELECT *
-			FROM
-				\"users\"
-			WHERE
-				id = 1
-			LIMIT 1
-		";
+		$expected = "SELECT * FROM \"users\" WHERE id = 1 LIMIT 1";
 
 		$msg = 'QueryBuilder::getById() returns wrong result!';
 		$result = $this->object->getById($user, 1);
@@ -169,18 +163,8 @@ class QueryBuilderTest extends TestCase
 		$user->id = 1;
 
 		return [
-			[[1], "
-			DELETE FROM
-				\"users\"
-			WHERE
-				id IN (1)
-		", $user],
-			[[1,2,3], "
-			DELETE FROM
-				\"users\"
-			WHERE
-				id IN (1,2,3)
-		", $user]
+			[[1], "DELETE FROM \"users\" WHERE id IN (1)", $user],
+			[[1,2,3], "DELETE FROM \"users\" WHERE id IN (1,2,3)", $user]
 		];
 	}
 
@@ -205,17 +189,8 @@ class QueryBuilderTest extends TestCase
 		$filter = new DbFilter;
 		$filter->setWhere('id = 1');
 		return [
-			[null, "
-			SELECT
-				\"id\", \"email\", \"hash\", \"group\", \"last_login\"
-			FROM
-				\"users\""],
-			[$filter, "
-			SELECT
-				\"id\", \"email\", \"hash\", \"group\", \"last_login\"
-			FROM
-				\"users\"
-			WHERE id = 1"]
+			[null, "SELECT \"id\", \"email\", \"hash\", \"group\", \"last_login\" FROM \"users\""],
+			[$filter, "SELECT \"id\", \"email\", \"hash\", \"group\", \"last_login\" FROM \"users\" WHERE id = 1"]
 		];
 	}
 
@@ -226,11 +201,7 @@ class QueryBuilderTest extends TestCase
 	{
 		$pager = new DbPaginator('');
 		$news = new News;
-		$expected = '
-			SELECT SQL_CALC_FOUND_ROWS
-				"id", "title", "content", "author"
-			FROM
-				"news" LIMIT 0, 5';
+		$expected = 'SELECT SQL_CALC_FOUND_ROWS "id", "title", "content", "author" FROM "news" LIMIT 0, 5';
 
 		$sql = $this->object->find($news, new DbFilter);
 		$result = $this->object->setPage($sql, $pager);
