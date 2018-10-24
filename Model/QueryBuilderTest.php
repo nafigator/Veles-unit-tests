@@ -128,7 +128,6 @@ class QueryBuilderTest extends TestCase
 
 	/**
 	 * @covers \Veles\Model\QueryBuilder::getById
-	 * @covers \Veles\Model\Traits\TableNameHandler::getEscapedTableName()
 	 */
 	public function testGetById()
 	{
