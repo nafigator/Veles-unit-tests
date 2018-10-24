@@ -74,6 +74,8 @@ class ActiveRecordTest extends TestCase
 	 * @param $id
 	 * @param $expected
 	 * @param $db_result
+	 *
+	 * @throws \Exception
 	 */
 	public function testGetById($id, $expected, $db_result)
 	{
