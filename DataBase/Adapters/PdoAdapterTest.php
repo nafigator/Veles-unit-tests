@@ -297,42 +297,79 @@ class PdoAdapterTest extends TestCase
 	}
 
 	/**
-	 * @covers \Veles\DataBase\Adapters\PdoAdapter::row
+	 * @covers       \Veles\DataBase\Adapters\PdoAdapter::row
+	 * @covers       \Veles\DataBase\Adapters\PdoAdapter::prepare
 	 *
 	 * @expectedException \Veles\DataBase\Exceptions\DbException
+	 * @dataProvider rowExceptionProvider
+	 *
+	 * @param $pool
+	 *
+	 * @throws \Veles\DataBase\Exceptions\DbException
 	 */
-	public function testRowException()
+	public function testRowException($pool)
 	{
-		$exception_msg = 'SQLSTATE[22P02]: Invalid text representation: 7 ERROR: invalid input syntax for integer';
-		$resource = $this->getMockBuilder(PDO::class)
-			->disableOriginalConstructor()
-			->setMethods(['prepare'])
-			->getMock();
-		$resource->expects($this->once())
-			->method('prepare')
-			->will($this->throwException(new \PDOException($exception_msg)));
-
-		$conn = $this->getMockBuilder(PdoConnection::class)
-			->setConstructorArgs(['master'])
-			->setMethods(['getResource'])
-			->getMock();
-		$conn->expects($this->once())
-			->method('getResource')
-			->willReturn($resource);
-
-		$pool = $this->getMockBuilder(ConnectionPool::class)
-			->setMethods(['getConnection'])
-			->getMock();
-		$pool->expects($this->once())
-			->method('getConnection')
-			->willReturn($conn);
-
 		$this->object->setPool($pool);
 		$sql    = 'SELECT * FROM users';
 		$params = [300, 'string-value'];
 		$types  = 'is';
 
 		$this->object->row($sql, $params, $types);
+	}
+
+	public function rowExceptionProvider()
+	{
+		$exception_msg = 'SQLSTATE[22P02]: Invalid text representation: 7 ERROR: invalid input syntax for integer';
+		$resource1 = $this->getMockBuilder(PDO::class)
+			->disableOriginalConstructor()
+			->setMethods(['prepare'])
+			->getMock();
+		$resource1->expects($this->once())
+			->method('prepare')
+			->will($this->throwException(new \PDOException($exception_msg)));
+
+		$conn1 = $this->getMockBuilder(PdoConnection::class)
+			->setConstructorArgs(['master'])
+			->setMethods(['getResource'])
+			->getMock();
+		$conn1->expects($this->once())
+			->method('getResource')
+			->willReturn($resource1);
+
+		$pool1 = $this->getMockBuilder(ConnectionPool::class)
+			->setMethods(['getConnection'])
+			->getMock();
+		$pool1->expects($this->once())
+			->method('getConnection')
+			->willReturn($conn1);
+
+		$resource2 = $this->getMockBuilder(PDO::class)
+			->disableOriginalConstructor()
+			->setMethods(['prepare'])
+			->getMock();
+		$resource2->expects($this->once())
+			->method('prepare')
+			->willReturn(false);
+
+		$conn2 = $this->getMockBuilder(PdoConnection::class)
+			->setConstructorArgs(['master'])
+			->setMethods(['getResource'])
+			->getMock();
+		$conn2->expects($this->once())
+			->method('getResource')
+			->willReturn($resource2);
+
+		$pool2 = $this->getMockBuilder(ConnectionPool::class)
+			->setMethods(['getConnection'])
+			->getMock();
+		$pool2->expects($this->once())
+			->method('getConnection')
+			->willReturn($conn2);
+
+		return [
+			[$pool1],
+			[$pool2],
+		];
 	}
 
 	/**
