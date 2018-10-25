@@ -126,8 +126,6 @@ class PdoAdapterTest extends TestCase
 			->method('fetchColumn')
 			->willReturn($expected);
 
-
-
 		$resource = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
 			->setMethods(['prepare'])
@@ -679,6 +677,7 @@ class PdoAdapterTest extends TestCase
 	public function queryProvider()
 	{
 		$stmt1 = $expected = true;
+		$expected4 = false;
 
 		$resource1 = $this->getMockBuilder(PDO::class)
 			->disableOriginalConstructor()
@@ -724,10 +723,19 @@ class PdoAdapterTest extends TestCase
 			->method('prepare')
 			->willReturn($stmt3);
 
+		$resource4 = $this->getMockBuilder(PDO::class)
+			->disableOriginalConstructor()
+			->setMethods(['prepare'])
+			->getMock();
+		$resource4->expects($this->once())
+			->method('prepare')
+			->willReturn($expected4);
+
 		return [
 			[$resource1, $expected, [], null],
 			[$resource2, $expected, ['string'], null],
-			[$resource3, $expected, [200, 'string'], 'is']
+			[$resource3, $expected, [200, 'string'], 'is'],
+			[$resource4, $expected4, [200, 'string'], 'is'],
 		];
 	}
 
