@@ -124,32 +124,6 @@ EOF
 	}
 
 	/**
-	 * @covers       \Veles\Application\Application::setVersion
-	 */
-	public function testSetVersion()
-	{
-		$expected = '0.0.234';
-		$object = (new Application)->setVersion($expected);
-
-		$msg = 'IdbApiApplication::setVersion() wrong behavior!';
-		$this->assertAttributeSame($expected, 'version', $object, $msg);
-	}
-
-	/**
-	 * @covers       \Veles\Application\Application::getVersion
-	 */
-	public function testGetVersion()
-	{
-		$expected = '0.0.234';
-		$object = (new Application)->setVersion($expected);
-
-		$actual = $object->getVersion();
-
-		$msg = 'IdbApiApplication::getVersion() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
-	}
-
-	/**
 	 * @covers \Veles\Application\Application::setRequest
 	 */
 	public function testSetRequest()
