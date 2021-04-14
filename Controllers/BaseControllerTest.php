@@ -66,7 +66,7 @@ class BaseControllerTest extends TestCase
 	 */
 	public function testSetApplication()
 	{
-		$expected = (new Application)->setVersion('0.0.234');
+		$expected = (new Application);
 		$this->object->setApplication($expected);
 
 		$msg = 'BaseController::setApplication() wrong behavior!';
