@@ -15,7 +15,6 @@ namespace Veles\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
 use Veles\Application\Application;
-use Veles\Application\Environment;
 use Veles\Request\HttpGetRequest;
 use Veles\Routing\IniConfigLoader;
 use Veles\Routing\Route;
@@ -147,38 +146,6 @@ EOF
 		$actual = $object->getVersion();
 
 		$msg = 'IdbApiApplication::getVersion() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Application\Application::setEnvironment
-	 */
-	public function testSetEnvironment()
-	{
-		$expected = (new Environment)
-			->setName('development')
-			->setStaticPath('https://static.project.com');
-
-		$object = (new Application)->setEnvironment($expected);
-
-		$msg = 'Application::setEnvironment() wrong behavior!';
-		$this->assertAttributeSame($expected, 'environment', $object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Application\Application::getEnvironment
-	 */
-	public function testGetEnvironment()
-	{
-		$expected = (new Environment)
-			->setName('development')
-			->setStaticPath('https://static.project.com');
-
-		$object = (new Application)->setEnvironment($expected);
-
-		$actual = $object->getEnvironment();
-
-		$msg = 'Application::getEnvironment() returns wrong result!';
 		$this->assertSame($expected, $actual, $msg);
 	}
 
