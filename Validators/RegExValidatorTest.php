@@ -3,7 +3,7 @@
  * RegEx values validator test
  * @file    RegExValidatorTest.php
  *
- * PHP version 7.0+
+ * PHP version 7.1+
  *
  * @author  Alexander Yancharuk <alex at itvault dot info>
  * @date    Вск Фев 17 10:48:43 2013

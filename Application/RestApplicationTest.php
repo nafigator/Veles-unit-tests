@@ -1,9 +1,10 @@
 <?php
 /**
- * Юнит-тест для класса Application
- * @file    Application.php
+ * Юнит-тест для класса RestApplication
  *
- * PHP version 7.0+
+ * @file    RestApplicationTest.php
+ *
+ * PHP version 7.1+
  *
  * @author  Alexander Yancharuk <alex at itvault dot info>
  * @date    Втр Янв 22 22:53:39 2013
@@ -13,7 +14,8 @@
 
 namespace Veles\Tests\Application;
 
-use Application\RestApplication;
+use Veles\Application\RestApplication;
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Veles\Request\HttpGetRequest;
 use Veles\Routing\IniConfigLoader;
@@ -36,7 +38,7 @@ class RestApplicationTest extends TestCase
 	 * @param $parse_result
 	 * @param $expected
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function testRun($url, $parse_result, $expected): void
 	{

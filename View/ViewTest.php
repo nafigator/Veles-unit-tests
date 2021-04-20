@@ -3,7 +3,7 @@
  * Unit-test for View class
  * @file    ViewTest.php
  *
- * PHP version 7.0+
+ * PHP version 7.1+
  *
  * @author  Alexander Yancharuk <alex at itvault dot info>
  * @date    Вск Янв 20 18:40:31 2013

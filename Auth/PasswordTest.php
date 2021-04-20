@@ -3,7 +3,7 @@
  * Юнит-тест для класса Password
  * @file    PasswordTest.php
  *
- * PHP version 7.0+
+ * PHP version 7.1+
  *
  * @author  Alexander Yancharuk <alex at itvault dot info>
  * @date    Вск Янв 20 15:58:07 2013

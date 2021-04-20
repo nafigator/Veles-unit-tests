@@ -2,7 +2,7 @@
 /**
  * @file    News.php
  *
- * PHP version 7.0+
+ * PHP version 7.1+
  *
  * @author  Yancharuk Alexander <alex at itvault dot info>
  * @date    2014-12-27 17:51
