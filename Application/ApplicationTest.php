@@ -40,7 +40,6 @@ class ApplicationTest extends TestCase
 	{
 		$this->expectOutputString($expected['output']);
 
-		/** @var \Veles\Routing\Route $route */
 		$route = $this->getMockBuilder(Route::class)
 			->setMethods(['parseUri'])
 			->getMock();
