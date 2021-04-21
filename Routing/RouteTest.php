@@ -25,9 +25,9 @@ class RouteTest extends TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
-		$this->object = $this->getMockBuilder('\Veles\Routing\Route')
+		$this->object = $this->getMockBuilder(Route::class)
 			->setMethods(['parseUri'])
 			->getMock();
 
@@ -37,7 +37,7 @@ class RouteTest extends TestCase
 		$this->object->setConfigHandler($config);
 	}
 
-	public function tearDown()
+	public function tearDown(): void
 	{
 		unset($_SERVER['HTTP_X_REQUESTED_WITH']);
 	}
@@ -49,7 +49,7 @@ class RouteTest extends TestCase
 	 *
 	 * @expectedException \Veles\Routing\Exceptions\NotFoundException
 	 */
-	public function testNotFoundException()
+	public function testNotFoundException(): void
 	{
 		$this->object->method('parseUri')->willReturn(['/not-found', 'not-found']);
 
@@ -65,9 +65,9 @@ class RouteTest extends TestCase
 	 * @param $parse_result
 	 * @param $expected
 	 */
-	public function testIsAjax($parse_result, $expected)
+	public function testIsAjax($parse_result, $expected): void
 	{
-		$this->object = $this->getMockBuilder('\Veles\Routing\Route')
+		$this->object = $this->getMockBuilder(Route::class)
 			->setMethods(['parseUri', 'checkAjax'])
 			->getMock();
 		$config = new RoutesConfig(
@@ -80,10 +80,10 @@ class RouteTest extends TestCase
 		$result = $this->object->init()->isAjax();
 
 		$msg = 'Wrong Route::isAjax() result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function isAjaxProvider()
+	public function isAjaxProvider(): array
 	{
 		return [
 			[['/', ''], false],
@@ -94,7 +94,7 @@ class RouteTest extends TestCase
 	/**
 	 * @covers \Veles\Routing\Route::getController
 	 */
-	public function testGetController()
+	public function testGetController(): void
 	{
 		$this->object->method('parseUri')->willReturn(['/', '']);
 
@@ -102,16 +102,16 @@ class RouteTest extends TestCase
 		$result = $this->object->init()->getController();
 
 		$msg = 'Route::getController() returns wrong result!';
-		$this->assertEquals($expected, $result, $msg);
+		self::assertEquals($expected, $result, $msg);
 	}
 
 	/**
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Controller name not set!
 	 */
-	public function testGetControllerException()
+	public function testGetControllerException(): void
 	{
-		$route = $this->getMockBuilder('\Veles\Routing\Route')
+		$route = $this->getMockBuilder(Route::class)
 			->setMethods(['parseUri'])
 			->getMock();
 
@@ -129,21 +129,21 @@ class RouteTest extends TestCase
 	/**
 	 * @covers \Veles\Routing\Route::getActionName
 	 */
-	public function testGetActionName()
+	public function testGetActionName(): void
 	{
 		$this->object->method('parseUri')->willReturn(['/', '']);
 		$expected = 'index';
 		$result = $this->object->init()->getActionName();
 
 		$msg = 'Route::getActionName() returns wrong result!';
-		$this->assertEquals($expected, $result, $msg);
+		self::assertEquals($expected, $result, $msg);
 	}
 
 	/**
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Action not set!
 	 */
-	public function testGetActionNameException()
+	public function testGetActionNameException(): void
 	{
 		$this->object->method('parseUri')->willReturn(['/user', 'user']);
 		$this->object->init()->getActionName();
@@ -152,21 +152,21 @@ class RouteTest extends TestCase
 	/**
 	 * @covers \Veles\Routing\Route::getAdapter
 	 */
-	public function testGetAdapter()
+	public function testGetAdapter(): void
 	{
 		$this->object->method('parseUri')->willReturn(['/', '']);
 		$expected = NativeAdapter::instance();
 		$result = $this->object->init()->getAdapter();
 
 		$msg = 'Route::getAdapter() returns wrong result!';
-		$this->assertEquals($expected, $result, $msg);
+		self::assertEquals($expected, $result, $msg);
 	}
 
 	/**
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Route adapter not set
 	 */
-	public function testGetAdapterException()
+	public function testGetAdapterException(): void
 	{
 		$this->object->method('parseUri')->willReturn(['/user', 'user']);
 		$this->object->init()->getAdapter();
@@ -175,14 +175,14 @@ class RouteTest extends TestCase
 	/**
 	 * @covers \Veles\Routing\Route::getName
 	 */
-	public function testGetName()
+	public function testGetName(): void
 	{
 		$this->object->method('parseUri')->willReturn(['/', '']);
 		$expected = 'Home';
 		$result = $this->object->init()->getName();
 
 		$msg = 'Route::getName() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
@@ -194,7 +194,7 @@ class RouteTest extends TestCase
 	 * @param $parse_result
 	 * @param $expected
 	 */
-	public function testGetParams($parse_result, $expected)
+	public function testGetParams($parse_result, $expected): void
 	{
 		$this->object->method('parseUri')->willReturn($parse_result);
 		$this->object->init();
@@ -205,10 +205,10 @@ class RouteTest extends TestCase
 		$result = $this->object->init()->getParams();
 
 		$msg = 'Route::getParams() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function getParamsProvider()
+	public function getParamsProvider(): array
 	{
 		return [
 			[['/page/2', 'page'], ['page' => '2']],
@@ -224,13 +224,27 @@ class RouteTest extends TestCase
 	 * @covers \Veles\Routing\Route::getTemplate
 	 * @covers \Veles\Routing\Route::init
 	 */
-	public function testGetTemplate()
+	public function testGetTemplate(): void
 	{
 		$this->object->method('parseUri')->willReturn(['/', '']);
 		$expected = 'Frontend/index.phtml';
 		$result = $this->object->init()->getTemplate();
 
 		$msg = 'Route::getTemplate() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
+	}
+
+	/**
+	 * @covers \Veles\Routing\Route::getUri
+	 * @throws \Exception
+	 */
+	public function testGetUri(): void
+	{
+		$this->object->method('parseUri')->willReturn(['/', '']);
+		$expected = '/';
+		$result = $this->object->init()->getUri();
+
+		$msg = 'Route::getUri() returns wrong result!';
+		self::assertSame($expected, $result, $msg);
 	}
 }
