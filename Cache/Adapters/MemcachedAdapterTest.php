@@ -28,15 +28,6 @@ class MemcachedAdapterTest extends TestCase
 	}
 
 	/**
-	 * For each test set up adapter
-	 */
-	public function setUp()
-	{
-
-		//$this->object = Cache::getAdapter();
-	}
-
-	/**
 	 * @covers \Veles\Cache\Adapters\MemcachedAdapter::__construct
 	 */
 	public function testConstruct()
