@@ -29,7 +29,7 @@ class UsrAuthFactoryTest extends TestCase
 			->getMock();
 	}
 
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($_COOKIE, $_POST);
 	}

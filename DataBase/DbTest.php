@@ -26,7 +26,7 @@ class DbTest extends TestCase
 		$this->adapter = new PdoAdapter;
 	}
 
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		DbCopy::unsetAdapter();
 	}

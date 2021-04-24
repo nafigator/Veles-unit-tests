@@ -69,7 +69,7 @@ class ViewTest extends TestCase
 EOF;
 	}
 
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		View::setAdapter(NativeAdapter::instance());
 	}

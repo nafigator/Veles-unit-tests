@@ -42,7 +42,7 @@ class BaseControllerTest extends TestCase
 		$this->object = (new Home)->setApplication($this->application);
 	}
 
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		unset($_POST);
 	}
