@@ -37,7 +37,7 @@ class RouteTest extends TestCase
 		$this->object->setConfigHandler($config);
 	}
 
-	public function tearDown(): void
+	protected function tearDown(): void
 	{
 		unset($_SERVER['HTTP_X_REQUESTED_WITH']);
 	}

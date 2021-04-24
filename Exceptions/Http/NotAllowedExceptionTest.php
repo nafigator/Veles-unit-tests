@@ -12,7 +12,7 @@ use Veles\Exceptions\Http\NotAllowedException;
  */
 class NotAllowedExceptionTest extends TestCase
 {
-	public function tearDown()
+	protected function tearDown(): void
 	{
 		unset($_SERVER['REQUEST_METHOD']);
 	}
