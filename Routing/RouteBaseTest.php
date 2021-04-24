@@ -15,7 +15,7 @@ class RouteBaseTest extends TestCase
 	/** @var  RouteBase */
 	protected $object;
 
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->object = new RouteBase;
 		$config = new RoutesConfig(

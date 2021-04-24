@@ -18,7 +18,7 @@ class DbExceptionTest extends TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$msg = "SQLSTATE[28000] [1045] Access denied for user 'user'@'localhost' (using password: YES)";
 		$code = 28000;

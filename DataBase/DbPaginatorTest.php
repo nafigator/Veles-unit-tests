@@ -27,7 +27,7 @@ class DbPaginatorTest extends TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->object = new DbPaginator(realpath(__DIR__ . '/../Project/View/paginator_default.phtml'));
 		$this->html = <<<EOL
