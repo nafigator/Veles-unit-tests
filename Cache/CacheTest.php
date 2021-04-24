@@ -20,7 +20,7 @@ require_once 'Adapters/fwrite_stub.php';
  */
 class CacheTest extends TestCase
 {
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		MemcachedAdapterChild::unsetInstance();
 	}

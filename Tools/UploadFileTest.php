@@ -485,7 +485,7 @@ class UploadFileTest extends TestCase
 		$this->object = new UploadFile;
 	}
 
-	public static function tearDownAfterClass()
+	public static function tearDownAfterClass(): void
 	{
 		$dir = sys_get_temp_dir() . '/VelesUploads';
 		system('rm -rf ' . $dir);

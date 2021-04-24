@@ -32,7 +32,7 @@ class UploadedFileValidatorTest extends TestCase
 	{
 	}
 
-	public static function tearDownAfterClass()
+	public static function tearDownAfterClass(): void
 	{
 		system('rm -rf ' . sys_get_temp_dir() . '/VelesUploads-File*');
 	}

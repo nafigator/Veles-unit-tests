@@ -22,7 +22,7 @@ class MemcachedAdapterTest extends TestCase
 	 */
 	protected $object;
 
-	public static function setUpBeforeClass()
+	public static function setUpBeforeClass(): void
 	{
 		MemcachedAdapterChild::unsetInstance();
 	}
