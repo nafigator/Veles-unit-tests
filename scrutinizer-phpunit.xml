@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="phpunit.xsd"
 	xmlns=""
-	bootstrap="scrutinizer-phpunit.php"
+	bootstrap="scrutinizer-bootstrap.php"
 	colors="true"
 	verbose="true"
 	stderr="true">
