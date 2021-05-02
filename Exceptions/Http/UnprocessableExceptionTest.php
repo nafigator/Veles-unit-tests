@@ -24,7 +24,7 @@ class UnprocessableExceptionTest extends TestCase
 		new UnprocessableException($errors);
 
 		$msg = 'UnprocessableException::__construct() wrong behavior!';
-		$this->assertSame(422, http_response_code(), $msg);
+		self::assertSame(422, http_response_code(), $msg);
 	}
 
 	public function constructProvider()

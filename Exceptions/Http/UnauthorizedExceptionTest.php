@@ -14,7 +14,7 @@ class UnauthorizedExceptionTest extends TestCase
 	{
 		new UnauthorizedException;
 		$msg = 'UnauthorizedException::__construct() wrong behavior!';
-		$this->assertSame(401, http_response_code(), $msg);
+		self::assertSame(401, http_response_code(), $msg);
 
 		//$expected = 'WWW-Authenticate: Basic realm="Application Name"';
 		//$result   = '';
@@ -26,6 +26,6 @@ class UnauthorizedExceptionTest extends TestCase
 		//	}
 		//}
 		//
-		//$this->assertSame($expected, $result, $msg);
+		//self::assertSame($expected, $result, $msg);
 	}
 }

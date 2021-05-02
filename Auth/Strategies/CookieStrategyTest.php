@@ -26,8 +26,6 @@ class CookieStrategyTest extends TestCase
 	}
 
 	/**
-	 * @covers       \Veles\Auth\Strategies\CookieStrategy::identify
-	 * @covers       \Veles\Auth\Strategies\AbstractAuthStrategy::findUser
 	 * @dataProvider identifyProvider
 	 *
 	 * @param $id
@@ -35,12 +33,12 @@ class CookieStrategyTest extends TestCase
 	 * @param $expected
 	 * @param $user_result
 	 */
-	public function testIdentify($id, $hash, $expected, $user_result)
+	public function testIdentify($id, $hash, $expected, $user_result): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('row')
 			->willReturn($user_result);
 
@@ -50,10 +48,10 @@ class CookieStrategyTest extends TestCase
 		$actual = $object->identify();
 
 		$msg = 'CookieStrategy::identify() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	public function identifyProvider()
+	public function identifyProvider(): array
 	{
 		$found = [
 			'id'         => 1,
@@ -72,37 +70,7 @@ class CookieStrategyTest extends TestCase
 		];
 	}
 
-	/**
-	 * @covers       \Veles\Auth\Strategies\CookieStrategy::__construct
-	 * @dataProvider constructProvider
-	 *
-	 * @param $id
-	 * @param $hash
-	 */
-	public function testConstruct($id, $hash)
-	{
-		$object = new CookieStrategy($id, $hash, new User);
-
-		$msg = 'Wrong behavior of CookieStrategy::__construct!';
-		$this->assertAttributeSame($id, 'identifier', $object, $msg);
-
-		$msg = 'Wrong behavior of CookieStrategy::__construct!';
-		$this->assertAttributeSame($hash, 'password_hash', $object, $msg);
-	}
-
-	public function constructProvider()
-	{
-		return [
-			[1, 'GlOaUExBSD9HxuEYk2ZFaeDhggU716O'],
-			[5, 'GlOaUExBSD9HxuEYk2ZFaeDhggU7162'],
-			[5555, 'GlOaUExBSD9HxuEYk2fFaeDhggU7162']
-		];
-	}
-
-	/**
-	 * @covers \Veles\Auth\Strategies\CookieStrategy::setPasswordHash
-	 */
-	public function testSetPasswordHash()
+	public function testGetPasswordHash(): void
 	{
 		$id	  = rand();
 		$expected = uniqid();
@@ -110,31 +78,13 @@ class CookieStrategyTest extends TestCase
 		$object = new CookieStrategy($id, $expected, new User);
 		$object->setPasswordHash($expected);
 
-		$msg = 'CookieStrategy::setPasswordHash() wrong behavior!';
-		$this->assertAttributeSame($expected, 'password_hash', $object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Auth\Strategies\CookieStrategy::getPasswordHash
-	 * @depends testSetPasswordHash
-	 */
-	public function testGetPasswordHash()
-	{
-		$id	  = rand();
-		$expected = uniqid();
-
-		$object = new CookieStrategy($id, $expected, new User);
-
 		$result = $object->getPasswordHash();
 
 		$msg = 'CookieStrategy::getPasswordHash() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Auth\Strategies\CookieStrategy::setId
-	 */
-	public function testSetId()
+	public function testGetId(): void
 	{
 		$expected = rand();
 		$hash = uniqid();
@@ -142,24 +92,9 @@ class CookieStrategyTest extends TestCase
 		$object = new CookieStrategy($expected, $hash, new User);
 		$object->setId($expected);
 
-		$msg = 'CookieStrategy::setId() wrong behavior!';
-		$this->assertAttributeSame($expected, 'identifier', $object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Auth\Strategies\CookieStrategy::getId
-	 * @depends testSetId
-	 */
-	public function testGetId()
-	{
-		$expected = rand();
-		$hash = uniqid();
-
-		$object = new CookieStrategy($expected, $hash, new User);
-
 		$result = $object->getId();
 
 		$msg = 'CookieStrategy::getId() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

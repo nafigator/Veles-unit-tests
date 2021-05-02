@@ -24,18 +24,7 @@ class JsonAdapterTest extends TestCase
 		$this->object = new JsonAdapter;
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
-
-	/**
-	 * @covers \Veles\View\Adapters\JsonAdapter::show
-	 */
-	public function testShow()
+	public function testShow(): void
 	{
 		$this->expectOutputString('');
 		$this->object->show(null);
@@ -48,37 +37,21 @@ class JsonAdapterTest extends TestCase
 		$this->object->show(null);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\JsonAdapter::get
-	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$vars = ['a', 'b', 'c'];
 		$this->object->set($vars);
 		$expected = json_encode($vars);
 		$result = $this->object->get('');
 		$msg = 'Wrong JsonAdapter::get() result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\JsonAdapter::isCached
-	 */
-	public function testIsCached()
+	public function testIsCached(): void
 	{
 		$expected = false;
 		$result = $this->object->isCached('');
 		$msg = 'Wrong JsonAdapter::isCached() result!';
-		$this->assertSame($expected, $result, $msg);
-	}
-
-	/**
-	 * @covers \Veles\View\Adapters\JsonAdapter::__construct()
-	 */
-	public function testConstruct()
-	{
-		$expected = $this->object;
-		$msg = 'Unexpected JsonAdapter::__construct() behavior!';
-		$this->assertAttributeSame($expected, 'driver', $this->object, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

@@ -40,13 +40,13 @@ class UploadFileTest extends TestCase
 		$prop = $object->getProperty('orig_name');
 
 		$msg = 'Property UploadFile::$orig_name not protected';
-		$this->assertTrue($prop->isProtected(), $msg);
+		self::assertTrue($prop->isProtected(), $msg);
 
 		$prop->setAccessible(true);
 		$result = $prop->getValue($this->object);
 
 		$msg = "Wrong value of UploadFile::\$orig_name: $result";
-		$this->assertSame('image.jpg', $result, $msg);
+		self::assertSame('image.jpg', $result, $msg);
 	}
 
 	/**
@@ -62,7 +62,7 @@ class UploadFileTest extends TestCase
 		$result = $this->object->getOrigName();
 
 		$msg = "Wrong value of UploadFile::\$orig_name: $result";
-		$this->assertSame('new-image.png', $result, $msg);
+		self::assertSame('new-image.png', $result, $msg);
 	}
 
 	/**
@@ -78,13 +78,13 @@ class UploadFileTest extends TestCase
 		$hash_prop = $object->getProperty('hash');
 
 		$msg = 'Property UploadFile::$hash not protected';
-		$this->assertTrue($hash_prop->isProtected(), $msg);
+		self::assertTrue($hash_prop->isProtected(), $msg);
 
 		$hash_prop->setAccessible(true);
 		$result = $hash_prop->getValue($this->object);
 
 		$msg = "Wrong value of UploadFile::\$hash: $result";
-		$this->assertSame('4b53f83dcef24c5eefa9c9d9633f9ff5', $result, $msg);
+		self::assertSame('4b53f83dcef24c5eefa9c9d9633f9ff5', $result, $msg);
 	}
 
 	/**
@@ -100,7 +100,7 @@ class UploadFileTest extends TestCase
 		$result = $this->object->getHash();
 
 		$msg = "Wrong value of UploadFile::\$hash: $result";
-		$this->assertSame('4b53f83dcef24c5eefa98889633f9ff5', $result, $msg);
+		self::assertSame('4b53f83dcef24c5eefa98889633f9ff5', $result, $msg);
 	}
 
 	/**
@@ -116,13 +116,13 @@ class UploadFileTest extends TestCase
 		$sub_dir_prop = $object->getProperty('sub_dir');
 
 		$msg = 'Property UploadFile::$sub_dir_prop not protected';
-		$this->assertTrue($sub_dir_prop->isProtected(), $msg);
+		self::assertTrue($sub_dir_prop->isProtected(), $msg);
 
 		$sub_dir_prop->setAccessible(true);
 		$result = $sub_dir_prop->getValue($this->object);
 
 		$msg = "Wrong value of UploadFile::\$sub_dir_prop: $result";
-		$this->assertSame('aa', $result, $msg);
+		self::assertSame('aa', $result, $msg);
 	}
 
 	/**
@@ -138,7 +138,7 @@ class UploadFileTest extends TestCase
 		$result = $this->object->getSubdir();
 
 		$msg = "Wrong value of UploadFile::\$sub_dir: $result";
-		$this->assertSame($result, 'dd', $msg);
+		self::assertSame($result, 'dd', $msg);
 	}
 
 	/**
@@ -154,13 +154,13 @@ class UploadFileTest extends TestCase
 		$sub_dir_prop = $object->getProperty('tmp_path');
 
 		$msg = 'Property UploadFile::$tmp_path not protected';
-		$this->assertTrue($sub_dir_prop->isProtected(), $msg);
+		self::assertTrue($sub_dir_prop->isProtected(), $msg);
 
 		$sub_dir_prop->setAccessible(true);
 		$result = $sub_dir_prop->getValue($this->object);
 
 		$msg = "Wrong value of UploadFile::\$tmp_path: $result";
-		$this->assertSame('/tmp/tmp-file893', $result, $msg);
+		self::assertSame('/tmp/tmp-file893', $result, $msg);
 	}
 
 	/**
@@ -176,7 +176,7 @@ class UploadFileTest extends TestCase
 		$result = $this->object->getTmpPath();
 
 		$msg = "Wrong value of UploadFile::\$tmp_path: $result";
-		$this->assertSame($result, '/tmp/file-path2937', $msg);
+		self::assertSame($result, '/tmp/file-path2937', $msg);
 	}
 
 	/**
@@ -203,28 +203,28 @@ class UploadFileTest extends TestCase
 		$expected = null;
 
 		$msg = 'Wrong value of UploadFile::$sub_dir property';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 
 		$prop = $object->getProperty('name');
 		$prop->setAccessible(true);
 		$result = $prop->getValue($this->object);
 
 		$msg = 'Not valid value of UploadFile::$name property';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 
 		$prop = $object->getProperty('dir');
 		$prop->setAccessible(true);
 		$result = $prop->getValue($this->object);
 
 		$msg = 'Wrong value of UploadFile::$dir property';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 
 		$prop = $object->getProperty('path');
 		$prop->setAccessible(true);
 		$result = $prop->getValue($this->object);
 
 		$msg = 'Not valid value of UploadFile::$path property';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 
 		$this->object = new UploadFile;
 
@@ -244,11 +244,11 @@ class UploadFileTest extends TestCase
 		$hash = $prop->getValue($this->object);
 
 		$msg = 'Not valid value of UploadFile::$hash property';
-		$this->assertSame(1, preg_match('/^[a-f0-9]{40}$/', $hash), $msg);
+		self::assertSame(1, preg_match('/^[a-f0-9]{40}$/', $hash), $msg);
 
 		$expected = hash_file($this->object->getHashAlgorithm(), $path);
 		$msg = 'Wrong value of UploadFile::$hash property';
-		$this->assertSame($expected, $hash, $msg);
+		self::assertSame($expected, $hash, $msg);
 
 		$prop = $object->getProperty('sub_dir');
 		$prop->setAccessible(true);
@@ -256,7 +256,7 @@ class UploadFileTest extends TestCase
 		$sub_dur = substr($hash, 0, 2);
 
 		$msg = 'Wrong value of UploadFile::$sub_dir property';
-		$this->assertSame($sub_dur, $result, $msg);
+		self::assertSame($sub_dur, $result, $msg);
 
 		$prop = $object->getProperty('name');
 		$prop->setAccessible(true);
@@ -264,7 +264,7 @@ class UploadFileTest extends TestCase
 		$name = substr($hash, 2) . '.';
 
 		$msg = 'Not valid value of UploadFile::$name property';
-		$this->assertSame($name, $result, $msg);
+		self::assertSame($name, $result, $msg);
 
 		$prop = $object->getProperty('dir');
 		$prop->setAccessible(true);
@@ -272,7 +272,7 @@ class UploadFileTest extends TestCase
 		$dir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $sub_dur;
 
 		$msg = 'Wrong value of UploadFile::$dir property';
-		$this->assertSame($dir, $result, $msg);
+		self::assertSame($dir, $result, $msg);
 
 		$prop = $object->getProperty('path');
 		$prop->setAccessible(true);
@@ -280,7 +280,7 @@ class UploadFileTest extends TestCase
 		$path = $dir . DIRECTORY_SEPARATOR . $name;
 
 		$msg = 'Not valid value of UploadFile::$path property';
-		$this->assertSame($path, $result, $msg);
+		self::assertSame($path, $result, $msg);
 
 		// test file cleanup
 		unlink($this->object->getTmpPath());
@@ -299,13 +299,13 @@ class UploadFileTest extends TestCase
 		$dir_mask_prop = $object->getProperty('dir_mask');
 
 		$msg = 'Property UploadFile::$tmp_path not protected';
-		$this->assertTrue($dir_mask_prop->isProtected(), $msg);
+		self::assertTrue($dir_mask_prop->isProtected(), $msg);
 
 		$dir_mask_prop->setAccessible(true);
 		$result = $dir_mask_prop->getValue($this->object);
 
 		$msg = "Wrong value of UploadFile::\$dir_mask: $result";
-		$this->assertSame(0744, $result, $msg);
+		self::assertSame(0744, $result, $msg);
 	}
 
 	/**
@@ -317,11 +317,11 @@ class UploadFileTest extends TestCase
 	{
 		$result = $this->object->getDirMask();
 		$msg = "Wrong value of UploadFile::\$dir_mask: $result";
-		$this->assertSame($result, 0755, $msg);
+		self::assertSame($result, 0755, $msg);
 
 		$this->object->setDirMask(0644);
 		$result = $this->object->getDirMask();
-		$this->assertSame($result, 0644, $msg);
+		self::assertSame($result, 0644, $msg);
 	}
 
 	/**
@@ -337,13 +337,13 @@ class UploadFileTest extends TestCase
 		$sub_dir_prop = $object->getProperty('www_path');
 
 		$msg = 'Property UploadFile::$www_path not protected';
-		$this->assertTrue($sub_dir_prop->isProtected(), $msg);
+		self::assertTrue($sub_dir_prop->isProtected(), $msg);
 
 		$sub_dir_prop->setAccessible(true);
 		$result = $sub_dir_prop->getValue($this->object);
 
 		$msg = "Wrong value of UploadFile::\$www_path: $result";
-		$this->assertSame('/tmp/tmp-file555', $result, $msg);
+		self::assertSame('/tmp/tmp-file555', $result, $msg);
 	}
 
 	/**
@@ -359,7 +359,7 @@ class UploadFileTest extends TestCase
 		$result = $this->object->getWwwPath();
 
 		$msg = "Wrong value of UploadFile::\$Www_path: $result";
-		$this->assertSame($result, '/tmp/file-path4984', $msg);
+		self::assertSame($result, '/tmp/file-path4984', $msg);
 	}
 
 	/**
@@ -375,13 +375,13 @@ class UploadFileTest extends TestCase
 		$dir_mask_prop = $object->getProperty('hash_algorithm');
 
 		$msg = 'Property UploadFile::$hash_algorithm not protected';
-		$this->assertTrue($dir_mask_prop->isProtected(), $msg);
+		self::assertTrue($dir_mask_prop->isProtected(), $msg);
 
 		$dir_mask_prop->setAccessible(true);
 		$result = $dir_mask_prop->getValue($this->object);
 
 		$msg = "Wrong value of UploadFile::\$hash_algorithm: $result";
-		$this->assertSame('md5', $result, $msg);
+		self::assertSame('md5', $result, $msg);
 	}
 
 	/**
@@ -393,11 +393,11 @@ class UploadFileTest extends TestCase
 	{
 		$result = $this->object->getHashAlgorithm();
 		$msg = "Wrong value of UploadFile::\$hash_algorithm: $result";
-		$this->assertSame($result, 'sha1', $msg);
+		self::assertSame($result, 'sha1', $msg);
 
 		$this->object->setHashAlgorithm('md5');
 		$result = $this->object->getHashAlgorithm();
-		$this->assertSame($result, 'md5', $msg);
+		self::assertSame($result, 'md5', $msg);
 	}
 
 	/**
@@ -424,7 +424,7 @@ class UploadFileTest extends TestCase
 
 		$msg = 'Wrong result of UploadFile::save: ' . ($result)
 			? 'true' : 'false';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**

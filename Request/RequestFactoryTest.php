@@ -47,7 +47,7 @@ class RequestFactoryTest extends TestCase
 	{
 		$actual = $this->object->create($content_type);
 		$msg = 'RequestFactory::create() returns wrong result!';
-		$this->assertInstanceOf($expected, $actual, $msg);
+		self::assertInstanceOf($expected, $actual, $msg);
 	}
 
 	public function createProvider()

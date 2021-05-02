@@ -33,13 +33,13 @@ class GuestStrategyTest extends TestCase
 		$expected = false;
 		$result = $this->object->identify();
 		$msg = 'GuestStrategy::identify() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 
 		$expected = ['group' => UsrGroup::GUEST];
 		$result = ['group' => ''];
 		$this->object->getUser()->getProperties($result);
 		$msg = 'Wrong GuestStrategy::identify() behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
@@ -50,6 +50,6 @@ class GuestStrategyTest extends TestCase
 		$expected = null;
 		$actual = $this->object->errorHandle([]);
 		$msg = 'Wrong GuestStrategy::errorHandle() behavior!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

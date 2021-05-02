@@ -18,11 +18,11 @@ use Veles\Auth\UsrAuth;
  * Class UsrAuthCopy
  * @author  Yancharuk Alexander <alex at itvault dot info>
  */
-class UsrAuthCopy extends UsrAuth
+class UsrAuthCleaner extends UsrAuth
 {
 	protected static $instance;
 
-	public static function unsetInstance()
+	public static function unsetInstance(): void
 	{
 		static::$instance = null;
 	}

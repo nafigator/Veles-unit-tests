@@ -55,15 +55,15 @@ class DbExceptionTest extends TestCase
 
 		$result = $obj->getMessage();
 		$msg = 'Wrong DbException::__construct() behavior!';
-		$this->assertSame($message, $result, $msg);
+		self::assertSame($message, $result, $msg);
 
 		$result = $obj->getAnsiCode();
 		$msg = 'Wrong DbException::__construct() behavior!';
-		$this->assertSame($ansi_code, $result, $msg);
+		self::assertSame($ansi_code, $result, $msg);
 
 		$result = $obj->getCode();
 		$msg = 'Wrong DbException::__construct() behavior!';
-		$this->assertSame($code, $result, $msg);
+		self::assertSame($code, $result, $msg);
 	}
 
 	public function constructProvider()
@@ -88,7 +88,7 @@ class DbExceptionTest extends TestCase
 		$expected = '28000';
 		$result = $this->object->getAnsiCode();
 		$msg = 'DbException::getAnsiCode() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
@@ -100,7 +100,7 @@ class DbExceptionTest extends TestCase
 		$this->object->setAnsiCode($expected);
 		$result = $this->object->getAnsiCode();
 		$msg = 'DbException::setAnsiCode() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
@@ -111,7 +111,7 @@ class DbExceptionTest extends TestCase
 		$expected = 'SELECT * FROM users WHERE name = ?';
 		$result = $this->object->getSql();
 		$msg = 'DbException::getSql() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
@@ -123,7 +123,7 @@ class DbExceptionTest extends TestCase
 		$this->object->setSql($expected);
 		$result = $this->object->getSql();
 		$msg = 'DbException::setSql() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
@@ -134,7 +134,7 @@ class DbExceptionTest extends TestCase
 		$expected = ['Lola'];
 		$result = $this->object->getParams();
 		$msg = 'DbException::getParams() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
@@ -146,6 +146,6 @@ class DbExceptionTest extends TestCase
 		$this->object->setParams($expected);
 		$result = $this->object->getParams();
 		$msg = 'DbException::setParams() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

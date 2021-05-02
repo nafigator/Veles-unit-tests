@@ -41,13 +41,13 @@ class FileTest extends TestCase
 		$prop = $object->getProperty('dir');
 
 		$msg = 'Property File::$dir not protected';
-		$this->assertTrue($prop->isProtected(), $msg);
+		self::assertTrue($prop->isProtected(), $msg);
 
 		$prop->setAccessible(true);
 		$result = $prop->getValue($this->object);
 
 		$msg = "Wrong value of File::setDir: $result";
-		$this->assertSame($result, '/www/public/upload', $msg);
+		self::assertSame($result, '/www/public/upload', $msg);
 	}
 
 	/**
@@ -63,7 +63,7 @@ class FileTest extends TestCase
 		$result = $this->object->getDir();
 
 		$msg = "Wrong value of File::getDir: $result";
-		$this->assertSame($result, '/www/upload', $msg);
+		self::assertSame($result, '/www/upload', $msg);
 	}
 
 	/**
@@ -79,13 +79,13 @@ class FileTest extends TestCase
 		$prop = $object->getProperty('mime');
 
 		$msg = 'Property File::$mime not protected';
-		$this->assertTrue($prop->isProtected(), $msg);
+		self::assertTrue($prop->isProtected(), $msg);
 
 		$prop->setAccessible(true);
 		$result = $prop->getValue($this->object);
 
 		$msg = "Wrong value of File::setMime: $result";
-		$this->assertSame($result, 'text/plain', $msg);
+		self::assertSame($result, 'text/plain', $msg);
 	}
 
 	/**
@@ -101,7 +101,7 @@ class FileTest extends TestCase
 		$result = $this->object->getMime();
 
 		$msg = "Wrong value of File::getMime: $result";
-		$this->assertSame($result, 'application/pdf', $msg);
+		self::assertSame($result, 'application/pdf', $msg);
 	}
 
 	/**
@@ -117,13 +117,13 @@ class FileTest extends TestCase
 		$prop = $object->getProperty('name');
 
 		$msg = 'Property File::$name not protected';
-		$this->assertTrue($prop->isProtected(), $msg);
+		self::assertTrue($prop->isProtected(), $msg);
 
 		$prop->setAccessible(true);
 		$result = $prop->getValue($this->object);
 
 		$msg = "Wrong value of File::setName: $result";
-		$this->assertSame($result, 'file.txt', $msg);
+		self::assertSame($result, 'file.txt', $msg);
 	}
 
 	/**
@@ -139,7 +139,7 @@ class FileTest extends TestCase
 		$result = $this->object->getName();
 
 		$msg = "Wrong value of File::getName: $result";
-		$this->assertSame($result, 'new-file.txt', $msg);
+		self::assertSame($result, 'new-file.txt', $msg);
 	}
 
 	/**
@@ -157,26 +157,26 @@ class FileTest extends TestCase
 		$prop = $object->getProperty('path');
 
 		$msg = 'Property File::$path not protected';
-		$this->assertTrue($prop->isProtected(), $msg);
+		self::assertTrue($prop->isProtected(), $msg);
 
 		$prop->setAccessible(true);
 		$result = $prop->getValue($this->object);
 
 		$msg = "Wrong value of File::setPath: $result";
-		$this->assertSame($result, '/upload/test-file.php', $msg);
+		self::assertSame($result, '/upload/test-file.php', $msg);
 
 
 		$prop = $object->getProperty('name');
 		$prop->setAccessible(true);
 		$result = $prop->getValue($this->object);
 		$msg = "Wrong value of File::setName: $result";
-		$this->assertSame($result, 'test-file.php', $msg);
+		self::assertSame($result, 'test-file.php', $msg);
 
 		$prop = $object->getProperty('dir');
 		$prop->setAccessible(true);
 		$result = $prop->getValue($this->object);
 		$msg = "Wrong value of File::setDir: $result";
-		$this->assertSame($result, '/upload', $msg);
+		self::assertSame($result, '/upload', $msg);
 	}
 
 	/**
@@ -192,7 +192,7 @@ class FileTest extends TestCase
 		$result = $this->object->getPath();
 
 		$msg = "Wrong value of File::getPath: $result";
-		$this->assertSame($result, '/public', $msg);
+		self::assertSame($result, '/public', $msg);
 	}
 
 	/**
@@ -208,12 +208,12 @@ class FileTest extends TestCase
 
 		$result = $this->object->delete();
 		$msg = 'File::delete() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 
 		$expected = false;
 		$result = file_exists($path);
 		$msg = 'Unexpected behavior or File::delete()!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	public function deleteProvider()
@@ -237,11 +237,11 @@ class FileTest extends TestCase
 
 		$result = $this->object->deleteDir();
 		$msg = 'File::deleteDir() returns wrong result!';
-		$this->assertSame($expected1, $result, $msg);
+		self::assertSame($expected1, $result, $msg);
 
 		$result = !file_exists($path_dir) and !file_exists($path_file);
 		$msg = 'Unexpected behavior or File::deleteDir()!';
-		$this->assertSame($expected2, $result, $msg);
+		self::assertSame($expected2, $result, $msg);
 
 		// cleanup
 		if (null !== $path_file_second) {

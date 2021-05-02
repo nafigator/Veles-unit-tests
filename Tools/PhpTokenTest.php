@@ -27,22 +27,7 @@ class PhpTokenTest extends TestCase
 		$this->object = new PhpToken(self::$content, $validator);
     }
 
-	/**
-	 * @covers \Veles\Tools\PhpToken::setName
-	 */
-	public function testSetName()
-	{
-		$expected = uniqid();
-		$this->object->setName($expected);
-
-		$msg = 'Wrong behavior of PhpToken::setName()';
-		$this->assertAttributeSame($expected, 'name', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Tools\PhpToken::getName
-	 */
-	public function testGetName()
+	public function testGetName(): void
 	{
 		$this->object->setId(334);
 		$expected = token_name(334);
@@ -50,6 +35,6 @@ class PhpTokenTest extends TestCase
 		$result = $this->object->getName();
 
 		$msg = 'Wrong behavior of PhpToken::getName()';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

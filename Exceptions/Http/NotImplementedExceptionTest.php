@@ -14,6 +14,6 @@ class NotImplementedExceptionTest extends TestCase
 	{
 		new NotImplementedException;
 		$msg = 'NotImplementedException::__construct() wrong behavior!';
-		$this->assertSame(501, http_response_code(), $msg);
+		self::assertSame(501, http_response_code(), $msg);
 	}
 }

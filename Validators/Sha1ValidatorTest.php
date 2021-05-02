@@ -16,50 +16,21 @@ class Sha1ValidatorTest extends TestCase
 	protected $object;
 
 	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp(): void
-	{
-		$this->object = new Sha1Validator;
-	}
-
-	/**
-	 * @param $flag
-	 * @param $expected
-	 * @dataProvider constructProvider
-	 */
-	public function testConstruct($flag, $expected)
-	{
-		$obj = new Sha1Validator($flag);
-		$msg = 'Wrong behavior of Sha1Validator::__construct()';
-		$this->assertAttributeSame($expected, 'pattern', $obj, $msg);
-	}
-
-	public function constructProvider()
-	{
-		return [
-			[true, '/^[a-f\d]{40}$/'],
-			[false, '/^[a-f\d]{40}$/i']
-		];
-	}
-
-	/**
-	 * @covers \Veles\Validators\Sha1Validator::check
 	 * @dataProvider checkProvider
 	 */
-	public function testCheck($value, $expected)
+	public function testCheck($value, $expected, $caseSensitive): void
 	{
-		$result = $this->object->check($value);
+		$object = new Sha1Validator($caseSensitive);
+		$result = $object->check($value);
 		$msg = 'Sha1Validator returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function checkProvider()
+	public function checkProvider(): array
 	{
 		return [
-			[sha1(uniqid()), true],
-			[md5(uniqid()), false]
+			[sha1(uniqid()), true, true],
+			[md5(uniqid()), false, false],
 		];
 	}
 }

@@ -23,10 +23,6 @@ class DbPaginatorTest extends TestCase
 	 */
 	protected $html;
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
 	protected function setUp(): void
 	{
 		$this->object = new DbPaginator(realpath(__DIR__ . '/../Project/View/paginator_default.phtml'));
@@ -44,27 +40,20 @@ class DbPaginatorTest extends TestCase
 EOL;
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
 	protected function tearDown(): void
 	{
 		DbCopy::unsetAdapter();
 	}
 
-	/**
-	 * @covers \Veles\DataBase\DbPaginator::__toString
-	 */
-	public function test__toString()
+	public function test__toString(): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['rows', 'getFoundRows'])
+			->onlyMethods(['rows', 'getFoundRows'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('rows')
 			->willReturn([1, 2, 3]);
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('getFoundRows')
 			->willReturn(20);
 
@@ -81,71 +70,50 @@ EOL;
 		echo $pager;
 	}
 
-	/**
-	 * @covers \Veles\DataBase\DbPaginator::getOffset
-	 */
-	public function testGetOffset()
+	public function testGetOffset(): void
 	{
 		$expected = 0;
 		$result = $this->object->getOffset();
 		$msg = 'DbPaginator::getOffset() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
-	 * @covers \Veles\DataBase\DbPaginator::getLimit
+	 * @dataProvider getLimitProvider
 	 */
-	public function testGetLimit()
-	{
-		$expected = 40;
-		$this->object->setLimit($expected);
-		$result = $this->object->getLimit();
-		$msg = 'DbPaginator::getLimit() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\DbPaginator::setLimit
-	 * @dataProvider setLimitProvider
-	 */
-	public function testSetLimit($limit, $expected)
+	public function testGetLimit($limit, $expected): void
 	{
 		$this->object->setLimit($limit);
-		$msg = 'Wrong DbPaginator::setLimit() behavior!';
-		$this->assertAttributeSame($expected, 'limit', $this->object, $msg);
+		$result = $this->object->getLimit();
+		$msg = 'DbPaginator::getLimit() returns wrong result!';
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function setLimitProvider()
+	public function getLimitProvider(): array
 	{
 		return [
-			['bad_text', 5],
-			[10, 10],
-			['200', 200]
+			[40, 40],
+			['ab', 5],
+			['25', 25],
 		];
 	}
 
-	/**
-	 * @covers \Veles\DataBase\DbPaginator::getSqlLimit
-	 */
-	public function testGetSqlLimit()
+	public function testGetSqlLimit(): void
 	{
 		$expected = ' LIMIT 0, 5';
 		$result = $this->object->getSqlLimit();
 		$msg = 'DbPaginator::getSqlLimit() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers       \Veles\DataBase\DbPaginator::getMaxPages
-	 */
-	public function testGetMaxPages()
+	public function testGetMaxPages(): void
 	{
 		$expected = 4;
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['getFoundRows'])
+			->onlyMethods(['getFoundRows'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('getFoundRows')
 			->willReturn(20);
 
@@ -153,60 +121,24 @@ EOL;
 
 		$actual = $this->object->getMaxPages();
 		$msg = 'DbPaginator::getMaxPages() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 
 		$actual = $this->object->getMaxPages();
 		$msg = 'DbPaginator::getMaxPages() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\DataBase\DbPaginator::calcMaxPages
-	 */
-	public function testCalcMaxPages()
-	{
-		$expected = 3;
-
-		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['getFoundRows'])
-			->getMock();
-		$adapter->expects($this->once())
-			->method('getFoundRows')
-			->willReturn(15);
-
-		Db::setAdapter($adapter);
-
-		$this->object->calcMaxPages();
-		$msg = 'Wrong DbPaginator::calcMaxPages() behavior!';
-		$this->assertAttributeSame($expected, 'page_nums',$this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\DbPaginator::getCurrPage
-
-	 */
-	public function testGetCurrPage()
+	public function testGetCurrPage(): void
 	{
 		$expected = 1;
 		$result = $this->object->getCurrPage();
 		$msg = 'DbPaginator::getCurrPage() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 
 		$expected = 5;
 		$object = new DbPaginator('', 5);
 		$result = $object->getCurrPage();
 		$msg = 'DbPaginator::getCurrPage() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\DbPaginator::__construct
-	 */
-	public function testConstruct()
-	{
-		$expected = 'paginator_default.phtml';
-		$object = new DbPaginator($expected);
-		$msg = 'Wrong DbPaginator::__construct() behavior!';
-		$this->assertAttributeSame($expected, 'template', $object, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

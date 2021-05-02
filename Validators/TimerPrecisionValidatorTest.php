@@ -33,7 +33,7 @@ class TimerPrecisionValidatorTest extends TestCase
     {
 		$actual = $this->object->check($value);
 		$msg = 'TimerPrecisionValidator::check() returns wrong values';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
     }
 
 	public function checkProvider()

@@ -14,124 +14,52 @@ class DbFilterTest extends TestCase
 	 */
 	protected $object;
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
 	protected function setUp(): void
 	{
 		$this->object = new DbFilter;
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
 	protected function tearDown(): void
 	{
 	}
 
-	/**
-	 * @covers \Veles\DataBase\DbFilter::getWhere
-	 */
-	public function testGetWhere()
+	public function testGetWhere(): void
 	{
 		$where = 'where string';
 		$this->object->setWhere($where);
 		$expected = "WHERE $where";
 		$result = $this->object->getWhere();
 		$msg = 'DbFilter::getWhere() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\DataBase\DbFilter::getGroup
-	 */
-	public function testGetGroup()
+	public function testGetGroup(): void
 	{
 		$group = 'group string';
 		$this->object->setGroup($group);
 		$expected = "GROUP BY $group";
 		$result = $this->object->getGroup();
 		$msg = 'DbFilter::getGroup() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\DataBase\DbFilter::getHaving
-	 */
-	public function testGetHaving()
+	public function testGetHaving(): void
 	{
 		$having = 'having string';
 		$this->object->setHaving($having);
 		$expected = "HAVING $having";
 		$result = $this->object->getHaving();
 		$msg = 'DbFilter::getHaving() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\DataBase\DbFilter::getOrder
-	 */
-	public function testGetOrder()
+	public function testGetOrder(): void
 	{
 		$order = 'order string';
 		$this->object->setOrder($order);
 		$expected = "ORDER BY $order";
 		$result = $this->object->getOrder();
 		$msg = 'DbFilter::getOrder() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\DbFilter::setWhere
-	 */
-	public function testSetWhere()
-	{
-		$where = 'where string';
-		$result = $this->object->setWhere($where);
-		$expected = "WHERE $where";
-		$msg = 'Wrong DbFilter::getWhere() behavior!';
-		$this->assertAttributeSame($expected, 'where', $this->object, $msg);
-		$this->assertSame($this->object, $result);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\DbFilter::setGroup
-	 */
-	public function testSetGroup()
-	{
-		$group = 'group string';
-		$result = $this->object->setGroup($group);
-		$expected = "GROUP BY $group";
-		$msg = 'Wrong DbFilter::getGroup() behavior!';
-		$this->assertAttributeSame($expected, 'group', $this->object, $msg);
-		$this->assertSame($this->object, $result);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\DbFilter::setHaving
-	 */
-	public function testSetHaving()
-	{
-		$having = 'having string';
-		$result = $this->object->setHaving($having);
-		$expected = "HAVING $having";
-		$msg = 'Wrong DbFilter::getHaving() behavior!';
-		$this->assertAttributeSame($expected, 'having', $this->object, $msg);
-		$this->assertSame($this->object, $result);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\DbFilter::setOrder
-	 */
-	public function testSetOrder()
-	{
-		$order = 'order string';
-		$result = $this->object->setOrder($order);
-		$expected = "ORDER BY $order";
-		$msg = 'Wrong DbFilter::getOrder() behavior!';
-		$this->assertAttributeSame($expected, 'order', $this->object, $msg);
-		$this->assertSame($this->object, $result);
+		self::assertSame($expected, $result, $msg);
 	}
 }

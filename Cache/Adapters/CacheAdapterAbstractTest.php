@@ -14,27 +14,7 @@ class CacheAdapterAbstractTest extends TestCase
 		CacheAdapterAbstractChild::addCalls([]);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Adapters\CacheAdapterAbstract::setDriver
-	 */
-	public function testSetDriver()
-	{
-		$expected = 'uq[0n;34nt';
-		$obj = CacheAdapterAbstractChild::instance();
-		$actual = $obj->setDriver($expected);
-
-		$msg = 'Wrong behavior of CacheAdapterAbstract::setDriver()';
-		$this->assertAttributeSame($expected, 'driver', $obj, $msg);
-
-		$msg = 'CacheAdapterAbstract::setDriver() returns wrong result';
-		$this->assertSame($obj, $actual, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Cache\Adapters\CacheAdapterAbstract::getDriver
-	 * @depends testSetDriver
-	 */
-	public function testGetDriver()
+	public function testGetDriver(): void
 	{
 		$expected = '123;kbn90bj';
 		$obj = CacheAdapterAbstractChild::instance();
@@ -42,22 +22,18 @@ class CacheAdapterAbstractTest extends TestCase
 
 		$result = $obj->getDriver();
 		$msg = 'Wrong result of CacheAdapterAbstract::getDriver()';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Adapters\CacheAdapterAbstract::instance
-	 * @covers \Veles\Cache\Adapters\CacheAdapterAbstract::invokeLazyCalls
-	 */
-	public function testInstance()
+	public function testInstance(): void
 	{
-		$expected = __NAMESPACE__ . '\CacheAdapterAbstractChild';
+		$expected = CacheAdapterAbstractChild::class;
 		CacheAdapterAbstractChild::setInstance(null);
 		CacheAdapterAbstractChild::addCalls([]);
 		$result = CacheAdapterAbstractChild::instance();
 
 		$msg = 'Adapter returned wrong instance object!';
-		$this->assertInstanceOf($expected, $result, $msg);
+		self::assertInstanceOf($expected, $result, $msg);
 
 		CacheAdapterAbstractChild::setInstance(null);
 		CacheAdapterAbstractChild::addCalls([[
@@ -68,16 +44,13 @@ class CacheAdapterAbstractTest extends TestCase
 		$result = CacheAdapterAbstractChild::instance();
 
 		$msg = 'Adapter returned wrong instance object!';
-		$this->assertInstanceOf($expected, $result, $msg);
+		self::assertInstanceOf($expected, $result, $msg);
 
 		$result = CacheAdapterAbstractChild::getCalls();
-		$this->assertSame([], $result);
+		self::assertSame([], $result);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Adapters\CacheAdapterAbstract::AddCall
-	 */
-	public function testAddCall()
+	public function testAddCall(): void
 	{
 		CacheAdapterAbstractChild::addCall('testCall', ['string']);
 
@@ -88,6 +61,6 @@ class CacheAdapterAbstractTest extends TestCase
 		]];
 
 		$msg = 'Driver calls was not saved correctly!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

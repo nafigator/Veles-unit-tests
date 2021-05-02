@@ -13,6 +13,7 @@
 
 namespace Veles\Tests\View;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use Veles\View\Adapters\NativeAdapter;
@@ -52,7 +53,7 @@ class ViewTest extends TestCase
 
 		$this->html = <<<EOF
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Veles is a fast PHP framework</title>
 </head>
@@ -74,82 +75,46 @@ EOF;
 		View::setAdapter(NativeAdapter::instance());
 	}
 
-	/**
-	 * Unit-test for View::setAdapter
-	 * @covers \Veles\View\View::setAdapter
-	 * @see \Veles\View\View::setAdapter
-	 */
-	public function testSetAdapter()
-	{
-		View::unsetAdapter();
-		$adapter = NativeAdapter::instance();
-		View::setAdapter($adapter);
-
-		$msg = 'Wrong setAdapter behavior!';
-		$this->assertAttributeEquals(
-			$adapter,
-			'adapter',
-			'\Veles\View\View',
-			$msg
-		);
-	}
-
-	/**
-	 * Unit-test for View::getAdapter
-	 * @covers \Veles\View\View::getAdapter
-	 * @see \Veles\View\View::getAdapter
-	 */
-	public function testGetAdapter()
+	public function testGetAdapter(): void
 	{
 		$expected = NativeAdapter::instance();
 		$_SERVER['REQUEST_URI'] = 'index.html';
 
-		$result = View::getAdapter();
+		$actual = View::getAdapter();
 		$msg = 'Wrong View::getAdapter() result';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
 
 		$expected = NativeAdapter::instance();
 		View::unsetAdapter();
 		View::setAdapter($expected);
 
-		$result = View::getAdapter();
+		$actual = View::getAdapter();
 
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\View\View::getAdapter
-	 * @expectedExceptionMessage View adapter not set!
-	 * @expectedException \Exception
-	 */
-	public function testGetAdapterException()
+	public function testGetAdapterException(): void
 	{
+		$this->expectException(Exception::class);
+		$this->expectExceptionMessage('View adapter not set!');
+
 		View::unsetAdapter();
 		View::getAdapter();
 	}
 
 	/**
-	 * Unit-test for View::set
-	 *
-	 * @covers       \Veles\View\View::set
 	 * @dataProvider setProvider
-	 * @see          Veles\View\View::set
-	 *
-	 * @param $vars
 	 */
-	public function testSet($vars)
+	public function testSet($vars): void
 	{
-		$this->object->set($vars);
+		$this->object::set($vars);
 
 		$this->expectOutputString($this->html);
 
-		$this->object->show($this->tpl);
+		$this->object::show($this->tpl);
 	}
 
-	/**
-	 * DataProvider for View::set
-	 */
-	public function setProvider()
+	public function setProvider(): array
 	{
 		return [
 			[
@@ -159,19 +124,9 @@ EOF;
 	}
 
 	/**
-	 * Unit-test for View::del
-	 *
-	 * @covers       \Veles\View\View::del
 	 * @dataProvider delProvider
-	 * @see          Veles\View\View::del
-	 *
-	 * @param $vars
-	 * @param $del
-	 * @param $expected
-	 *
-	 * @throws \Exception
 	 */
-	public function testDel($vars, $del, $expected)
+	public function testDel($vars, $del, $expected): void
 	{
 		View::set($vars);
 		View::del($del);
@@ -184,14 +139,11 @@ EOF;
 		$msg = 'Wrong View::del() behavior!';
 
 		foreach ($expected as $var => $value) {
-			$this->assertSame($value, isset($result[$var]), $msg);
+			self::assertSame($value, isset($result[$var]), $msg);
 		}
 	}
 
-	/**
-	 * DataProvider for View::del
-	 */
-	public function delProvider()
+	public function delProvider(): array
 	{
 		return [
 			[
@@ -207,13 +159,7 @@ EOF;
 		];
 	}
 
-	/**
-	 * Unit-test for View::isCached
-	 * @covers \Veles\View\View::isCached
-	 * @depends testGetAdapter
-	 * @see \Veles\View\View::isCached
-	 */
-	public function testIsCached()
+	public function testIsCached(): void
 	{
 		$adapter = View::getAdapter();
 		$tpl = $adapter->getTemplateDir();
@@ -222,38 +168,23 @@ EOF;
 		$result = View::isCached($tpl);
 
 		$msg = 'Wrong View::isCached() result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * Unit-test for View::show
-	 * @covers \Veles\View\View::show
-	 * @depends testSet
-	 * @see \Veles\View\View::show
-	 */
-	public function testShow()
+	public function testShow(): void
 	{
 		$this->expectOutputString($this->html);
 
-		$this->object->show($this->tpl);
+		$this->object::show($this->tpl);
 	}
 
-	/**
-	 * Unit-test for View::get
-	 * @covers \Veles\View\View::get
-	 * @depends testSet
-	 * @see \Veles\View\View::get
-	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$expected =& $this->html;
 
-		$result = $this->object->get($this->tpl);
-
-		$msg = 'Wrong result type: ' . gettype($result);
-		$this->assertInternalType('string', $result, $msg);
+		$actual = $this->object::get($this->tpl);
 
 		$msg = 'Wrong content of HTML in View::get()';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

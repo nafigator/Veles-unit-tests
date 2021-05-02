@@ -27,30 +27,7 @@ class HttpRequestAbstractTest extends TestCase
 		$this->object = new HttpPostRequest;
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
-
-	/**
-	 * @covers \Veles\Request\HttpRequestAbstract::setStream
-	 */
-	public function testSetStream()
-	{
-		$expected = uniqid();
-
-		$this->object->setStream($expected);
-		$msg = 'HttpRequestAbstract::setStream() wrong behavior!';
-		$this->assertAttributeSame($expected, 'stream', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Request\HttpRequestAbstract::getValidator
-	 */
-	public function testGetValidator()
+	public function testGetValidator(): void
 	{
 		$expected = new Validator;
 
@@ -58,25 +35,10 @@ class HttpRequestAbstractTest extends TestCase
 		$actual = $this->object->getValidator();
 
 		$msg = 'HttpRequestAbstract::getValidator() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Request\HttpRequestAbstract::setValidator
-	 */
-	public function testSetValidator()
-	{
-		$expected = new Validator;
-
-		$this->object->setValidator($expected);
-		$msg = 'HttpRequestAbstract::setValidator() wrong behavior!';
-		$this->assertAttributeSame($expected, 'validator', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Request\HttpRequestAbstract::getData
-	 */
-	public function testGetData()
+	public function testGetData(): void
 	{
 		$expected = [uniqid()];
 		$definitions = uniqid();
@@ -84,23 +46,23 @@ class HttpRequestAbstractTest extends TestCase
 		$_POST = $expected;
 
 		$validator = $this->getMockBuilder(Validator::class)
-			->setMethods(['isValid', 'getData'])
+			->onlyMethods(['isValid', 'getData'])
 			->getMock();
 
-		$validator->expects($this->once())
+		$validator->expects(self::once())
 			->method('isValid')
 			->willReturn(true);
 
-		$validator->expects($this->once())
+		$validator->expects(self::once())
 			->method('getData')
 			->willReturn($expected);
 
 		$adapter = $this->getMockBuilder(JsonSchemaAdapter::class)
-			->setMethods(['check'])
+			->onlyMethods(['check'])
 			->disableOriginalConstructor()
 			->getMock();
 
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('check');
 
 		$validator->setAdapter($adapter);
@@ -109,6 +71,6 @@ class HttpRequestAbstractTest extends TestCase
 
 		$actual = $this->object->getData($definitions);
 		$msg = 'HttpRequestAbstract::getData returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

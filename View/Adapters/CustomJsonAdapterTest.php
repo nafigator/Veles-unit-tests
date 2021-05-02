@@ -25,25 +25,11 @@ class CustomJsonAdapterTest extends TestCase
 		$this->object = new CustomJsonAdapter;
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
+	public function testShow(): void
 	{
-	}
+		$expected = '';
 
-	/**
-	 * @covers \Veles\View\Adapters\CustomJsonAdapter::show
-	 */
-	public function testShow()
-	{
-		$expected = [];
-
-		$msg = 'CustomJsonAdapter::show() wrong behavior!';
-		$this->assertAttributeSame($expected, 'variables', $this->object, $msg);
-
-		$this->expectOutputString('');
+		$this->expectOutputString($expected);
 		$this->object->show(null);
 
         $expected = '{"prop":"this is json-string"}';
@@ -53,49 +39,22 @@ class CustomJsonAdapterTest extends TestCase
 		$this->object->show(null);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\CustomJsonAdapter::set
-	 */
-	public function testSet()
-	{
-		$expected = '{"prop":"this is new json-string"}';
-		$this->object->set($expected);
-
-		$msg = 'CustomJsonAdapter::show() wrong behavior!';
-		$this->assertAttributeSame($expected, 'variables', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\View\Adapters\CustomJsonAdapter::get
-	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$expected = '{"prop":100500}';
 		$this->object->set($expected);
 
 		$actual = $this->object->get(null);
 		$msg = 'CustomJsonAdapter::show() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\CustomJsonAdapter::isCached
-	 */
-	public function testIsCached()
+	public function testIsCached(): void
 	{
 		$expected = false;
 
 		$actual = $this->object->isCached('path');
 		$msg = 'CustomJsonAdapter::isCached() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
-	}
-
-	/**
-	 * @covers \Veles\View\Adapters\CustomJsonAdapter::__construct
-	 */
-	public function testConstruct()
-	{
-		$msg = 'CustomJsonAdapter::__construct() wrong behavior!';
-		$this->assertAttributeSame($this->object, 'driver', $this->object, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

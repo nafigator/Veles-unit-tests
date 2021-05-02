@@ -48,7 +48,7 @@ class ByteValidatorTest extends TestCase
 		$result = $this->object->check($size);
 
 		$msg = 'Wrong ByteValidator::check() validation';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
@@ -77,7 +77,7 @@ class ByteValidatorTest extends TestCase
 		$result = $this->object->format($size);
 
 		$msg = 'Wrong ByteValidator::format() result';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**

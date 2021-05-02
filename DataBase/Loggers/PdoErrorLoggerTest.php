@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\DataBase\Loggers;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Veles\DataBase\Loggers\PdoErrorLogger;
 
@@ -26,44 +27,20 @@ class PdoErrorLoggerTest extends TestCase
 		$this->object = new PdoErrorLogger;
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Loggers\PdoErrorLogger::setPath
-	 */
-	public function testSetPath()
-	{
-		$msg = 'Wrong initial value of PdoErrorLogger::path';
-		$this->assertAttributeSame(null, 'path', $this->object, $msg);
-
-		$expected = '/this/is/path';
-		$this->object->setPath($expected);
-
-		$msg = 'Wrong behavior of PdoErrorLogger::setPath()';
-		$this->assertAttributeSame($expected, 'path', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\Loggers\PdoErrorLogger::getPath
-	 * @depend testSetPath
-	 */
-	public function testGetPath()
+	public function testGetPath(): void
 	{
 		$expected = '/this/is/path';
 		$this->object->setPath($expected);
 
 		$result = $this->object->getPath();
 		$msg = 'Wrong result of PdoErrorLogger::getPath()';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
-	 * @covers       \Veles\DataBase\Loggers\PdoErrorLogger::update
-	 * @covers       \Veles\DataBase\Loggers\PdoErrorLogger::updateConnParams
 	 * @dataProvider updateProvider
-	 *
-	 * @param $subject
-	 * @param $error
 	 */
-	public function testUpdate($subject, $error)
+	public function testUpdate($subject, $error): void
 	{
 		$log_path = __DIR__ . '/' . uniqid() . '.log';
 		$this->object->setPath($log_path);
@@ -76,7 +53,7 @@ class PdoErrorLoggerTest extends TestCase
 		$this->object->update($subject);
 	}
 
-	public function updateProvider()
+	public function updateProvider(): array
 	{
 		$subject_1 = new FakeSubject;
 		$conn_good = new FakeStmt;
@@ -107,13 +84,11 @@ class PdoErrorLoggerTest extends TestCase
 		];
 	}
 
-	/**
-	 * @covers       \Veles\DataBase\Loggers\PdoErrorLogger::updateConnParams
-	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessage $subject must be instance of InvalidArgumentException
-	 */
-	public function testConnParamsException()
+	public function testConnParamsException(): void
 	{
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessage('$subject must be instance of InvalidArgumentException');
+
 		$subject = new BadSubject;
 		$conn_good = new FakeStmt;
 		$conn_good->setErrorCode('00000');

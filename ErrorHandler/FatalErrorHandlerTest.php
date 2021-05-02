@@ -34,7 +34,7 @@ class FatalErrorHandlerTest extends TestCase
 		$result = $this->object->getVars();
 
 		$msg = 'FatalErrorHandler::run() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 
 		/** @noinspection PhpUndefinedVariableInspection */
 		@$b = $a['none'];
@@ -56,6 +56,6 @@ class FatalErrorHandlerTest extends TestCase
 		$result = $this->object->getVars();
 
 		$msg = 'FatalErrorHandler::run() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

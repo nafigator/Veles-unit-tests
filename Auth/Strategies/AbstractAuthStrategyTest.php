@@ -16,51 +16,31 @@ class AbstractAuthStrategyTest extends TestCase
 	 */
 	protected $object;
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
 	protected function setUp(): void
 	{
 		$this->object = new GuestStrategy(new User);
 	}
 
-	/**
-	 * @covers \Veles\Auth\Strategies\AbstractAuthStrategy::getUser
-	 * @covers \Veles\Auth\Strategies\AbstractAuthStrategy::__construct
-	 */
-	public function testGetUser()
+	public function testGetUser(): void
 	{
-		$expected = '\Veles\Model\User';
+		$expected = User::class;
 		$actual = $this->object->getUser();
 		$msg = 'AbstractAuthStrategy::getUser() returns wrong result!';
-		$this->assertInstanceOf($expected, $actual, $msg);
+		self::assertInstanceOf($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Auth\Strategies\AbstractAuthStrategy::getErrors
-	 */
-	public function testGetErrors()
+	public function testGetErrors(): void
 	{
 		$expected = 0;
 		$actual = $this->object->getErrors();
 		$msg = 'AbstractAuthStrategy::getErrors() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
-	}
+		self::assertSame($expected, $actual, $msg);
 
-	/**
-	 * @covers \Veles\Auth\Strategies\AbstractAuthStrategy::setError
-	 */
-	public function testSetError()
-	{
-		$expected = 8;
 		$this->object->setError(GuestStrategy::ERR_NOT_VALID_LOGIN);
-		$msg = 'AbstractAuthStrategy::setErrors() wrong behavior!';
-		$this->assertAttributeSame($expected, 'errors', $this->object, $msg);
-
-		$expected = 40;
 		$this->object->setError(GuestStrategy::ERR_NOT_VALID_HASH);
-		$msg = 'AbstractAuthStrategy::setErrors() wrong behavior!';
-		$this->assertAttributeSame($expected, 'errors', $this->object, $msg);
+		$expected = 40;
+
+		$actual = $this->object->getErrors();
+		self::assertSame($expected, $actual, $msg);
 	}
 }

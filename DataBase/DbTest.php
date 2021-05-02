@@ -31,54 +31,32 @@ class DbTest extends TestCase
 		DbCopy::unsetAdapter();
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Db::setAdapter
-	 */
-	public function testSetAdapter()
-	{
-		$expected = $this->adapter;
-		Db::setAdapter($expected);
-
-		$msg = 'Wrong Db::setAdapter() behavior!';
-		$this->assertAttributeEquals(
-			$expected, 'adapter', 'Veles\DataBase\Db', $msg
-		);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\Db::getAdapter
-	 */
-	public function testGetAdapter()
+	public function testGetAdapter(): void
 	{
 		Db::setAdapter($this->adapter);
 
 		$actual = Db::getAdapter();
 
 		$msg = 'Db::getAdapter() returns wrong result!';
-		$this->assertSame($actual, $this->adapter, $msg);
+		self::assertSame($actual, $this->adapter, $msg);
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Db::getAdapter
-	 * @expectedException Exception
-	 * @expectedExceptionMessage Adapter not set!
-	 */
-	public function testGetAdapterException()
+	public function testGetAdapterException(): void
 	{
+		$this->expectExceptionMessage(Exception::class);
+		$this->expectExceptionMessage('Adapter not set!');
+
 		Db::getAdapter();
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Db::connection
-	 */
-	public function testConnection()
+	public function testConnection(): void
 	{
 		$expected = 'connection name';
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['setConnection'])
+			->onlyMethods(['setConnection'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('setConnection')
 			->with($expected)
 			->willReturn($adapter);
@@ -88,16 +66,9 @@ class DbTest extends TestCase
 	}
 
 	/**
-	 * @covers       \Veles\DataBase\Db::value
-	 *
 	 * @dataProvider valueProvider
-	 *
-	 * @param $adapter
-	 * @param $sql
-	 * @param $params
-	 * @param $types
 	 */
-	public function testValue($adapter, $sql, $params, $types)
+	public function testValue($adapter, $sql, $params, $types): void
 	{
 		Db::setAdapter($adapter);
 
@@ -109,16 +80,16 @@ class DbTest extends TestCase
 			Db::value($sql);
 	}
 
-	public function valueProvider()
+	public function valueProvider(): array
 	{
 		$sql1    = 'SELECT * FROM table_one';
 		$params1 = [1, 1];
 		$types1  = 'is';
 
 		$adapter1 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['value'])
+			->onlyMethods(['value'])
 			->getMock();
-		$adapter1->expects($this->once())
+		$adapter1->expects(self::once())
 			->method('value')
 			->with($sql1, $params1, $types1)
 			->willReturn($adapter1);
@@ -128,9 +99,9 @@ class DbTest extends TestCase
 		$types2  = null;
 
 		$adapter2 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['value'])
+			->onlyMethods(['value'])
 			->getMock();
-		$adapter2->expects($this->once())
+		$adapter2->expects(self::once())
 			->method('value')
 			->with($sql2, $params2, $types2)
 			->willReturn($adapter2);
@@ -140,9 +111,9 @@ class DbTest extends TestCase
 		$types3  = null;
 
 		$adapter3 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['value'])
+			->onlyMethods(['value'])
 			->getMock();
-		$adapter3->expects($this->once())
+		$adapter3->expects(self::once())
 			->method('value')
 			->with($sql3, $params3, $types3)
 			->willReturn($adapter3);
@@ -150,21 +121,14 @@ class DbTest extends TestCase
 		return [
 			[$adapter1, $sql1, $params1, $types1],
 			[$adapter2, $sql2, $params2, $types2],
-			[$adapter3, $sql3, $params3, $types3]
+			[$adapter3, $sql3, $params3, $types3],
 		];
 	}
 
 	/**
-	 * @covers       \Veles\DataBase\Db::row
-	 *
 	 * @dataProvider rowProvider
-	 *
-	 * @param $adapter
-	 * @param $sql
-	 * @param $params
-	 * @param $types
 	 */
-	public function testRow($adapter, $sql, $params, $types)
+	public function testRow($adapter, $sql, $params, $types): void
 	{
 		Db::setAdapter($adapter);
 
@@ -176,16 +140,16 @@ class DbTest extends TestCase
 			Db::row($sql);
 	}
 
-	public function rowProvider()
+	public function rowProvider(): array
 	{
 		$sql1    = 'SELECT * FROM table_one';
 		$params1 = [1, 1];
 		$types1  = 'is';
 
 		$adapter1 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter1->expects($this->once())
+		$adapter1->expects(self::once())
 			->method('row')
 			->with($sql1, $params1, $types1)
 			->willReturn($adapter1);
@@ -195,9 +159,9 @@ class DbTest extends TestCase
 		$types2  = null;
 
 		$adapter2 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter2->expects($this->once())
+		$adapter2->expects(self::once())
 			->method('row')
 			->with($sql2, $params2, $types2)
 			->willReturn($adapter2);
@@ -207,9 +171,9 @@ class DbTest extends TestCase
 		$types3  = null;
 
 		$adapter3 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter3->expects($this->once())
+		$adapter3->expects(self::once())
 			->method('row')
 			->with($sql3, $params3, $types3)
 			->willReturn($adapter3);
@@ -222,16 +186,9 @@ class DbTest extends TestCase
 	}
 
 	/**
-	 * @covers       \Veles\DataBase\Db::rows
-	 *
 	 * @dataProvider rowsProvider
-	 *
-	 * @param $adapter
-	 * @param $sql
-	 * @param $params
-	 * @param $types
 	 */
-	public function testRows($adapter, $sql, $params, $types)
+	public function testRows($adapter, $sql, $params, $types): void
 	{
 		Db::setAdapter($adapter);
 
@@ -243,16 +200,16 @@ class DbTest extends TestCase
 			Db::rows($sql);
 	}
 
-	public function rowsProvider()
+	public function rowsProvider(): array
 	{
 		$sql1    = 'SELECT * FROM table_one';
 		$params1 = [1, 1];
 		$types1  = 'is';
 
 		$adapter1 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['rows'])
+			->onlyMethods(['rows'])
 			->getMock();
-		$adapter1->expects($this->once())
+		$adapter1->expects(self::once())
 			->method('rows')
 			->with($sql1, $params1, $types1)
 			->willReturn($adapter1);
@@ -262,9 +219,9 @@ class DbTest extends TestCase
 		$types2  = null;
 
 		$adapter2 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['rows'])
+			->onlyMethods(['rows'])
 			->getMock();
-		$adapter2->expects($this->once())
+		$adapter2->expects(self::once())
 			->method('rows')
 			->with($sql2, $params2, $types2)
 			->willReturn($adapter2);
@@ -274,9 +231,9 @@ class DbTest extends TestCase
 		$types3  = null;
 
 		$adapter3 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['rows'])
+			->onlyMethods(['rows'])
 			->getMock();
-		$adapter3->expects($this->once())
+		$adapter3->expects(self::once())
 			->method('rows')
 			->with($sql3, $params3, $types3)
 			->willReturn($adapter3);
@@ -289,16 +246,9 @@ class DbTest extends TestCase
 	}
 
 	/**
-	 * @covers       \Veles\DataBase\Db::query
-	 *
 	 * @dataProvider queryProvider
-	 *
-	 * @param $adapter
-	 * @param $sql
-	 * @param $params
-	 * @param $types
 	 */
-	public function testQuery($adapter, $sql, $params, $types)
+	public function testQuery($adapter, $sql, $params, $types): void
 	{
 		Db::setAdapter($adapter);
 
@@ -310,16 +260,16 @@ class DbTest extends TestCase
 			Db::query($sql);
 	}
 
-	public function queryProvider()
+	public function queryProvider(): array
 	{
 		$sql1    = 'SELECT * FROM table_one';
 		$params1 = [1, 1];
 		$types1  = 'is';
 
 		$adapter1 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['query'])
+			->onlyMethods(['query'])
 			->getMock();
-		$adapter1->expects($this->once())
+		$adapter1->expects(self::once())
 			->method('query')
 			->with($sql1, $params1, $types1)
 			->willReturn($adapter1);
@@ -329,9 +279,9 @@ class DbTest extends TestCase
 		$types2  = null;
 
 		$adapter2 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['query'])
+			->onlyMethods(['query'])
 			->getMock();
-		$adapter2->expects($this->once())
+		$adapter2->expects(self::once())
 			->method('query')
 			->with($sql2, $params2, $types2)
 			->willReturn($adapter2);
@@ -341,9 +291,9 @@ class DbTest extends TestCase
 		$types3  = null;
 
 		$adapter3 = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['query'])
+			->onlyMethods(['query'])
 			->getMock();
-		$adapter3->expects($this->once())
+		$adapter3->expects(self::once())
 			->method('query')
 			->with($sql3, $params3, $types3)
 			->willReturn($adapter3);
@@ -355,15 +305,12 @@ class DbTest extends TestCase
 		];
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Db::begin
-	 */
-	public function testBegin()
+	public function testBegin(): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['begin'])
+			->onlyMethods(['begin'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('begin')
 			->willReturn($adapter);
 
@@ -371,15 +318,12 @@ class DbTest extends TestCase
 		Db::begin();
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Db::rollback
-	 */
-	public function testRollback()
+	public function testRollback(): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['rollback'])
+			->onlyMethods(['rollback'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('rollback')
 			->willReturn($adapter);
 
@@ -387,15 +331,12 @@ class DbTest extends TestCase
 		Db::rollback();
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Db::commit
-	 */
-	public function testCommit()
+	public function testCommit(): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['commit'])
+			->onlyMethods(['commit'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('commit')
 			->willReturn($adapter);
 
@@ -403,15 +344,12 @@ class DbTest extends TestCase
 		Db::commit();
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Db::getLastInsertId
-	 */
-	public function testGetLastInsertId()
+	public function testGetLastInsertId(): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['getLastInsertId'])
+			->onlyMethods(['getLastInsertId'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('getLastInsertId')
 			->willReturn($adapter);
 
@@ -419,15 +357,12 @@ class DbTest extends TestCase
 		Db::getLastInsertId();
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Db::getFoundRows
-	 */
-	public function testGetFoundRows()
+	public function testGetFoundRows(): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['getFoundRows'])
+			->onlyMethods(['getFoundRows'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('getFoundRows')
 			->willReturn($adapter);
 
@@ -435,17 +370,14 @@ class DbTest extends TestCase
 		Db::getFoundRows();
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Db::escape
-	 */
-	public function testEscape()
+	public function testEscape(): void
 	{
 		$expected = 'string';
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['escape'])
+			->onlyMethods(['escape'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('escape')
 			->with($expected)
 			->willReturn($adapter);

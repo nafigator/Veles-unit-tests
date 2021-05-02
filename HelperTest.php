@@ -24,13 +24,10 @@ use Veles\Helper;
 class HelperTest extends TestCase
 {
 	/**
-	 * Unit-test for Helper::getStr
 	 * @group RootClasses
-	 * @covers \Veles\Helper::genStr
 	 * @dataProvider genStrProvider
-	 * @see Helper::getStr
 	 */
-	public function testGenStr($length, $letters)
+	public function testGenStr($length, $letters): void
 	{
 		if (null === $length && null === $letters) {
 			$length  = 22;
@@ -43,11 +40,8 @@ class HelperTest extends TestCase
 		$result_length = strlen($result);
 		$unknown_array = [];
 
-		$msg = 'Wrong result type: ' . gettype($result);
-		$this->assertInternalType('string', $result, $msg);
-
 		$msg = "Wrong result length: $result_length";
-		$this->assertSame($length, $result_length, $msg);
+		self::assertSame($length, $result_length, $msg);
 
 		for ($i = 0; $i < $result_length; ++$i) {
 			if (false === strpos($letters, $result[$i])) {
@@ -56,13 +50,10 @@ class HelperTest extends TestCase
 		}
 
 		$msg = 'Result contains unknown symbols: ' . implode(',', $unknown_array);
-		$this->assertTrue(empty($unknown_array), $msg);
+		self::assertEmpty($unknown_array, $msg);
 	}
 
-	/**
-	 * DataProvider for HelperTest::testGenStr()
-	 */
-	public function genStrProvider()
+	public function genStrProvider(): array
 	{
 		return [
 			[null, null],
@@ -73,28 +64,19 @@ class HelperTest extends TestCase
 	}
 
 	/**
-	 * Unit-test for Helper::validateEmail
 	 * @group RootClasses
-	 * @covers \Veles\Helper::validateEmail
 	 * @dataProvider validateEmailProvider
-	 * @see Helper::validateEmail
 	 */
-	public function testValidateEmail($email, $expected)
+	public function testValidateEmail($email, $expected): void
 	{
-		$result = Helper::validateEmail($email);
+		$actual = Helper::validateEmail($email);
 
-		$msg = 'Wrong result type: ' . gettype($result);
-		$this->assertInternalType('bool', $result, $msg);
-
-		$txt_result = $result ? 'true' : 'false';
+		$txt_result = $actual ? 'true' : 'false';
 		$msg = "Email $email has wrong validation result: $txt_result";
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * DataProvider for HelperTest::testValidateEmail
-	 */
-	public function validateEmailProvider()
+	public function validateEmailProvider(): array
 	{
 		return [
 			['nd_lk.test-pro@mail.ru', true],
@@ -107,28 +89,19 @@ class HelperTest extends TestCase
 	}
 
 	/**
-	 * Unit-test for Helper::checkEmailDomain
-	 *
 	 * @group RootClasses
-	 *
-	 * @large
-	 * @covers \Veles\Helper::checkEmailDomain
 	 * @dataProvider checkEmailDomainProvider
-	 * @see Helper::checkEmailDomain
 	 */
-	public function testCheckEmailDomain($email, $expected)
+	public function testCheckEmailDomain($email, $expected): void
 	{
-		$result = Helper::checkEmailDomain($email);
+		$actual = Helper::checkEmailDomain($email);
 
-		$txt_result = (true === $result) ? 'true' : 'false';
+		$txt_result = (true === $actual) ? 'true' : 'false';
 		$msg = "Email $email has wrong validation result: $txt_result";
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * DataProvider for HelperTest::testCheckEmailDomain
-	 */
-	public function checkEmailDomainProvider()
+	public function checkEmailDomainProvider(): array
 	{
 		return [
 			['webmaster@itvault.info', true],
@@ -137,24 +110,18 @@ class HelperTest extends TestCase
 	}
 
 	/**
-	 * Unit-test for Helper::translit
 	 * @group RootClasses
-	 * @covers \Veles\Helper::translit
 	 * @dataProvider translitProvider
-	 * @see Helper::translit
 	 */
-	public function testTranslit($text, $expected)
+	public function testTranslit($text, $expected): void
 	{
-		$result = Helper::translit($text);
+		$actual = Helper::translit($text);
 
-		$msg = "Text \"$text\" has wrong translit result: \"$result\"";
-		$this->assertSame($expected, $result, $msg);
+		$msg = "Text \"$text\" has wrong translit result: \"$actual\"";
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * DataProvider for HelperTest::testTranslit
-	 */
-	public function translitProvider()
+	public function translitProvider(): array
 	{
 		return [
 			[
@@ -165,25 +132,18 @@ class HelperTest extends TestCase
 	}
 
 	/**
-	 * Unit-test for Helper::makeAlias
 	 * @group RootClasses
-	 * @covers \Veles\Helper::makeAlias
-	 * @depends testTranslit
 	 * @dataProvider makeAliasProvider
-	 * @see Helper::makeAlias
 	 */
-	public function testMakeAlias($url, $expected)
+	public function testMakeAlias($url, $expected): void
 	{
-		$result = Helper::makeAlias($url);
+		$actual = Helper::makeAlias($url);
 
-		$msg = "URL \"$url\" has wrong make alias result: \"$result\"";
-		$this->assertSame($expected, $result, $msg);
+		$msg = "URL \"$url\" has wrong make alias result: \"$actual\"";
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * DataProvider for HelperTest::testMakeAlias
-	 */
-	public function makeAliasProvider()
+	public function makeAliasProvider(): array
 	{
 		return [
 			['Кровельная черепица', 'krovelnaya-cherepitsa'],

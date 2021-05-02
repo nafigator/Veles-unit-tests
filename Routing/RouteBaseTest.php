@@ -24,23 +24,7 @@ class RouteBaseTest extends TestCase
 		$this->object->setConfigHandler($config);
 	}
 
-	/**
-	 * @covers \Veles\Routing\RouteBase::setConfigHandler
-	 */
-	public function testSetConfigHandler()
-	{
-		$routes_loader = new IniConfigLoader(TEST_DIR . '/Project/routes.ini');
-		$expected = new RoutesConfig($routes_loader);
-		$this->object->setConfigHandler($expected);
-
-		$msg = 'Wrong value of RouteBase::$config_handler!';
-		$this->assertAttributeSame($expected, 'config_handler', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Routing\RouteBase::getConfigHandler
-	 */
-	public function testGetConfigHandler()
+	public function testGetConfigHandler(): void
 	{
 		$routes_loader = new IniConfigLoader(TEST_DIR . '/Project/routes.ini');
 		$expected = new RoutesConfig($routes_loader);
@@ -48,18 +32,6 @@ class RouteBaseTest extends TestCase
 
 		$result = $this->object->getConfigHandler();
 		$msg = 'RouteBase::getConfigHandler() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Routing\RouteBase::setNotFoundException
-	 */
-	public function testSetNotFoundException()
-	{
-		$expected = '\Veles\Exceptions\HttpResponseException';
-		$this->object->setNotFoundException($expected);
-
-		$msg = 'RouteBase::setNotFoundException() wrong behavior!';
-		$this->assertAttributeSame($expected, 'ex404', $this->object, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

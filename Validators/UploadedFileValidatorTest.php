@@ -37,50 +37,19 @@ class UploadedFileValidatorTest extends TestCase
 		system('rm -rf ' . sys_get_temp_dir() . '/VelesUploads-File*');
 	}
 
-    /**
-     * @covers       \Veles\Validators\UploadedFileValidator::__construct
-     * @dataProvider constructProvider
-     *
-     * @param $object
-     * @param $expected
-     */
-	public function testConstruct($object, $expected)
-	{
-		$msg = 'UploadedFileValidator::__construct() wrong behavior!';
-        $this->assertAttributeSame($expected, 'allowed_extensions', $object, $msg);
-	}
-
-    public function constructProvider()
-    {
-        $expected1 = ['gif' => true, 'jpg' => true, 'jpeg' => true, 'png' => true];
-        $object1 = new UploadedFileValidator();
-
-        $expected2 = ['gif' => true, 'ico' => true];
-        $object2 = new UploadedFileValidator('gif, ico');
-
-        return [
-            [$object1, $expected1],
-            [$object2, $expected2]
-        ];
-    }
-
 	/**
-	 * @covers       \Veles\Validators\UploadedFileValidator::check
 	 * @dataProvider checkProvider
-	 *
-	 * @param $name
-	 * @param $expected
 	 */
-	public function testCheck($name, $expected)
+	public function testCheck($name, $expected): void
 	{
 		$validator = new UploadedFileValidator('gif');
 		$result = $validator->check($name);
 
 		$msg = 'UploadedFileValidator::check() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function checkProvider()
+	public function checkProvider(): array
 	{
 		$files = [];
 		$tmp_dir = sys_get_temp_dir();
@@ -121,20 +90,16 @@ class UploadedFileValidatorTest extends TestCase
 	}
 
 	/**
-	 * @covers       \Veles\Validators\UploadedFileValidator::getMimeByExtension
 	 * @dataProvider getMimeByExtensionProvider
-	 *
-	 * @param $extension
-	 * @param $expected
 	 */
-	public function testGetMimeByExtension($extension, $expected)
+	public function testGetMimeByExtension($extension, $expected): void
 	{
 		$result = $this->object->getMimeByExtension($extension);
 		$msg = 'UploadedFileValidator::getMimeByExtension() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function getMimeByExtensionProvider()
+	public function getMimeByExtensionProvider(): array
 	{
 		return [
 			['gif', 'image/gif; charset=binary'],

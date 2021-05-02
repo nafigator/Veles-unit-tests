@@ -25,26 +25,17 @@ class RouteStaticTest extends TestCase
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
-
-	/**
-	 * @covers \Veles\Routing\RouteStatic::check
 	 * @dataProvider checkProvider
 	 */
-	public function testCheck($pattern, $url, $expected)
+	public function testCheck($pattern, $url, $expected): void
 	{
-		$result = $this->object->check($pattern, $url);
+		$result = $this->object::check($pattern, $url);
 
 		$msg = 'RouteStatic::check() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function checkProvider()
+	public function checkProvider(): array
 	{
 		return [
 			['/route/static/', '/route/static/', true],

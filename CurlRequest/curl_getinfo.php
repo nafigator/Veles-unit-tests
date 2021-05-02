@@ -4,7 +4,7 @@
  *
  * @file      get_info.php
  *
- * PHP version 5.4+
+ * PHP version 7.1+
  *
  * @author    Yancharuk Alexander <alex at itvault dot info>
  * @copyright © 2012-2020 Alexander Yancharuk

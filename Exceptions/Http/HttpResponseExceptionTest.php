@@ -23,10 +23,10 @@ class HttpResponseExceptionTest extends TestCase
 		$expected = '0';
 		$actual = ini_get('display_errors');
 		$msg = 'HttpResponseException::__construct() wrong behavior!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 
 		$actual = ini_get('log_errors');
 		$msg = 'HttpResponseException::__construct() wrong behavior!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

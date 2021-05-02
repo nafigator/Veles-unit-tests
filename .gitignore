@@ -1,2 +1,4 @@
 # Ignore for local version of PHPUnit bootstrap
 bootstrap.php
+.phpunit.result.cache
+override.ini

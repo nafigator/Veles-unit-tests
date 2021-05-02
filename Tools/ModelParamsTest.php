@@ -2,6 +2,7 @@
 namespace Veles\Tests\Tools;
 
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Veles\Tools\ModelParams;
 
 /**
@@ -11,30 +12,16 @@ use Veles\Tools\ModelParams;
 class ModelParamsTest extends TestCase
 {
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
-
-	/**
-	 * @covers       \Veles\Tools\ModelParams::getType
-	 * @covers       \Veles\Tools\ModelParams::getStringPattern
-	 * @covers       \Veles\Tools\ModelParams::getFloatPattern
 	 * @dataProvider getTypeProvider
-	 *
-	 * @param $type
-	 * @param $expected
 	 */
-	public function testGetType($type, $expected)
+	public function testGetType($type, $expected): void
 	{
 		$result = ModelParams::getType($type);
 		$msg = 'ModelParams::getType() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function getTypeProvider()
+	public function getTypeProvider(): array
 	{
 		return [
 			['char(20)', 'string'],
@@ -60,13 +47,11 @@ class ModelParamsTest extends TestCase
 		];
 	}
 
-	/**
-	 * @covers       \Veles\Tools\ModelParams::getType
-	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage Unknown data type
-	 */
-	public function testRuntimeException()
+	public function testRuntimeException(): void
 	{
+		$this->expectException(RuntimeException::class);
+		$this->expectExceptionMessage('Unknown data type');
+
 		ModelParams::getType('unknown');
 	}
 }

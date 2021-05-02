@@ -15,39 +15,11 @@ class SnippetBuilderTest extends TestCase
 	 */
 	protected $object;
 
-	/**
-	 * @covers \Veles\Tools\SnippetBuilder::__construct()
-	 */
-	public function testConstruct()
-	{
-		$expected = [
-			'var1' => 'value1',
-			'var2' => 'value2',
-			'var3' => 'value3'
-		];
-
-		$obj = new SnippetBuilder($expected);
-		$msg = 'SnippetBuilder::__construct() wrong behavior!';
-		$this->assertAttributeEquals($expected, 'variables', $obj, $msg);
-
-		$class = new \stdClass;
-		$class->var1 = 'value1';
-		$class->var2 = 'value2';
-		$class->var3 = 'value3';
-
-		$obj = new SnippetBuilder($class);
-		$msg = 'SnippetBuilder::__construct() wrong behavior!';
-		$this->assertAttributeEquals($expected, 'variables', $obj, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Tools\SnippetBuilder::build
-	 */
-	public function testBuild()
+	public function testBuild(): void
 	{
 		$expected = <<<EOF
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Veles is a fast PHP framework</title>
 </head>
@@ -69,6 +41,6 @@ EOF;
 		$result = $obj->build($path);
 
 		$msg = 'SnippetBuilder::build() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

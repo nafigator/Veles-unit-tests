@@ -15,6 +15,6 @@ class GoneExceptionTest extends TestCase
 	{
 		new GoneException;
 		$msg = 'NotFoundException::__construct() wrong behavior!';
-		$this->assertSame(410, http_response_code(), $msg);
+		self::assertSame(410, http_response_code(), $msg);
 	}
 }

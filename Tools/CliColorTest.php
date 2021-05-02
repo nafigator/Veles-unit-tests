@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\Tools;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Veles\Tools\CliColor;
 
@@ -25,30 +26,17 @@ class CliColorTest extends TestCase
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
-
-	/**
-	 * @covers       \Veles\Tools\CliColor::__invoke
 	 * @dataProvider invokeProvider
-	 *
-	 * @param $obj
-	 * @param $string
-	 * @param $expected
 	 */
-	public function testInvoke($obj, $string, $expected)
+	public function testInvoke($obj, $string, $expected): void
 	{
 		$result = $obj($string);
 
 		$msg = 'CliColor::__invoke() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function invokeProvider()
+	public function invokeProvider(): array
 	{
 		$string1 = uniqid('pef1');
 		$string2 = uniqid('pef2');
@@ -68,22 +56,16 @@ class CliColorTest extends TestCase
 	}
 
 	/**
-	 * @covers       \Veles\Tools\CliColor::__toString
-	 * @covers       \Veles\Tools\CliColor::getStyle
-	 * @covers       \Veles\Tools\CliColor::getColor
 	 * @dataProvider toStringProvider
-	 *
-	 * @param CliColor $obj
-	 * @param $expected
 	 */
-	public function testToString($obj, $expected)
+	public function testToString($obj, $expected): void
 	{
 		$this->expectOutputString($expected);
 
 		echo $obj;
 	}
 
-	public function toStringProvider()
+	public function toStringProvider(): array
 	{
 		$string1 = uniqid('pef1');
 		$string2 = uniqid('pef2');
@@ -104,50 +86,35 @@ class CliColorTest extends TestCase
 		];
 	}
 
-	/**
-	 * @covers \Veles\Tools\CliColor::setString
-	 */
-	public function testSetString()
+	public function testSetString(): void
 	{
 		$expected = uniqid('someone');
 		$result = $this->object->setString($expected);
 
-		$msg = 'CliColor::setString() wrong behavior!';
-		$this->assertAttributeSame($expected, 'string', $this->object, $msg);
-
 		$msg = 'CliColor::setString() returns wrong result!';
-		$this->assertSame($this->object, $result, $msg);
+		self::assertSame($this->object, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Tools\CliColor::setString
-	 * @expectedException \Exception
-	 * @expectedExceptionMessage Not valid string!
-	 */
-	public function testSetStringException()
+	public function testSetStringException(): void
 	{
+		$this->expectException(Exception::class);
+		$this->expectExceptionMessage('Not valid string!');
+
 		$this->object->setString();
 	}
 
 	/**
-	 * @covers          \Veles\Tools\CliColor::setStyle
-	 * @dataProvider    setStyleProvider
-	 *
-	 * @param $style
-	 *
-	 * @throws \Exception
+	 * @dataProvider setStyleProvider
 	 */
-	public function testSetStyle($style)
+	public function testSetStyle($style): void
 	{
 		$result = $this->object->setStyle($style);
-		$msg = 'CliColor::setStyle() wrong behavior!';
-		$this->assertAttributeSame($style, 'style', $this->object, $msg);
 
 		$msg = 'CliColor::setStyle() returns wrong result!';
-		$this->assertSame($this->object, $result, $msg);
+		self::assertSame($this->object, $result, $msg);
 	}
 
-	public function setStyleProvider()
+	public function setStyleProvider(): array
 	{
 		return [
 			[['bold', 'strike']],
@@ -156,71 +123,30 @@ class CliColorTest extends TestCase
 		];
 	}
 
-	/**
-	 * @covers          \Veles\Tools\CliColor::setStyle
-	 * @expectedException \Exception
-	 */
-	public function testSetStyleException()
+	public function testSetStyleException(): void
 	{
+		$this->expectException(Exception::class);
+
 		$style = uniqid();
 		$this->object->setStyle([$style]);
 	}
 
 	/**
-	 * @covers       \Veles\Tools\CliColor::setColor
-	 * @dataProvider setColorProvider
-	 *
-	 * @param $expected
-	 */
-	public function testSetColor($expected)
-	{
-		$this->object->setColor($expected);
-		$msg = 'CliColor::setColor() wrong behavior!';
-		$this->assertAttributeSame($expected, 'color', $this->object, $msg);
-	}
-
-	public function setColorProvider()
-	{
-		return [
-			['black'],
-			['red'],
-			['green'],
-			['yellow'],
-			['blue'],
-			['purple'],
-			['cyan'],
-			['white']
-		];
-	}
-
-	/**
-	 * @covers       \Veles\Tools\CliColor::setColor
 	 * @dataProvider setColorExceptionProvider
-	 * @expectedException \Exception
-	 *
-	 * @param $color
 	 */
-	public function testSetColorException($color)
+	public function testSetColorException($color): void
 	{
+		$this->expectException(Exception::class);
+
 		$this->object->setColor($color);
 	}
 
-	public function setColorExceptionProvider()
+	public function setColorExceptionProvider(): array
 	{
 		return [
 			[null],
 			[[]],
 			['grey']
 		];
-	}
-
-	/**
-	 * @covers       \Veles\Tools\CliColor::__construct
-	 */
-	public function testConstruct()
-	{
-		$msg = 'CliColor::__construct() wrong behavior!';
-		$this->assertAttributeSame(['default'], 'style', $this->object, $msg);
-		$this->assertAttributeSame('green', 'color', $this->object, $msg);
 	}
 }

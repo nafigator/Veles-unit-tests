@@ -2,6 +2,7 @@
 namespace Veles\Tests\View\Adapters;
 
 use PHPUnit\Framework\TestCase;
+use Smarty;
 use Veles\View\Adapters\SmartyAdapter;
 
 include_once 'Smarty/Smarty.class.php';
@@ -27,35 +28,15 @@ class SmartyAdapterTest extends TestCase
 		$this->object = new SmartyAdapter;
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
-
-	/**
-	 * @covers \Veles\View\Adapters\SmartyAdapter::__construct
-	 */
-	public function testConstruct()
-	{
-		$msg = 'SmartyAdapter::__construct() wrong behavior!';
-		$this->assertAttributeInstanceOf('\Smarty', 'driver', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\View\Adapters\SmartyAdapter::set
-	 */
-	public function testSet()
+	public function testSet(): void
 	{
 		$vars = ['variable-1' => 100, 'variable-2' => 200];
 
 		$driver = $this->getMockBuilder('\Smarty')
 			->disableOriginalConstructor()
-			->setMethods(['assign'])
+			->onlyMethods(['assign'])
 			->getMock();
-		$driver->expects($this->exactly(2))
+		$driver->expects(self::exactly(2))
 			->method('assign')
 			->withConsecutive(['variable-1', 100], ['variable-2', 200]);
 
@@ -63,18 +44,15 @@ class SmartyAdapterTest extends TestCase
 		$this->object->set($vars);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\SmartyAdapter::del
-	 */
-	public function testDel()
+	public function testDel(): void
 	{
 		$vars = ['variable-1', 'variable-2'];
 
 		$driver = $this->getMockBuilder('\Smarty')
 			->disableOriginalConstructor()
-			->setMethods(['clearAssign'])
+			->onlyMethods(['clearAssign'])
 			->getMock();
-		$driver->expects($this->exactly(2))
+		$driver->expects(self::exactly(2))
 			->method('clearAssign')
 			->withConsecutive(['variable-1'], ['variable-2']);
 
@@ -82,18 +60,15 @@ class SmartyAdapterTest extends TestCase
 		$this->object->del($vars);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\SmartyAdapter::show
-	 */
-	public function testShow()
+	public function testShow(): void
 	{
 		$path = '/path/to/template';
 
-		$driver = $this->getMockBuilder('\Smarty')
+		$driver = $this->getMockBuilder(Smarty::class)
 			->disableOriginalConstructor()
-			->setMethods(['display'])
+			->onlyMethods(['display'])
 			->getMock();
-		$driver->expects($this->once())
+		$driver->expects(self::once())
 			->method('display')
 			->with($path);
 
@@ -101,18 +76,15 @@ class SmartyAdapterTest extends TestCase
 		$this->object->show($path);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\SmartyAdapter::get
-	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$path = '/path/to/template';
 
-		$driver = $this->getMockBuilder('\Smarty')
+		$driver = $this->getMockBuilder(Smarty::class)
 			->disableOriginalConstructor()
-			->setMethods(['fetch'])
+			->onlyMethods(['fetch'])
 			->getMock();
-		$driver->expects($this->once())
+		$driver->expects(self::once())
 			->method('fetch')
 			->with($path);
 
@@ -120,18 +92,15 @@ class SmartyAdapterTest extends TestCase
 		$this->object->get($path);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\SmartyAdapter::clearCache
-	 */
-	public function testClearCache()
+	public function testClearCache(): void
 	{
 		$path = 'template';
 
-		$driver = $this->getMockBuilder('\Smarty')
+		$driver = $this->getMockBuilder(Smarty::class)
 			->disableOriginalConstructor()
-			->setMethods(['clearCache'])
+			->onlyMethods(['clearCache'])
 			->getMock();
-		$driver->expects($this->once())
+		$driver->expects(self::once())
 			->method('clearCache')
 			->with($path);
 
@@ -139,18 +108,15 @@ class SmartyAdapterTest extends TestCase
 		$this->object->clearCache($path);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\SmartyAdapter::clearAllCache
-	 */
-	public function testClearAllCache()
+	public function testClearAllCache(): void
 	{
 		$expired = 500;
 
-		$driver = $this->getMockBuilder('\Smarty')
+		$driver = $this->getMockBuilder(Smarty::class)
 			->disableOriginalConstructor()
-			->setMethods(['clearAllCache'])
+			->onlyMethods(['clearAllCache'])
 			->getMock();
-		$driver->expects($this->exactly(2))
+		$driver->expects(self::exactly(2))
 			->method('clearAllCache')
 			->withConsecutive([$expired],[null]);
 
@@ -159,18 +125,15 @@ class SmartyAdapterTest extends TestCase
 		$this->object->clearAllCache();
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\SmartyAdapter::isCached
-	 */
-	public function testIsCached()
+	public function testIsCached(): void
 	{
 		$template = 'template';
 
-		$driver = $this->getMockBuilder('\Smarty')
+		$driver = $this->getMockBuilder(Smarty::class)
 			->disableOriginalConstructor()
-			->setMethods(['isCached'])
+			->onlyMethods(['isCached'])
 			->getMock();
-		$driver->expects($this->once())
+		$driver->expects(self::once())
 			->method('isCached')
 			->with($template);
 

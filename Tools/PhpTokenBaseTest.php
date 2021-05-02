@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\Tools;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Veles\Tools\PhpTokenBase;
 use Veles\Validators\PhpTokenValidator;
@@ -11,161 +12,80 @@ use Veles\Validators\PhpTokenValidator;
  */
 class PhpTokenBaseTest extends TestCase
 {
+	private const IDENTIFIER = 12;
+	private const CONTENT = 'this is test content';
+	private const LINE = 123;
+
 	/**
 	 * @var PhpTokenBase
 	 */
 	protected $object;
-	private static $content = 'this is test content';
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp(): void
+	public function testConstruct(): void
 	{
 		$validator = new PhpTokenValidator;
-		$this->object = new PhpTokenBase(self::$content, $validator);
+		$object = new PhpTokenBase(
+			[self::IDENTIFIER, self::CONTENT, self::LINE],
+			$validator
+		);
+
+		$msg = 'PhpTokenBase::__construct() wrong behavior!';
+		self::assertSame(self::IDENTIFIER, $object->getId(), $msg);
+		self::assertSame(self::CONTENT, $object->getContent(), $msg);
+		self::assertSame(self::LINE, $object->getLine(), $msg);
 	}
 
 	/**
-	 * @covers \Veles\Tools\PhpTokenBase::__construct
-	 * @dataProvider constructProvider
-	 * @param $token
-	 * @param $validator
-	 * @param $expected
-	 */
-	public function testConstruct($token, $validator, $expected)
-	{
-		$obj = new PhpTokenBase($token, $validator);
-
-		$msg = 'Wrong PhpTokenBase::identifier property value';
-		$this->assertAttributeSame($expected[0], 'identifier', $obj, $msg);
-
-		$msg = 'Wrong PhpTokenBase::content property value';
-		$this->assertAttributeSame($expected[1], 'content', $obj, $msg);
-
-		$msg = 'Wrong PhpTokenBase::line property value';
-		$this->assertAttributeSame($expected[2], 'line', $obj, $msg);
-	}
-
-	/**
-	 * @return array
-	 */
-	public function constructProvider()
-	{
-		$validator = new PhpTokenValidator;
-
-		$token_string = uniqid();
-		$token_array = [mt_rand(1, 300), uniqid(), mt_rand()];
-
-		return [
-			[
-				$token_array,
-				$validator,
-				$token_array
-			],
-			[
-				$token_string,
-				$validator,
-				[0, $token_string, 0]
-			]
-		];
-	}
-
-	/**
-	 * @expectedException \Exception
 	 * @dataProvider constructExceptionProvider
-	 * @param $not_valid_token
-	 * @param $validator
 	 */
-	public function testConstructException($not_valid_token, $validator)
+	public function testConstructException($not_valid_token, $validator): void
 	{
+		$this->expectException(Exception::class);
+
 		new PhpTokenBase($not_valid_token, $validator);
 	}
 
-	public function constructExceptionProvider()
+	public function constructExceptionProvider(): array
 	{
 		return [[mt_rand(), new PhpTokenValidator]];
 	}
 
-	/**
-	 * @covers \Veles\Tools\PhpToken::setContent
-	 */
-	public function testSetContent()
-	{
-		$msg = 'Wrong initial value of PhpTokenBase::content';
-		$this->assertAttributeSame(self::$content, 'content', $this->object, $msg);
-
-		$expected = uniqid();
-		$this->object->setContent($expected);
-
-		$msg = 'Wrong behavior of PhpTokenBase::setContent()';
-		$this->assertAttributeSame($expected, 'content', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Tools\PhpTokenBase::getContent
-	 */
-	public function testGetContent()
+	public function testGetContent(): void
 	{
 		$expected = uniqid();
-		$this->object->setContent($expected);
+		$validator = new PhpTokenValidator;
+		$object = new PhpTokenBase(self::CONTENT, $validator);
+		$object->setContent($expected);
 
-		$result = $this->object->getContent();
+		$actual = $object->getContent();
 
 		$msg = 'Wrong behavior of PhpTokenBase::getContent()';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Tools\PhpTokenBase::setId
-	 */
-	public function testSetId()
+	public function testGetId(): void
 	{
 		$expected = mt_rand();
-		$this->object->setId($expected);
+		$validator = new PhpTokenValidator;
+		$object = new PhpTokenBase(self::CONTENT, $validator);
+		$object->setId($expected);
 
-		$msg = 'Wrong behavior of PhpTokenBase::setId()';
-		$this->assertAttributeSame($expected, 'identifier', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Tools\PhpTokenBase::getId
-	 */
-	public function testGetId()
-	{
-		$expected = mt_rand();
-		$this->object->setId($expected);
-
-		$result = $this->object->getId();
+		$actual = $object->getId();
 
 		$msg = 'Wrong behavior of PhpTokenBase::getId()';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Tools\PhpTokenBase::setLine
-	 */
-	public function testSetLine()
+	public function testGetLine(): void
 	{
 		$expected = mt_rand();
-		$this->object->setLine($expected);
+		$validator = new PhpTokenValidator;
+		$object = new PhpTokenBase(self::CONTENT, $validator);
+		$object->setLine($expected);
 
-		$msg = 'Wrong behavior of PhpTokenBase::setLine()';
-		$this->assertAttributeSame($expected, 'line', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Tools\PhpTokenBase::getLine
-	 */
-	public function testGetLine()
-	{
-		$expected = mt_rand();
-		$this->object->setLine($expected);
-
-		$result = $this->object->getLine();
+		$actual = $object->getLine();
 
 		$msg = 'Wrong behavior of PhpTokenBase::getLine()';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

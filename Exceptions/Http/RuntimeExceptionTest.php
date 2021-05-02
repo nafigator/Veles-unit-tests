@@ -14,6 +14,6 @@ class RuntimeExceptionTest extends TestCase
 	{
 		new RuntimeException();
 		$msg = 'RuntimeException::__construct() wrong behavior!';
-		$this->assertSame(500, http_response_code(), $msg);
+		self::assertSame(500, http_response_code(), $msg);
 	}
 }

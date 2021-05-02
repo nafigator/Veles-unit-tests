@@ -24,7 +24,7 @@ class BadRequestExceptionTest extends TestCase
 		new BadRequestException($errors);
 
 		$msg = 'BadRequestException::__construct() wrong behavior!';
-		$this->assertSame(400, http_response_code(), $msg);
+		self::assertSame(400, http_response_code(), $msg);
 	}
 
 	public function constructProvider()

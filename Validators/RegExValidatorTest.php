@@ -23,26 +23,21 @@ use Veles\Validators\RegExValidator;
 class RegExValidatorTest extends TestCase
 {
     /**
-     * @covers \Veles\Validators\RegExValidator::check
-	 * @covers \Veles\Validators\RegExValidator::__construct
      * @group Validators
 	 * @see RegExValidator::check()
 	 * @dataProvider checkProvider
      */
-    public function testCheck($pattern, $value, $expected)
+    public function testCheck($pattern, $value, $expected): void
     {
 		$object = new RegExValidator($pattern);
 
-		$msg = 'Wrong value of RegExValidator::pattern';
-		$this->assertAttributeSame($pattern, 'pattern', $object, $msg);
-
-		$result = $object->check($value);
+		$actual = $object->check($value);
 
 		$msg = 'Wrong RegExValidator::check() validation';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
     }
 
-	public function checkProvider()
+	public function checkProvider(): array
 	{
 		return [
 			[
@@ -64,20 +59,19 @@ class RegExValidatorTest extends TestCase
 	}
 
     /**
-     * @covers \Veles\Validators\RegExValidator::validate
 	 * @group Validators
 	 * @see RegExValidator::validate()
 	 * @dataProvider validateProvider
      */
-    public function testValidate($pattern, $value, $expected)
+    public function testValidate($pattern, $value, $expected): void
     {
-		$result = RegExValidator::validate($pattern, $value);
+		$actual = RegExValidator::validate($pattern, $value);
 
 		$msg = 'Wrong RegExValidator::validate() validation';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
     }
 
-	public function validateProvider()
+	public function validateProvider(): array
 	{
 		return [
 			[

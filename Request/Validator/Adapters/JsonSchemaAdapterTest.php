@@ -25,90 +25,69 @@ class JsonSchemaAdapterTest extends TestCase
 	protected function setUp(): void
 	{
 		$this->driver = $this->getMockBuilder(stdClass::class)
-			->setMethods(['addError', 'getErrors', 'check', 'isValid'])
+			->addMethods(['addError', 'getErrors', 'check', 'isValid'])
 			->disableOriginalConstructor()
 			->getMock();
 
 		$this->resolver = $this->getMockBuilder(stdClass::class)
-			->setMethods(['resolve'])
+			->addMethods(['resolve'])
 			->disableOriginalConstructor()
 			->getMock();
 
 		$this->object = new JsonSchemaAdapter($this->driver, $this->resolver);
 	}
 
-	public function testConstruct()
-	{
-		$msg = 'JsonSchemaAdapter::__construct() wrong behavior!';
-		$this->assertAttributeSame($this->driver, 'driver', $this->object, $msg);
-
-		$msg = 'JsonSchemaAdapter::__construct() wrong behavior!';
-		$this->assertAttributeSame($this->resolver, 'resolver', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Request\Validator\Adapters\JsonSchemaAdapter::addError
-	 */
-	public function testAddError()
+	public function testAddError(): void
 	{
 		$field   = uniqid();
 		$message = uniqid();
 		$array   = ['field' => $field, 'message' => $message];
 
-		$this->driver->expects($this->once())
+		$this->driver->expects(self::once())
 			->method('addError')
 			->with($field, $message);
 
 		$this->object->addError($array);
 	}
 
-	/**
-	 * @covers \Veles\Request\Validator\Adapters\JsonSchemaAdapter::getErrors
-	 */
-	public function testGetErrors()
+	public function testGetErrors(): void
 	{
 		$field    = uniqid();
 		$message  = uniqid();
 		$expected = [['field' => $field, 'message' => $message]];
 
-		$this->driver->expects($this->once())
+		$this->driver->expects(self::once())
 			->method('getErrors')
 			->willReturn($expected);
 
 		$this->object->getErrors();
 	}
 
-	/**
-	 * @covers \Veles\Request\Validator\Adapters\JsonSchemaAdapter::check
-	 */
-	public function testCheck()
+	public function testCheck(): void
 	{
 		$data        = uniqid();
 		$definitions = uniqid();
 
-		$this->driver->expects($this->once())
+		$this->driver->expects(self::once())
 			->method('check')
 			->with($data, $definitions);
 
-		$this->resolver->expects($this->once())
+		$this->resolver->expects(self::once())
 			->method('resolve')
 			->with($definitions);
 
 		$this->object->check($data, $definitions);
 	}
 
-	/**
-	 * @covers \Veles\Request\Validator\Adapters\JsonSchemaAdapter::isValid
-	 */
-	public function testIsValid()
+	public function testIsValid(): void
 	{
 		$expected = true;
-		$this->driver->expects($this->once())
+		$this->driver->expects(self::once())
 			->method('isValid')
 			->willReturn($expected);
 
 		$actual = $this->object->isValid();
 		$msg = 'JsonSchemaAdapter::isValid() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

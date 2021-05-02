@@ -47,7 +47,7 @@ class UserTest extends TestCase
 		$actual = $this->object->getId();
 
 		$msg = 'User::getId() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 
 		$expected  = 1;
 		$db_result = [
@@ -59,9 +59,9 @@ class UserTest extends TestCase
 		];
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('row')
 			->willReturn($db_result);
 
@@ -70,7 +70,7 @@ class UserTest extends TestCase
 		$this->object->getById($expected);
 
 		$actual = $this->object->getId();
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	/**
@@ -82,7 +82,7 @@ class UserTest extends TestCase
 		$actual = $this->object->getHash();
 
 		$msg = 'User::getHash() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 
 		$expected  = '$2a$07$usesomesillystringforeGlOaUExBSD9HxuEYk2ZFaeDhggU716O';
 		$db_result = [
@@ -94,9 +94,9 @@ class UserTest extends TestCase
 		];
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('row')
 			->willReturn($db_result);
 
@@ -105,7 +105,7 @@ class UserTest extends TestCase
 		$this->object->getById(1);
 
 		$actual = $this->object->getHash();
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	/**
@@ -117,7 +117,7 @@ class UserTest extends TestCase
 		$actual = $this->object->getCookieHash();
 
 		$msg = 'User::getCookieHash() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 
 		$expected = 'GlOaUExBSD9HxuEYk2ZFaeDhggU716O';
 		$db_result = [
@@ -129,9 +129,9 @@ class UserTest extends TestCase
 		];
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('row')
 			->willReturn($db_result);
 
@@ -140,7 +140,7 @@ class UserTest extends TestCase
 		$this->object->getById(1);
 
 		$actual = $this->object->getCookieHash();
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	/**
@@ -152,7 +152,7 @@ class UserTest extends TestCase
 		$actual = $this->object->getSalt();
 
 		$msg = 'User::getSalt() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 
 		$expected = '$2a$07$usesomesillystringfor';
 		$db_result = [
@@ -164,9 +164,9 @@ class UserTest extends TestCase
 		];
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('row')
 			->willReturn($db_result);
 
@@ -175,7 +175,7 @@ class UserTest extends TestCase
 		$this->object->getById(1);
 
 		$actual = $this->object->getSalt();
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	/**
@@ -187,7 +187,7 @@ class UserTest extends TestCase
 		$actual = $this->object->getGroup();
 
 		$msg = 'User::getGroup() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 
 		$expected = UsrGroup::ADMIN;
 		$db_result = [
@@ -199,9 +199,9 @@ class UserTest extends TestCase
 		];
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('row')
 			->willReturn($db_result);
 
@@ -210,6 +210,6 @@ class UserTest extends TestCase
 		$this->object->getById(1);
 
 		$actual = $this->object->getGroup();
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

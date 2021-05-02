@@ -29,7 +29,7 @@ class NativeAdapterTest extends TestCase
 		$this->dir = TEST_DIR . '/Project/View/';
 		$this->html = <<<EOF
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Veles is a fast PHP framework</title>
 </head>
@@ -46,33 +46,7 @@ class NativeAdapterTest extends TestCase
 EOF;
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
-
-	/**
-	 * @covers \Veles\View\Adapters\NativeAdapter::setTemplateDir
-	 */
-	public function testSetTemplateDir()
-	{
-		$expected = '/templates/dir';
-		$this->object->setTemplateDir($expected);
-
-		$msg = 'Wrong NativeAdapter::setTemplateDir property value!';
-		$this->assertAttributeEquals(
-			$expected, 'template_dir', $this->object, $msg
-		);
-	}
-
-	/**
-	 * @covers \Veles\View\Adapters\NativeAdapter::getTemplateDir
-	 * @depends testSetTemplateDir
-	 */
-	public function testGetTemplateDir()
+	public function testGetTemplateDir(): void
 	{
 		$expected = '/templates/dir';
 		$this->object->setTemplateDir($expected);
@@ -80,13 +54,10 @@ EOF;
 		$actual = $this->object->getTemplateDir();
 
 		$msg = 'Wrong NativeAdapter::getTemplateDir() result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\NativeAdapter::show
-	 */
-	public function testShow()
+	public function testShow(): void
 	{
 		$this->object->setTemplateDir($this->dir);
 		$this->object->set(['a' => 'la', 'b' => 'lala', 'c' => 'Hello']);
@@ -96,43 +67,36 @@ EOF;
 		$this->object->show('Frontend/index.phtml');
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\NativeAdapter::get
-	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$this->object->setTemplateDir($this->dir);
 		$this->object->set(['a' => 'la', 'b' => 'lala', 'c' => 'Hello']);
 
 		$result = $this->object->get('Frontend/index.phtml');
 		$msg = 'Wrong NativeAdapter::get() result!';
-		$this->assertSame($this->html, $result, $msg);
+		self::assertSame($this->html, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\NativeAdapter::isCached
-	 */
-	public function testIsCached()
+	public function testIsCached(): void
 	{
 		$expected = false;
 		$result = $this->object->isCached('Frontend/index.phtml');
 
 		$msg = 'Wrong NativeAdapter::isCached() result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\NativeAdapter::__construct
-	 */
-	public function testConstruct()
+	public function testConstruct(): void
 	{
 		NativeAdapterChild::unsetInstance();
 
 		$object = NativeAdapter::instance();
 		$object->setTemplateDir(TEST_DIR . '/Project/View/');
 		View::setAdapter($object);
+		$expected = NativeAdapter::class;
 
 		$msg = 'Wrong NativeAdapter::__construct() behavior!';
-		$this->assertAttributeSame($object, 'driver', $object, $msg);
+		$actual = $object->getDriver();
+		self::assertInstanceOf($expected, $actual, $msg);
 	}
 }

@@ -40,7 +40,7 @@ class ExceptionHandlerTest extends TestCase
 		$result = $this->object->getVars();
 
 		$msg = 'ExceptionHandler::run() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	public function runProvider()

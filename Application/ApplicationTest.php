@@ -29,19 +29,18 @@ class ApplicationTest extends TestCase
 	/**
 	 * Unit-test for Application::run
 	 *
-	 * @covers       \Veles\Application\Application::run
 	 * @dataProvider runProvider
 	 *
 	 * @param $url
 	 * @param $parse_result
 	 * @param $expected
 	 */
-	public function testRun($url, $parse_result, $expected)
+	public function testRun($url, $parse_result, $expected): void
 	{
 		$this->expectOutputString($expected['output']);
 
 		$route = $this->getMockBuilder(Route::class)
-			->setMethods(['parseUri'])
+			->onlyMethods(['parseUri'])
 			->getMock();
 		$route->method('parseUri')->willReturn($parse_result);
 
@@ -56,13 +55,13 @@ class ApplicationTest extends TestCase
 		$actual = $app->getRoute()->getParams();
 
 		$msg = "Wrong Route::params in $url";
-		$this->assertSame($expected['params'], $actual, $msg);
+		self::assertSame($expected['params'], $actual, $msg);
 	}
 
 	/**
 	 * DataProvider for Application::run
 	 */
-	public function runProvider()
+	public function runProvider(): array
 	{
 		$uri = '/page/2';
 		$parse_result = [$uri, 'page'];
@@ -70,7 +69,7 @@ class ApplicationTest extends TestCase
 			'params' => ['page' => '2'],
 			'output' => <<<EOF
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Veles is a fast PHP framework</title>
 </head>
@@ -90,25 +89,7 @@ EOF
 		return [[$uri, $parse_result, $expected]];
 	}
 
-	/**
-	 * @covers \Veles\Application\Application::setRoute
-	 */
-	public function testSetRoute()
-	{
-		$expected = (new Route)->setConfigHandler(
-			new RoutesConfig(new IniConfigLoader(TEST_DIR . '/Project/routes.ini'))
-		);
-
-		$object = (new Application)->setRoute($expected);
-
-		$msg = 'Application::setRoute() wrong behavior!';
-		$this->assertAttributeSame($expected, 'route', $object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Application\Application::getRoute
-	 */
-	public function testGetRoute()
+	public function testGetRoute(): void
 	{
 		$expected = (new Route)->setConfigHandler(
 			new RoutesConfig(new IniConfigLoader(TEST_DIR . '/Project/routes.ini'))
@@ -119,26 +100,10 @@ EOF
 		$actual = $object->getRoute();
 
 		$msg = 'Application::getRoute() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Application\Application::setRequest
-	 */
-	public function testSetRequest()
-	{
-		$expected = new HttpGetRequest;
-
-		$object = (new Application)->setRequest($expected);
-
-		$msg = 'Application::setRequest() wrong behavior!';
-		$this->assertAttributeSame($expected, 'request', $object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Application\Application::getRequest
-	 */
-	public function testGetRequest()
+	public function testGetRequest(): void
 	{
 		$expected = new HttpGetRequest;
 
@@ -147,6 +112,6 @@ EOF
 		$actual = $object->getRequest();
 
 		$msg = 'Application::getRequest() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

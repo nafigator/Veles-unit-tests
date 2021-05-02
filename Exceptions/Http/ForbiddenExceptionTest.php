@@ -28,6 +28,6 @@ class ForbiddenExceptionTest extends TestCase
 	{
 		new ForbiddenException();
 		$msg = 'ForbiddenException::__construct() wrong behavior!';
-		$this->assertSame(403, http_response_code(), $msg);
+		self::assertSame(403, http_response_code(), $msg);
 	}
 }

@@ -25,68 +25,31 @@ class ConnectionPoolTest extends TestCase
 		$this->object = new ConnectionPool;
 	}
 
-	/**
-	 * @covers \Veles\DataBase\ConnectionPools\ConnectionPool::getDefaultConnectionName
-	 */
-	public function testGetDefaultConnectionName()
+	public function testGetDefaultConnectionName(): void
 	{
 		$expected = 'test-name';
 		$conn = new PdoConnection($expected);
 		$this->object->addConnection($conn, true);
 
-		$result = $this->object->getDefaultConnectionName();
+		$actual = $this->object->getDefaultConnectionName();
 
 		$msg = 'Wrong ConnectionPool::getDefaultConnectionName() result';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\DataBase\ConnectionPools\ConnectionPool::addConnection
-	 */
-	public function testAddConnection()
-	{
-		$conn = new PdoConnection('some-name');
-
-		$msg = 'Wrong default value of ConnectionPool::$pool';
-		$this->assertAttributeEquals(null, 'pool', $this->object, $msg);
-
-		$this->object->addConnection($conn);
-
-		$expected = ['some-name' => $conn];
-		$msg = 'Wrong value of ConnectionPool::$pool';
-		$this->assertAttributeEquals($expected, 'pool', $this->object, $msg);
-
-		$conn_default = new PdoConnection('default');
-		$this->object->addConnection($conn_default, true);
-
-		$expected = ['some-name' => $conn, 'default' => $conn_default];
-		$msg = 'Wrong value of ConnectionPool::$pool';
-		$this->assertAttributeEquals($expected, 'pool', $this->object, $msg);
-
-		$expected = 'default';
-		$msg = 'Wrong value of ConnectionPool::$conn_name';
-		$this->assertAttributeEquals(
-			$expected, 'conn_name', $this->object, $msg
-		);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\ConnectionPools\ConnectionPool::getConnection
-	 * @depends testAddConnection
-	 */
-	public function testGetConnection()
+	public function testGetConnection(): void
 	{
 		$expected = null;
 
 		$result = $this->object->getConnection('some-name');
 		$msg = 'Wrong behavior of ConnectionPool::getConnection';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 
 		$expected = new PdoConnection('some-name');
-		$this->object->addConnection($expected);
+		$this->object->addConnection($expected, true);
 
 		$result = $this->object->getConnection('some-name');
 		$msg = 'Wrong behavior of ConnectionPool::getConnection';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

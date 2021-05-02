@@ -24,18 +24,10 @@ class NotFoundExceptionTest extends TestCase
 		$this->object = new NotFoundException;
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
+	public function testConstruct(): void
 	{
-	}
-
-	public function testConstruct()
-	{
-		$result = $this->object->getCode();
+		$actual = $this->object->getCode();
 		$msg = 'NotFoundException::__construct() wrong behavior!';
-		$this->assertSame(0, $result, $msg);
+		self::assertSame(0, $actual, $msg);
 	}
 }

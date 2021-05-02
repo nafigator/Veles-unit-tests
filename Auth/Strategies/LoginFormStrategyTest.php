@@ -26,9 +26,6 @@ class LoginFormStrategyTest extends TestCase
 	}
 
 	/**
-	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::identify
-	 * @covers       \Veles\Auth\Strategies\AbstractAuthStrategy::setCookie
-	 * @covers       \Veles\Auth\Strategies\AbstractAuthStrategy::delCookie
 	 * @dataProvider identifyProvider
 	 *
 	 * @param $mail
@@ -37,12 +34,12 @@ class LoginFormStrategyTest extends TestCase
 	 * @param $expected
 	 * @param $expected_errors
 	 */
-	public function testIdentify($mail, $pass, $db_result, $expected, $expected_errors)
+	public function testIdentify($mail, $pass, $db_result, $expected, $expected_errors): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('row')
 			->willReturn($db_result);
 
@@ -52,19 +49,20 @@ class LoginFormStrategyTest extends TestCase
 		$actual = $object->identify();
 
 		$msg = 'LoginFormStrategy::identify() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 
-		$msg = 'LoginFormStrategy::identify() wrong behavior!';
-		$this->assertAttributeSame($expected_errors, 'errors', $object, $msg);
+		$actual = $object->getErrors();
+		$msg = 'LoginFormStrategy::getErrors() returns wrong result!';
+		self::assertSame($expected_errors, $actual, $msg);
 	}
 
-	public function identifyProvider()
+	public function identifyProvider(): array
 	{
 		$true_result = [
 			'id'         => 1,
 			'email'      => 'mail@mail.org',
 			'hash'       => '$2a$07$usesomesillystringforeGlOaUExBSD9HxuEYk2ZFaeDhggU716O',
-			'group'      => 'uzzy',
+			'group'      => 'user',
 			'last_login' => '1980-12-12'
 		];
 
@@ -79,52 +77,7 @@ class LoginFormStrategyTest extends TestCase
 		];
 	}
 
-	/**
-	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::__construct
-	 * @dataProvider constructProvider
-	 *
-	 * @param $mail
-	 * @param $pass
-	 */
-	public function testConstruct($mail, $pass)
-	{
-		$object = new LoginFormStrategy($mail, $pass, new User);
-
-		$msg = 'Wrong behavior of LoginFormStrategy::__construct()!';
-		$this->assertAttributeSame($mail, 'login', $object, $msg);
-
-		$msg = 'Wrong behavior of LoginFormStrategy::__construct()!';
-		$this->assertAttributeSame($pass, 'password', $object, $msg);
-	}
-
-	public function constructProvider()
-	{
-		return [
-			['mail200@mail.org', 'superpass3'],
-			['mail300@mail.org', 'superpass2'],
-			['mail500@mail.org', 'superpass1']
-		];
-	}
-
-	/**
-	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::setLogin
-	 */
-	public function testSetLogin()
-	{
-		$expected = 'info@mail.ru';
-		$pass = uniqid();
-
-		$object = new LoginFormStrategy($expected, $pass, new User);
-
-		$msg = 'Wrong behavior of LoginFormStrategy::setLogin()!';
-		$this->assertAttributeSame($expected, 'login', $object, $msg);
-	}
-
-	/**
-	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::getLogin
-	 * @depends testSetLogin
-	 */
-	public function testGetLogin()
+	public function testGetLogin(): void
 	{
 		$expected = 'info@mail.ru';
 		$pass = uniqid();
@@ -133,28 +86,10 @@ class LoginFormStrategyTest extends TestCase
 		$result = $object->getLogin();
 
 		$msg = 'LoginFormStrategy::getLogin() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::setPassword
-	 */
-	public function testSetPassword()
-	{
-		$login = 'info@mail.ru';
-		$expected = uniqid();
-
-		$object = new LoginFormStrategy($login, $expected, new User);
-
-		$msg = 'LoginFormStrategy::setPassword() wrong behavior!';
-		$this->assertAttributeSame($expected, 'password', $object, $msg);
-	}
-
-	/**
-	 * @covers       \Veles\Auth\Strategies\LoginFormStrategy::getPassword
-	 * @depends testSetPassword
-	 */
-	public function testGetPassword()
+	public function testGetPassword(): void
 	{
 		$login = 'info@mail.ru';
 		$expected = uniqid();
@@ -162,7 +97,7 @@ class LoginFormStrategyTest extends TestCase
 		$object = new LoginFormStrategy($login, $expected, new User);
 		$result = $object->getPassword();
 
-		$msg = 'LoginFormStrategy::getLogin() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		$msg = 'LoginFormStrategy::getPassword() wrong behavior!';
+		self::assertSame($expected, $result, $msg);
 	}
 }

@@ -46,7 +46,7 @@ class HttpGetRequestTest extends TestCase
 
 		$actual = $this->object->getBody();
 		$msg = 'HttpGetRequest::getBody() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	public function getProvider()

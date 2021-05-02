@@ -41,9 +41,9 @@ class QueryBuilderTest extends TestCase
 		$hash  = md5('lalala');
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['escape'])
+			->onlyMethods(['escape'])
 			->getMock();
-		$adapter->expects($this->exactly(2))
+		$adapter->expects(self::exactly(2))
 			->method('escape')
 			->willReturn('\'escaped-string\'');
 
@@ -61,7 +61,7 @@ class QueryBuilderTest extends TestCase
 		$actual = $this->object->insert($user);
 
 		$msg = 'QueryBuilder::insert() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	/**
@@ -78,14 +78,14 @@ class QueryBuilderTest extends TestCase
 	public function testUpdate($user, $expected)
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['escape'])
+			->onlyMethods(['escape'])
 			->getMock();
 
 		$expected_count = $user->last_login
 			? 3
 			: 2;
 
-		$adapter->expects($this->exactly($expected_count))
+		$adapter->expects(self::exactly($expected_count))
 			->method('escape')
 			->willReturn('\'escaped-string\'');
 
@@ -94,7 +94,7 @@ class QueryBuilderTest extends TestCase
 		$actual = $this->object->update($user);
 
 		$msg = 'QueryBuilder::update() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	public function updateProvider()
@@ -136,7 +136,7 @@ class QueryBuilderTest extends TestCase
 
 		$msg = 'QueryBuilder::getById() returns wrong result!';
 		$result = $this->object->getById($user, 1);
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
@@ -153,7 +153,7 @@ class QueryBuilderTest extends TestCase
 	{
 		$msg = 'QueryBuilder::delete() returns wrong result!';
 		$result = $this->object->delete($user, $ids);
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	public function deleteProvider()
@@ -180,7 +180,7 @@ class QueryBuilderTest extends TestCase
 		$user = new User;
 		$result = $this->object->find($user, $filter);
 		$msg = 'QueryBuilder::find() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	public function findProvider()
@@ -206,6 +206,6 @@ class QueryBuilderTest extends TestCase
 		$result = $this->object->setPage($sql, $pager);
 
 		$msg = 'QueryBuilder::setPage returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

@@ -41,6 +41,16 @@ class ErrorBuilderTest extends TestCase
 	$this->message<br>
 	index.php<br>
 	23<br>
+	<tr>
+		<td>1</td>
+		<td>PHPUnit_Framework_TestCase->runTest()</td>
+		<td>phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php<b>:</b>844</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>test()</td>
+		<td></td>
+	</tr>
 </body>
 </html>
 
@@ -48,21 +58,15 @@ EOL;
 	}
 
 	/**
-	 * @covers       \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getHtml
-	 * @covers       \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::convertTypeToString
-	 * @covers       \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::formatBacktrace
-	 *
 	 * @dataProvider getHtmlProvider
-	 *
-	 * @param $vars
 	 */
-	public function testGetHtml($vars)
+	public function testGetHtml($vars): void
 	{
 		$handler = $this->getMockBuilder(ExceptionHandler::class)
-			->setMethods(['getVars'])
+			->onlyMethods(['getVars'])
 			->getMock();
 
-		$handler->expects($this->once())
+		$handler->expects(self::once())
 			->method('getVars')
 			->willReturn($vars);
 
@@ -73,10 +77,10 @@ EOL;
 		$actual = $this->object->getHtml();
 
 		$msg = 'ErrorBuilder::getHtml() returns wrong result!';
-		$this->assertSame($actual, $expected, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	public function getHtmlProvider()
+	public function getHtmlProvider(): array
 	{
 		return [
 			[
@@ -95,23 +99,18 @@ EOL;
 							'args'     => []
 						],
 						[
-							'file'     => "phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php",
-							'line'     => 844,
 							'function' => "test",
 							'args'     => []
-						]
+						],
 					],
 					'type'    => 1024,
 					'defined' => ['exception' => new Exception($this->message)]
-				]
+				],
 			]
 		];
 	}
 
-	/**
-	 * @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getHandler
-	 */
-	public function testGetHandler()
+	public function testGetHandler(): void
 	{
 		$expected = new FatalErrorHandler;
 		$this->object->setHandler($expected);
@@ -119,41 +118,15 @@ EOL;
 		$result = $this->object->getHandler();
 
 		$msg = 'ErrorBuilder::getHandler() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::setHandler
-	 */
-	public function testSetHandler()
-	{
-		$expected = new FatalErrorHandler;
-		$this->object->setHandler($expected);
-		$msg = 'ErrorBuilder::setHandler() wrong behavior!';
-		$this->assertAttributeSame($expected, 'handler', $this->object, $msg);
-	}
-
-	/**
-	* @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::setTemplate
-	*/
-	public function testSetTemplate()
-	{
-		$expected = uniqid();
-		$this->object->setTemplate($expected);
-		$msg = 'ErrorBuilder::setTemplate() wrong behavior!';
-		$this->assertAttributeSame($expected, 'template', $this->object, $msg);
-	}
-
-	/**
-	* @covers \Veles\ErrorHandler\HtmlBuilders\ErrorBuilder::getTemplate
-	* @depends testSetTemplate
-	*/
-	public function testGetTemplate()
+	public function testGetTemplate(): void
 	{
 		$expected = uniqid();
 		$this->object->setTemplate($expected);
 		$result = $this->object->getTemplate();
 		$msg = 'ErrorBuilder::setTemplate() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

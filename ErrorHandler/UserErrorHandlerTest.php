@@ -60,6 +60,6 @@ class UserErrorHandlerTest extends TestCase
 		array_pop($result['stack']);
 
 		$msg = 'FatalErrorHandler::run() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

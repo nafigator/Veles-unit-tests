@@ -102,9 +102,9 @@ class RoutesConfigTest extends TestCase
 		];
 		$actual = $this->object->getData();
 		$msg = 'RoutesConfig::getData() returns wrong value!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 
 		$actual = $this->object->getData();
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

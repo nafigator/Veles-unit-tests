@@ -24,68 +24,32 @@ class BaseErrorHandlerTest extends TestCase
 		$this->object = new BaseErrorHandler;
 	}
 
-	/**
-	 * @covers \Veles\ErrorHandler\BaseErrorHandler::getVars
-	 */
-	public function testGetVars()
+	public function testGetVars(): void
 	{
 		$expected = [];
 		$result = $this->object->getVars();
 
 		$msg = 'BaseErrorHandler::getVars() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
-
-		$msg = 'BaseErrorHandler::vars has wrong default type!';
-		$this->assertAttributeInternalType('array', 'vars', $this->object, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
-	 * @covers       \Veles\ErrorHandler\BaseErrorHandler::setTime
-	 * @dataProvider setTimeProvider
-	 *
-	 * @param $expected
-	 */
-	public function testSetTime($expected)
-	{
-		$this->object->setTime($expected);
-
-		$msg = 'BaseErrorHandler::setTime() wrong behavior!';
-		$this->assertAttributeSame($expected, 'time', $this->object, $msg);
-	}
-
-	public function setTimeProvider()
-	{
-		return [
-			[uniqid()],
-			[uniqid()]
-		];
-	}
-
-	/**
-	 * @covers       \Veles\ErrorHandler\BaseErrorHandler::getTime
 	 * @dataProvider getTimeProvider
-	 * @depends      testSetTime
-	 *
-	 * @param $time
-	 * @param $expected
 	 */
-	public function testGetTime($time, $expected)
+	public function testGetTime($time, $expected): void
 	{
 		$this->object->setTime($time);
 
 		$msg = 'BaseErrorHandler::getTime() wrong behavior!';
 
 		$result = $this->object->getTime();
-		$this->assertGreaterThanOrEqual($expected, $result, $msg);
-		$this->assertAttributeGreaterThanOrEqual($expected, 'time', $this->object, $msg);
+		self::assertGreaterThanOrEqual($expected, $result, $msg);
 
 		$expected = strftime('%Y-%m-%d %H:%M:%S', time());
-		$this->assertLessThanOrEqual($expected, $result, $msg);
-		$this->assertAttributeLessThanOrEqual($expected, 'time', $this->object, $msg);
-
+		self::assertLessThanOrEqual($expected, $result, $msg);
 	}
 
-	public function getTimeProvider()
+	public function getTimeProvider(): array
 	{
 		$time = strftime('%Y-%m-%d %H:%M:%S', time());
 

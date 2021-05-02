@@ -31,7 +31,6 @@ class RestApplicationTest extends TestCase
 	/**
 	 * Unit-test for RestApplication::run
 	 *
-	 * @covers       \Veles\Application\RestApplication::run
 	 * @dataProvider runProvider
 	 *
 	 * @param $url
@@ -45,7 +44,7 @@ class RestApplicationTest extends TestCase
 		$this->expectOutputString($expected['output']);
 
 		$route = $this->getMockBuilder(Route::class)
-			->setMethods(['parseUri'])
+			->onlyMethods(['parseUri'])
 			->getMock();
 		$route->method('parseUri')->willReturn($parse_result);
 
@@ -63,9 +62,6 @@ class RestApplicationTest extends TestCase
 		self::assertSame($expected['params'], $actual, $msg);
 	}
 
-	/**
-	 * DataProvider for RestApplication::run
-	 */
 	public function runProvider(): array
 	{
 		$uri = '/page/2';
@@ -74,7 +70,7 @@ class RestApplicationTest extends TestCase
 			'params' => ['page' => '2'],
 			'output' => <<<EOF
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Veles is a fast PHP framework</title>
 </head>
@@ -94,24 +90,6 @@ EOF
 		return [[$uri, $parse_result, $expected]];
 	}
 
-	/**
-	 * @covers \Veles\Application\RestApplication::setRoute
-	 */
-	public function testSetRoute(): void
-	{
-		$expected = (new Route)->setConfigHandler(
-			new RoutesConfig(new IniConfigLoader(TEST_DIR . '/Project/routes.ini'))
-		);
-
-		$object = (new RestApplication)->setRoute($expected);
-
-		$msg = 'RestApplication::setRoute() wrong behavior!';
-		self::assertAttributeSame($expected, 'route', $object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Application\RestApplication::getRoute
-	 */
 	public function testGetRoute(): void
 	{
 		$expected = (new Route)->setConfigHandler(
@@ -126,22 +104,6 @@ EOF
 		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Application\RestApplication::setRequest
-	 */
-	public function testSetRequest(): void
-	{
-		$expected = new HttpGetRequest;
-
-		$object = (new RestApplication)->setRequest($expected);
-
-		$msg = 'RestApplication::setRequest() wrong behavior!';
-		self::assertAttributeSame($expected, 'request', $object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Application\RestApplication::getRequest
-	 */
 	public function testGetRequest(): void
 	{
 		$expected = new HttpGetRequest;

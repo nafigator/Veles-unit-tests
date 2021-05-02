@@ -10,5 +10,12 @@
 	<?=$message?><br>
 	<?=$file?><br>
 	<?=$line?><br>
+<? foreach ($stack as $num => $call) { ?>
+	<tr>
+		<td><?=++$num?></td>
+		<td><?=$call['function']?>()</td>
+		<td><?=$call['file']?></td>
+	</tr>
+<? } ?>
 </body>
 </html>

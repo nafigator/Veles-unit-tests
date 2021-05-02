@@ -24,31 +24,8 @@ class RedirectAdapterTest extends TestCase
 		$this->object = new RedirectAdapter;
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
+	public function testShow(): void
 	{
-	}
-
-	public function testConstruct()
-	{
-		$expected = $this->object;
-		$msg = 'Unexpected RedirectAdapter::__construct() behavior!';
-		$this->assertAttributeSame($expected, 'driver', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\View\Adapters\RedirectAdapter::show
-	 */
-	public function testShow()
-	{
-		$expected = [];
-
-		$msg = 'RedirectAdapter::show() wrong behavior!';
-		$this->assertAttributeSame($expected, 'variables', $this->object, $msg);
-
 		$this->expectOutputString('');
 		$this->object->show(null);
 
@@ -58,31 +35,25 @@ class RedirectAdapterTest extends TestCase
 		$this->expectOutputString('');
 		$this->object->show(null);
 
-		$msg = 'RedirectAdapter::__construct() wrong behavior!';
-		$this->assertSame(302, http_response_code(), $msg);
+		$msg = 'RedirectAdapter::show() wrong behavior!';
+		self::assertSame(302, http_response_code(), $msg);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\RedirectAdapter::get
-	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$expected = '';
 		$actual = $this->object->get(null);
 
 		$msg = 'RedirectAdapter::get() wrong behavior!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\View\Adapters\RedirectAdapter::isCached
-	 */
-	public function testIsCached()
+	public function testIsCached(): void
 	{
 		$expected = false;
 		$actual = $this->object->isCached(null);
 
 		$msg = 'RedirectAdapter::isCached() wrong behavior!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

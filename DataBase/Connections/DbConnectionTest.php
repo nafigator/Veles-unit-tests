@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\DataBase\Connections;
 
+use PDO;
 use PHPUnit\Framework\TestCase;
 use Veles\DataBase\Connections\PdoConnection;
 
@@ -24,34 +25,16 @@ class DbConnectionTest extends TestCase
 		$this->object = new PdoConnection('conn-name');
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Connections\DbConnection::__construct
-	 */
-	public function testConstructor()
+	public function testConstructor(): void
 	{
 		$expected = 'conn-name';
 		$result = $this->object->getName();
 
 		$msg = 'Wrong connection name';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Connections\DbConnection::setResource
-	 */
-	public function testSetResource()
-	{
-		$expected = 'some value';
-		$this->object->setResource($expected);
-
-		$msg = 'Wrong Connection::$resource property value!';
-		$this->assertAttributeEquals($expected, 'resource', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\Connections\DbConnection::getResource
-	 */
-	public function testGetResource()
+	public function testGetResource(): void
 	{
 		$this->object->setDriver('\Veles\Tests\DataBase\Connections\PDOStub');
 		$dsn = 'mysql:host=host;dbname=db_name;charset=utf8';
@@ -62,48 +45,26 @@ class DbConnectionTest extends TestCase
 		$actual = $this->object->getResource();
 
 		$msg = 'DbConnection::getResource() returns wrong result!';
-		$this->assertInstanceOf('\PDO', $actual, $msg);
+		self::assertInstanceOf(PDO::class, $actual, $msg);
 
 		$expected = 'some value';
 		$this->object->setResource($expected);
 		$result = $this->object->getResource();
 
 		$msg = 'DbConnection::getResource() return wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Connections\DbConnection::getName
-	 */
-	public function testGetName()
+	public function testGetName(): void
 	{
 		$expected = 'conn-name';
 		$result = $this->object->getName();
 
 		$msg = 'Wrong Connection::getName return result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Connections\DbConnection::setPassword
-	 */
-	public function testSetPassword()
-	{
-		$expected = 'Password-lkj';
-		$result = $this->object->setPassword($expected);
-
-		$msg = 'Wrong Connection::$password property value!';
-		$this->assertAttributeEquals($expected, 'password', $this->object, $msg);
-
-		$msg = 'Wrong Connection::setPassword return value!';
-		$this->assertSame($this->object, $result, $msg);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\Connections\DbConnection::getPassword
-	 * @depends testSetPassword
-	 */
-	public function testGetPassword()
+	public function testGetPassword(): void
 	{
 		$expected = 'Mega-password';
 		$this->object->setPassword($expected);
@@ -111,29 +72,10 @@ class DbConnectionTest extends TestCase
 		$result = $this->object->getPassword();
 
 		$msg = 'Wrong Connection::getPassword return result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\DataBase\Connections\DbConnection::setUserName
-	 */
-	public function testSetUserName()
-	{
-		$expected = 'user444';
-		$result = $this->object->setUserName($expected);
-
-		$msg = 'Wrong Connection::$user_name property value!';
-		$this->assertAttributeEquals($expected, 'user_name', $this->object, $msg);
-
-		$msg = 'Wrong Connection::setUserName return value!';
-		$this->assertSame($this->object, $result, $msg);
-	}
-
-	/**
-	 * @covers \Veles\DataBase\Connections\DbConnection::getUserName
-	 * @depends testSetUserName
-	 */
-	public function testGetUserName()
+	public function testGetUserName(): void
 	{
 		$expected = 'megaUser';
 		$this->object->setUserName($expected);
@@ -141,6 +83,6 @@ class DbConnectionTest extends TestCase
 		$result = $this->object->getUserName();
 
 		$msg = 'Wrong Connection::getUserName return result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

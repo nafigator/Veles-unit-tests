@@ -24,31 +24,7 @@ class PhpFiltersTest extends TestCase
 		$this->object = new PhpFilters;
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
-
-	/**
-	 * @covers \Veles\Request\Validator\PhpFilters::addError
-	 */
-	public function testAddError()
-	{
-		$error = ['field' => 'name', 'message' => 'ERROR'];
-		$expected = [$error];
-		$this->object->addError($error);
-
-		$msg = 'PhpFilters::addError() wrong behavior';
-		$this->assertAttributeSame($expected, 'errors', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Request\Validator\PhpFilters::getErrors
-	 */
-	public function testGetErrors()
+	public function testGetErrors(): void
 	{
 		$error = ['field' => 'name', 'message' => 'ERROR_GET'];
 		$expected = [$error];
@@ -56,131 +32,27 @@ class PhpFiltersTest extends TestCase
 
 		$actual = $this->object->getErrors();
 		$msg = 'PhpFilters::getErrors() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	/**
-	 * @covers       \Veles\Request\Validator\PhpFilters::check
-	 * @covers       \Veles\Request\Validator\PhpFilters::processResult
-	 * @covers       \Veles\Request\Validator\PhpFilters::checkField
-	 * @covers       \Veles\Request\Validator\PhpFilters::buildRequiredError
-	 * @covers       \Veles\Request\Validator\PhpFilters::buildNotValidError
-	 *
-	 * @dataProvider checkProvider
-	 *
-	 * @param $data
-	 * @param $definitions
-	 * @param $expected
-	 */
-	public function testCheck($data, $definitions, $expected)
-	{
-		$this->object->check($data, $definitions);
-		$msg = 'PhpFilters::check() wrong behavior!';
-		$this->assertAttributeSame($expected, 'errors', $this->object, $msg);
-	}
-
-	public function checkProvider()
-	{
-		$definitions = [
-			'email' => [
-				'filter'   => FILTER_VALIDATE_EMAIL,
-				'flag'     => FILTER_REQUIRE_SCALAR,
-				'required' => true
-			],
-			'password' => [
-				'filter'   => FILTER_VALIDATE_REGEXP,
-				'flag'     => FILTER_REQUIRE_SCALAR,
-				'options'  => ['regexp' => '/.{6,32}/'],
-				'required' => true
-			],
-			'secret' => [
-				'filter'  => FILTER_VALIDATE_REGEXP,
-				'flag'    => FILTER_REQUIRE_SCALAR,
-				'options' => [
-					'regexp' => '/.{6,32}/'
-				]
-			],
-		];
-
-		return [
-			[
-				['email' => 'wrong', 'password' => 'wrong', 'secret' => 'wrong'],
-				$definitions,
-				[
-					[
-						'field' => 'email',
-						'message' => 'email is not a valid value'
-					],
-					[
-						'field' => 'password',
-						'message' => 'password is not a valid value'
-					],
-					[
-						'field' => 'secret',
-						'message' => 'secret is not a valid value'
-					]
-				]
-			],
-			[
-				['email' => 'mail@mail.ru', 'password' => 'secret'],
-				$definitions,
-				[]
-			],
-			[
-				['email' => 'mail@mail.ru', 'password' => 'secret', 'secret' => 'valid value'],
-				$definitions,
-				[]
-			],
-			[
-				['id' => 1234],
-				$definitions,
-				[
-					[
-						'field' => 'email',
-						'message' => 'email is required'
-					],
-					[
-						'field' => 'password',
-						'message' => 'password is required'
-					]
-				]
-			],
-			[
-				['secret' => 'valid value'],
-				$definitions,
-				[
-					[
-						'field' => 'email',
-						'message' => 'email is required'
-					],
-					[
-						'field' => 'password',
-						'message' => 'password is required'
-					]
-				]
-			]
-		];
-	}
-
-	/**
-	 * @covers       \Veles\Request\Validator\PhpFilters::getData
-	 *
 	 * @dataProvider getDataProvider
-	 *
-	 * @param $data
-	 * @param $definitions
-	 * @param $expected
 	 */
-	public function testGetData($data, $definitions, $expected)
+	public function testGetData($data, $definitions, $expected, $errors): void
 	{
 		$this->object->check($data, $definitions);
 
 		$actual = $this->object->getData();
 		$msg = 'PhpFilters::getData() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
+
+		$expected = $errors;
+		$actual = $this->object->getErrors();
+		$msg = 'PhpFilters::getData() wrong behavior!';
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	public function getDataProvider()
+	public function getDataProvider(): array
 	{
 		$definitions = [
 			'id'       => [
@@ -221,20 +93,40 @@ class PhpFiltersTest extends TestCase
 					'email'    => 'mail@mail.ru',
 					'password' => 'secret',
 					'secret'   => 'valid value'
+				],
+				[]
+			],
+			[
+				[
+					'email'    => 'mail@mail.ru',
+					'password' => 'short',
+					'secret'   => 'valid value'
+				],
+				$definitions,
+				[
+					'id'       => null,
+					'email'    => 'mail@mail.ru',
+					'password' => false,
+					'secret'   => 'valid value'
+				],
+				[
+					[
+						'field' => 'id',
+						'message' =>'id is required'
+					],
+					[
+						'field' => 'password',
+						'message' =>'password is not a valid value'
+					],
 				]
 			]
 		];
 	}
 
 	/**
-	 * @covers       \Veles\Request\Validator\PhpFilters::isValid
-	 *
 	 * @dataProvider isValidProvider
-	 *
-	 * @param $error
-	 * @param $expected
 	 */
-	public function testIsValid($error, $expected)
+	public function testIsValid($error, $expected): void
 	{
 		if (null !== $error) {
 			$this->object->addError($error);
@@ -242,10 +134,10 @@ class PhpFiltersTest extends TestCase
 
 		$actual = $this->object->isValid();
 		$msg = 'PhpFilters::isValid() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	public function isValidProvider()
+	public function isValidProvider(): array
 	{
 		return [
 			[

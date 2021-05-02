@@ -1,6 +1,7 @@
 <?php
 namespace Veles\Tests\Model;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Veles\DataBase\Adapters\PdoAdapter;
 use Veles\DataBase\Db;
@@ -8,7 +9,6 @@ use Veles\DataBase\DbFilter;
 use Veles\DataBase\DbPaginator;
 use Veles\Model\ActiveRecord;
 use Veles\Model\QueryBuilder;
-use Veles\Model\User;
 use Veles\Tests\DataBase\DbCopy;
 
 /**
@@ -18,6 +18,8 @@ use Veles\Tests\DataBase\DbCopy;
  */
 class ActiveRecordTest extends TestCase
 {
+	protected const SQL = 'SELECT * FROM table WHERE id = ?';
+
 	/**
 	 * @var ActiveRecord
 	 */
@@ -41,18 +43,7 @@ class ActiveRecordTest extends TestCase
 		DbCopy::unsetAdapter();
 	}
 
-	public function testConstruct()
-	{
-		$expected = new QueryBuilder;
-
-		$msg = 'ActiveRecord::__construct() wrong behavior!';
-		$this->assertAttributeEquals($expected, 'builder', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Model\ActiveRecord::getMap
-	 */
-	public function testGetMap()
+	public function testGetMap(): void
 	{
 		$news = new News;
 		$expected = [
@@ -63,35 +54,36 @@ class ActiveRecordTest extends TestCase
 		];
 		$result = $news->getMap();
 		$msg = 'ActiveRecord::getMap() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
-	 * @covers       \Veles\Model\ActiveRecord::getById
-	 * @covers       \Veles\Model\ActiveRecord::getResult
 	 * @dataProvider getByIdProvider
-	 *
-	 * @param $id
-	 * @param $expected
-	 * @param $db_result
-	 *
-	 * @throws \Exception
 	 */
-	public function testGetById($id, $expected, $db_result)
+	public function testGetById($id, $expected, $db_result): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('row')
+			->with(static::SQL)
 			->willReturn($db_result);
+
+		$builder = $this->getMockBuilder(QueryBuilder::class)
+			->onlyMethods(['getById'])
+			->getMock();
+		$builder->expects(self::once())
+			->method('getById')
+			->willReturn(static::SQL);
 
 		Db::setAdapter($adapter);
 
 		$news = new News;
+		$news->setBuilder($builder);
 		$actual = $news->getById($id);
 		$msg = 'ActiveRecords::getById() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 
 		$actual = ['id' => '', 'title' => '', 'content' => '', 'author' => ''];
 		$expected = ($expected)
@@ -105,10 +97,10 @@ class ActiveRecordTest extends TestCase
 
 		$news->getProperties($actual);
 		$msg = 'Wrong ActiveRecords::getById() behavior!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	public function getByIdProvider()
+	public function getByIdProvider(): array
 	{
 		$found1 = [
 			'id'      => "3",
@@ -135,67 +127,92 @@ class ActiveRecordTest extends TestCase
 	}
 
 	/**
-	 * @covers \Veles\Model\ActiveRecord::getAll
+	 * @dataProvider getAllProvider
 	 */
-	public function testGetAll()
+	public function testGetAll($data, $expected): void
 	{
-		$expected = [];
-
-		for ($i = 1; $i <= 5; ++$i) {
-			$expected[] = [
-				'id'      => "$i",
-				'title'   => "title_$i",
-				'content' => "content_$i",
-				'author'  => "author_$i"
-			];
-		}
-
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['rows', 'getFoundRows'])
+			->onlyMethods(['rows', 'getFoundRows'])
 			->getMock();
-		$adapter->expects($this->at(0))
+		$adapter->expects(self::once())
 			->method('rows')
-			->willReturn($expected);
-		$adapter->expects($this->at(1))
-			->method('rows')
-			->willReturn([]);
-		$adapter->expects($this->once())
-			->method('getFoundRows')
-			->willReturn(5);
+			->willReturn($data);
 
 		Db::setAdapter($adapter);
 
 		$pager = new DbPaginator('paginator_default.phtml');
 
 		$news = new News;
-		$result = $news->getAll(false, $pager);
+		$actual = $news->getAll(false, $pager);
 		$msg = 'ActiveRecord::getAll() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
-
-		$expected = false;
-		$user = new User;
-		$result = $user->getAll();
-		$msg = 'ActiveRecord::getAll() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Model\ActiveRecord::save
-	 * @covers \Veles\Model\ActiveRecord::update
-	 * @covers \Veles\Model\ActiveRecord::insert
-	 */
-	public function testSave()
+	public function getAllProvider(): array
+	{
+		return [
+			[
+				[
+					[
+						'id'      => '1',
+						'title'   => "title_1",
+						'content' => "content_1",
+						'author'  => "author_1"
+					],
+					[
+						'id'      => '2',
+						'title'   => 'title_2',
+						'content' => 'content_2',
+						'author'  => 'author_2'
+					],
+					[
+						'id'      => '3',
+						'title'   => 'title_3',
+						'content' => 'content_3',
+						'author'  => 'author_3'
+					]
+				],
+				[
+					[
+						'id'      => '1',
+						'title'   => "title_1",
+						'content' => "content_1",
+						'author'  => "author_1"
+					],
+					[
+						'id'      => '2',
+						'title'   => 'title_2',
+						'content' => 'content_2',
+						'author'  => 'author_2'
+					],
+					[
+						'id'      => '3',
+						'title'   => 'title_3',
+						'content' => 'content_3',
+						'author'  => 'author_3'
+					]
+				],
+			],
+			[
+				[],
+				false,
+			]
+		];
+	}
+
+
+	public function testSave(): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['query', 'escape', 'getLastInsertId'])
+			->onlyMethods(['query', 'escape', 'getLastInsertId'])
 			->getMock();
-		$adapter->expects($this->exactly(2))
+		$adapter->expects(self::exactly(2))
 			->method('query')
 			->willReturn(true);
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('getLastInsertId')
 			->willReturn(21);
-		$adapter->expects($this->exactly(6))
+		$adapter->expects(self::exactly(6))
 			->method('escape')
 			->willReturn('string');
 
@@ -209,29 +226,22 @@ class ActiveRecordTest extends TestCase
 		$expected = true;
 		$result = $news->save();
 		$msg = 'ActiveRecord::save() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
-
-		$expected = 21;
-		$msg = 'ActiveRecord::save() wrong behavior!';
-		$this->assertAttributeSame($expected, 'id', $news, $msg);
+		self::assertSame($expected, $result, $msg);
 
 		$news->title = 'updated_title_21';
 
 		$expected = true;
 		$result = $news->save();
 		$msg = 'ActiveRecord::save() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Model\ActiveRecord::delete
-	 */
-	public function testDelete()
+	public function testDelete(): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['query'])
+			->onlyMethods(['query'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('query')
 			->willReturn(true);
 
@@ -243,24 +253,18 @@ class ActiveRecordTest extends TestCase
 		$expected = true;
 		$result = $news->delete();
 		$msg = 'ActiveRecord::delete() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Model\ActiveRecord::delete
-	 *
-	 * @expectedException \Exception
-	 * @expectedExceptionMessage Not found model id!
-	 */
-	public function testDeleteException()
+	public function testDeleteException(): void
 	{
+		$this->expectException(Exception::class);
+		$this->expectExceptionMessage('Not found model id!');
+
 		(new News)->delete();
 	}
 
-	/**
-	 * @covers \Veles\Model\ActiveRecord::setProperties
-	 */
-	public function testSetProperties()
+	public function testSetProperties(): void
 	{
 		$news = new News;
 		$actual = $news->setProperties([
@@ -277,17 +281,14 @@ class ActiveRecordTest extends TestCase
 		$expected->author = 'author_21';
 
 		$msg = 'Wrong ActiveRecord::setProperties() behavior!';
-		$this->assertEquals($expected, $news, $msg);
+		self::assertEquals($expected, $news, $msg);
 
 		$expected = $news;
 		$msg = 'ActiveRecord::setProperties() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Model\ActiveRecord::getProperties
-	 */
-	public function testGetProperties()
+	public function testGetProperties(): void
 	{
 		$expected = [
 			'id'      => '3',
@@ -297,9 +298,9 @@ class ActiveRecordTest extends TestCase
 		];
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('row')
 			->willReturn($expected);
 
@@ -315,13 +316,10 @@ class ActiveRecordTest extends TestCase
 		];
 		$news->getProperties($result);
 		$msg = 'ActiveRecord::getProperties() wrong behavior!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Model\ActiveRecord::toArray
-	 */
-	public function testToArray()
+	public function testToArray(): void
 	{
 		$expected = [
 			'id'      => '3',
@@ -338,17 +336,13 @@ class ActiveRecordTest extends TestCase
 
 		$actual = $news->toArray();
 		$msg = 'ActiveRecord::toArray() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	/**
-	 * @covers       \Veles\Model\ActiveRecord::find
 	 * @dataProvider findProvider
-	 *
-	 * @param $id
-	 * @param $expected
 	 */
-	public function testFind($id, $expected)
+	public function testFind($id, $expected): void
 	{
 		$expected_news = new News;
 
@@ -369,9 +363,9 @@ class ActiveRecordTest extends TestCase
 			: [];
 
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['row'])
+			->onlyMethods(['row'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('row')
 			->willReturn($db_result);
 
@@ -382,13 +376,13 @@ class ActiveRecordTest extends TestCase
 		$filter->setWhere("id = $id");
 		$actual = $actual_news->find($filter);
 		$msg = 'ActiveRecord::find() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 
 		$msg = 'Wrong ActiveRecord::find() behavior!';
-		$this->assertEquals($expected_news, $actual_news, $msg);
+		self::assertEquals($expected_news, $actual_news, $msg);
 	}
 
-	public function findProvider()
+	public function findProvider(): array
 	{
 		return [
 			[3, true],
@@ -397,36 +391,19 @@ class ActiveRecordTest extends TestCase
 	}
 
 	/**
-	 * @covers \Veles\Model\ActiveRecord::setBuilder
-	 */
-	public function testSetBuilder()
-	{
-		$news = new News;
-		$builder = new QueryBuilder;
-		$news->setBuilder($builder);
-		$msg = 'Wrong ActiveRecord::setBuilder behavior!';
-		$this->assertAttributeSame($builder, 'builder', $news, $msg);
-	}
-
-	/**
-	 * @covers       \Veles\Model\ActiveRecord::query
 	 * @dataProvider queryProvider
-	 *
-	 * @param $pager
-	 * @param $expected
-	 * @param $found_rows
 	 */
-	public function testQuery($pager, $expected, $found_rows)
+	public function testQuery($pager, $expected, $found_rows): void
 	{
 		$adapter = $this->getMockBuilder(PdoAdapter::class)
-			->setMethods(['rows', 'getFoundRows'])
+			->onlyMethods(['rows', 'getFoundRows'])
 			->getMock();
-		$adapter->expects($this->once())
+		$adapter->expects(self::once())
 			->method('rows')
 			->willReturn($expected);
 
 		if ($found_rows) {
-			$adapter->expects($this->once())
+			$adapter->expects(self::once())
 				->method('getFoundRows')
 				->willReturn($found_rows);
 		}
@@ -438,10 +415,10 @@ class ActiveRecordTest extends TestCase
 		$news = new News;
 		$result = $news->query($sql, $pager);
 		$msg = 'ActiveRecord::query() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function queryProvider()
+	public function queryProvider(): array
 	{
 		$expected1 = [];
 

@@ -30,49 +30,7 @@ class CliProgressBarTest extends TestCase
 		$this->time_after_init = microtime(true);
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
-
-	/**
-	 * @covers \Veles\Tools\CliProgressBar::__construct
-	 */
-	public function testConstruct()
-	{
-		$expected = $this->final;
-		$msg = 'CliProgressBar::__construct wrong behavior!';
-		$this->assertAttributeSame($expected, 'final_value', $this->object, $msg);
-
-		$expected = $this->width;
-		$this->assertAttributeSame($expected, 'width', $this->object, $msg);
-
-		$expected = $this->width / 100;
-		$this->assertAttributeSame($expected, 'pb_percent', $this->object, $msg);
-
-		$expected = $this->final / 100;
-		$this->assertAttributeSame($expected, 'percent', $this->object, $msg);
-
-		$expected = null;
-		$this->assertAttributeNotEquals($expected, 'start_time', $this->object, $msg);
-		$expected = 'float';
-		$this->assertAttributeInternalType($expected, 'start_time', $this->object, $msg);
-
-		$this->assertAttributeGreaterThanOrEqual($this->time_before_init, 'start_time', $this->object, $msg);
-		$this->assertAttributeLessThanOrEqual($this->time_after_init, 'start_time', $this->object, $msg);
-
-		$expected = $this->getObjectAttribute($this->object, 'start_time');
-		$this->assertAttributeSame($expected, 'last_update_time', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Tools\CliProgressBar::update
-	 * @covers \Veles\Tools\CliProgressBar::calcParams
-	 */
-	public function testUpdateOne()
+	public function testUpdateOne(): void
 	{
 		$mem_string = 'mem-string';
 		$stat_string = 'stat-string';
@@ -81,12 +39,12 @@ class CliProgressBarTest extends TestCase
 
 		$this->object = $this->getMockBuilder('\Veles\Tools\CliProgressBar')
 			->setConstructorArgs([60])
-			->setMethods(['getStatusString', 'getMemString'])
+			->onlyMethods(['getStatusString', 'getMemString'])
 			->getMock();
-		$this->object->expects($this->once())
+		$this->object->expects(self::once())
 			->method('getStatusString')
 			->willReturn($stat_string);
-		$this->object->expects($this->once())
+		$this->object->expects(self::once())
 			->method('getMemString')
 			->willReturn($mem_string);
 
@@ -94,11 +52,7 @@ class CliProgressBarTest extends TestCase
 		$this->object->update(1);
 	}
 
-	/**
-	 * @covers \Veles\Tools\CliProgressBar::update
-	 * @covers \Veles\Tools\CliProgressBar::calcParams
-	 */
-	public function testUpdateTwo()
+	public function testUpdateTwo(): void
 	{
 		$mem_string = 'mem-string';
 		$stat_string = 'stat-string';
@@ -108,12 +62,12 @@ class CliProgressBarTest extends TestCase
 
 		$this->object = $this->getMockBuilder('\Veles\Tools\CliProgressBar')
 			->setConstructorArgs([60])
-			->setMethods(['getStatusString', 'getMemString'])
+			->onlyMethods(['getStatusString', 'getMemString'])
 			->getMock();
-		$this->object->expects($this->once())
+		$this->object->expects(self::once())
 			->method('getStatusString')
 			->willReturn($stat_string);
-		$this->object->expects($this->once())
+		$this->object->expects(self::once())
 			->method('getMemString')
 			->willReturn($mem_string);
 
@@ -121,10 +75,7 @@ class CliProgressBarTest extends TestCase
 		$this->object->update(60);
 	}
 
-	/**
-	 * @covers \Veles\Tools\CliProgressBar::getStatusString
-	 */
-	public function testGetStatusString()
+	public function testGetStatusString(): void
 	{
 		$reflection = new \ReflectionClass($this->object);
 		$clean_process_time_prop = $reflection->getProperty('clean_process_time');
@@ -147,13 +98,10 @@ class CliProgressBarTest extends TestCase
 		$result = $this->object->getStatusString(1);
 
 		$msg = 'CliProgressBar::getStatusString() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Tools\CliProgressBar::getMemString
-	 */
-	public function testGetMemString()
+	public function testGetMemString(): void
 	{
 		$reflection = new \ReflectionClass($this->object);
 		$mem_usage_func_prop = $reflection->getProperty('mem_usage_func');
@@ -167,16 +115,16 @@ class CliProgressBarTest extends TestCase
 		$expected = " | Mem: 195.48 KB | Max: 215.12 KB";
 		$result = $this->object->getMemString();
 		$msg = 'CliProgressBar::getMemString() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }
 
-function fake_mem_usage()
+function fake_mem_usage(): int
 {
 	return 200176;
 }
 
-function fake_mem_peak_usage()
+function fake_mem_peak_usage(): int
 {
 	return 220285;
 }

@@ -29,21 +29,21 @@ class UsrGroupTest extends TestCase
 	public function testConstants()
 	{
 		$msg = 'Wrong UsrGroup::ADMIN value';
-		$this->assertSame(1, UsrGroup::ADMIN, $msg);
+		self::assertSame(1, UsrGroup::ADMIN, $msg);
 
 		$msg = 'Wrong UsrGroup::MANAGER value';
-		$this->assertSame(2, UsrGroup::MANAGER, $msg);
+		self::assertSame(2, UsrGroup::MANAGER, $msg);
 
 		$msg = 'Wrong UsrGroup::MODERATOR value';
-		$this->assertSame(4, UsrGroup::MODERATOR, $msg);
+		self::assertSame(4, UsrGroup::MODERATOR, $msg);
 
 		$msg = 'Wrong UsrGroup::REGISTERED value';
-		$this->assertSame(8, UsrGroup::REGISTERED, $msg);
+		self::assertSame(8, UsrGroup::REGISTERED, $msg);
 
 		$msg = 'Wrong UsrGroup::GUEST value';
-		$this->assertSame(16, UsrGroup::GUEST, $msg);
+		self::assertSame(16, UsrGroup::GUEST, $msg);
 
 		$msg = 'Wrong UsrGroup::DELETED value';
-		$this->assertSame(32, UsrGroup::DELETED, $msg);
+		self::assertSame(32, UsrGroup::DELETED, $msg);
 	}
 }

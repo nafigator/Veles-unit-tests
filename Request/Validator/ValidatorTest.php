@@ -25,79 +25,64 @@ class ValidatorTest extends TestCase
 	{
 		$this->object = new Validator;
 		$this->adapter = $this->getMockBuilder(JsonSchemaAdapter::class)
-			->setMethods(['addError', 'getErrors', 'check', 'isValid', 'getData'])
+			->onlyMethods(['addError', 'getErrors', 'check', 'isValid', 'getData'])
 			->disableOriginalConstructor()
 			->getMock();
 		$this->object->setAdapter($this->adapter);
 	}
 
-	/**
-	 * @covers \Veles\Request\Validator\Validator::addError
-	 */
-	public function testAddError()
+	public function testAddError(): void
 	{
 		$field    = uniqid();
 		$message  = uniqid();
 		$array = [['field' => $field, 'message' => $message]];
 
-		$this->adapter->expects($this->once())
+		$this->adapter->expects(self::once())
 			->method('addError');
 
 		$this->object->addError($array);
 	}
 
-	/**
-	 * @covers \Veles\Request\Validator\Validator::getErrors
-	 */
-	public function testGetErrors()
+	public function testGetErrors(): void
 	{
 		$field    = uniqid();
 		$message  = uniqid();
 		$expected = [['field' => $field, 'message' => $message]];
 
-		$this->adapter->expects($this->once())
+		$this->adapter->expects(self::once())
 			->method('getErrors')
 			->willReturn($expected);
 
 		$actual = $this->object->getErrors();
 		$msg = 'Validator::getErrors() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Request\Validator\Validator::check
-	 */
-	public function testCheck()
+	public function testCheck(): void
 	{
 		$data        = uniqid();
 		$definitions = uniqid();
 
-		$this->adapter->expects($this->once())
+		$this->adapter->expects(self::once())
 			->method('check')
 			->with($data, $definitions);
 
 		$this->object->check($data, $definitions);
 	}
 
-	/**
-	 * @covers \Veles\Request\Validator\Validator::isValid
-	 */
-	public function testIsValid()
+	public function testIsValid(): void
 	{
 		$expected = true;
-		$this->adapter->expects($this->once())
+		$this->adapter->expects(self::once())
 			->method('isValid')
 			->willReturn($expected);
 
 		$actual = $this->object->isValid();
 		$msg = 'Validator::isValid() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Request\Validator\Validator::getAdapter
-	 */
-	public function testGetAdapter()
+	public function testGetAdapter(): void
 	{
 		$expected = new JsonSchemaAdapter(true, false);
 
@@ -105,38 +90,19 @@ class ValidatorTest extends TestCase
 
 		$actual = $this->object->getAdapter();
 		$msg = 'Validator::getAdapter() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Request\Validator\Validator::setAdapter
-	 */
-	public function testSetAdapter()
-	{
-		$expected = new JsonSchemaAdapter(true, false);
-
-		$actual = $this->object->setAdapter($expected);
-
-		$msg = 'Validator::setAdapter() returns wrong result!';
-		$this->assertSame($this->object, $actual, $msg);
-
-		$msg = 'Validator::setAdapter() wrong behavior!';
-		$this->assertAttributeSame($expected, 'adapter', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Request\Validator\Validator::getData
-	 */
-	public function testGetData()
+	public function testGetData(): void
 	{
 		$expected = [1,2,3];
 
-		$this->adapter->expects($this->once())
+		$this->adapter->expects(self::once())
 			->method('getData')
 			->willReturn($expected);
 
 		$actual = $this->object->getData();
 		$msg = 'Validator::getData()returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

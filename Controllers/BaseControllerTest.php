@@ -23,14 +23,10 @@ class BaseControllerTest extends TestCase
 	/** @var Route */
 	protected $route;
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
 	protected function setUp(): void
 	{
 		$this->route = $this->getMockBuilder(Route::class)
-			->setMethods(['parseUri'])
+			->onlyMethods(['parseUri'])
 			->getMock();
 
 		$config = new RoutesConfig(
@@ -47,42 +43,19 @@ class BaseControllerTest extends TestCase
 		unset($_POST);
 	}
 
-	/**
-	 * @covers \Veles\Controllers\BaseController::getApplication
-	 * @covers \Veles\Application\Traits\ApplicationTrait::getApplication
-	 */
-	public function testGetApplication()
+	public function testGetApplication(): void
 	{
 		$expected = $this->application;
 		$actual   = $this->object->getApplication();
 
 		$msg = 'BaseController::getApplication() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	/**
-	 * @covers \Veles\Controllers\BaseController::setApplication
-	 * @covers \Veles\Application\Traits\ApplicationTrait::setApplication
-	 */
-	public function testSetApplication()
-	{
-		$expected = (new Application);
-		$this->object->setApplication($expected);
-
-		$msg = 'BaseController::setApplication() wrong behavior!';
-		$this->assertAttributeSame($expected, 'application', $this->object, $msg);
-	}
-
-	/**
-	 * @covers       \Veles\Controllers\BaseController::getParam
-	 *
-	 * @param $parse_result
-	 * @param $expected
-	 *
-	 * @throws \Exception
 	 * @dataProvider getParamProvider
 	 */
-	public function testGetParam($parse_result, $expected)
+	public function testGetParam($parse_result, $expected): void
 	{
 		$this->route->method('parseUri')->willReturn($parse_result);
 		$this->route->init();
@@ -90,10 +63,10 @@ class BaseControllerTest extends TestCase
 		$actual = $this->object->book();
 
 		$msg = 'BaseController::getParams() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	public function getParamProvider()
+	public function getParamProvider(): array
 	{
 		return [
 			[
@@ -107,14 +80,11 @@ class BaseControllerTest extends TestCase
 		];
 	}
 
-	/**
-	 * @covers       \Veles\Controllers\BaseController::getData
-	 */
-	public function testGetData()
+	public function testGetData(): void
 	{
 		$_POST       = [
 			'email'    => 'mail@mail.ru',
-			'password' => 'superpass'
+			'password' => 'super_pass'
 		];
 		$definitions = [
 			'email'    => [
@@ -134,15 +104,15 @@ class BaseControllerTest extends TestCase
 		$expected    = [
 			[
 				'email'    => 'mail@mail.ru',
-				'password' => 'superpass'
+				'password' => 'super_pass'
 			]
 		];
 
 		$request = $this->getMockBuilder(HttpGetRequest::class)
-			->setMethods(['getData'])
+			->onlyMethods(['getData'])
 			->getMock();
 
-		$request->expects($this->once())
+		$request->expects(self::once())
 			->method('getData')
 			->with($definitions)
 			->willReturn($expected);
@@ -153,6 +123,6 @@ class BaseControllerTest extends TestCase
 		$actual = $this->object->read();
 
 		$msg = 'BaseController::getData() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

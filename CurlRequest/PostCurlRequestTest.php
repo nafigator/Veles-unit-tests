@@ -18,58 +18,30 @@ class PostCurlRequestTest extends TestCase
 	/** @var string  */
 	protected $url = 'http://localhost';
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
 	protected function setUp(): void
 	{
 		$this->object = new PostCurlRequest($this->url);
 	}
 
 	/**
-	 * @covers \Veles\CurlRequest\PostCurlRequest::setData
-	 *
 	 * @dataProvider setDataProvider
-	 *
-	 * @param $data
-	 * @param $expected
 	 */
-	public function testSetData($expected, $data)
+	public function testSetData($data): void
 	{
 		$actual = $this->object->setData($data);
 
-		$msg = 'CurlRequest::setData() wrong behavior!';
-		$this->assertAttributeSame($expected, 'options', $this->object, $msg);
-
 		$msg = 'CurlRequest::setData() returns wrong result!';
-		$this->assertSame($this->object, $actual, $msg);
+		self::assertSame($this->object, $actual, $msg);
 	}
 
-	public function setDataProvider()
+	public function setDataProvider(): array
 	{
 		return [
 			[
-				[
-					CURLOPT_URL            => 'http://localhost',
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 10,
-					CURLOPT_TIMEOUT        => 10,
-					CURLOPT_POST           => true,
-					CURLOPT_POSTFIELDS     => ['login' => 'boss', 'pass' => 'super']
-				],
 				['login' => 'boss', 'pass' => 'super']
 			],
 			[
-				[
-					CURLOPT_URL            => 'http://localhost',
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 10,
-					CURLOPT_TIMEOUT        => 10,
-					CURLOPT_POST           => true,
-					CURLOPT_POSTFIELDS     => 'loginboss'
-				],
-				'loginboss'
+				'login_boss'
 			]
 		];
 	}

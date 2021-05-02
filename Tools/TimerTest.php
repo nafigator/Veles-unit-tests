@@ -44,89 +44,11 @@ class TimerTest extends TestCase
 	}
 
 	/**
-	 * @covers \Veles\Tools\Timer::start
-	 * @group Tools
-	 * @see Timer::start
-	 */
-	public function testStart()
-	{
-		$time_before_start = microtime(true);
-		Timer::start();
-		$time_after_start = microtime(true);
-
-		$object = new \ReflectionClass('\Veles\Tools\Timer');
-		$start_time_prop = $object->getProperty('start_time');
-
-		$msg = 'Property Timer::$start_time not private';
-		$this->assertTrue($start_time_prop->isPrivate(), $msg);
-
-		$start_time_prop->setAccessible(true);
-		$result = $start_time_prop->getValue();
-
-		$msg = 'Wrong Timer Timer::$start_time type';
-		$this->assertInternalType('float', $result, $msg);
-
-		$msg = 'Wrong result of Timer::$start_time property';
-		$this->assertAttributeGreaterThanOrEqual($time_before_start, 'start_time', new Timer, $msg);
-
-		$msg = 'Wrong result of Timer::$start_time property';
-		$this->assertAttributeLessThanOrEqual($time_after_start, 'start_time', new Timer, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Tools\Timer::reset
-	 * @group Tools
-	 * @depends testStart
-	 * @see Timer::reset
-	 */
-	public function testReset()
-	{
-		Timer::start();
-		Timer::stop();
-		Timer::reset();
-		$expected = 0.0;
-
-		$msg = 'Timer::reset() wrong behavior!';
-
-		$this->assertAttributeSame($expected, 'start_time', new Timer, $msg);
-		$this->assertAttributeSame($expected, 'diff', new Timer, $msg);
-	}
-
-	/**
-	 * @covers  \Veles\Tools\Timer::stop
-	 * @group Tools
-	 * @depends testStart
-	 * @depends testReset
-	 * @see Timer::stop
-	 */
-	public function testStop()
-	{
-		$time_before_start = microtime(true);
-		Timer::start();
-		$time_before_stop = microtime(true);
-		Timer::stop();
-		$time_after_stop = microtime(true);
-
-		$expected = $time_after_stop - $time_before_start;
-
-		$msg = 'Timer::stop() wrong behavior!';
-		$this->assertAttributeGreaterThanOrEqual($time_before_stop, 'stop_time', new Timer, $msg);
-		$this->assertAttributeLessThanOrEqual($time_after_stop, 'stop_time', new Timer, $msg);
-		$this->assertAttributeLessThanOrEqual($expected, 'diff', new Timer, $msg);
-		$this->assertAttributeSame(0.0, 'start_time', new Timer, $msg);
-	}
-
-	/**
-	 * @covers       \Veles\Tools\Timer::get
 	 * @group        Tools
 	 * @dataProvider getProvider
-	 * @depends      testStop
 	 * @see          Timer::get
-	 *
-	 * @param $timer_precision
-	 * @param $precision
 	 */
-	public function testGet($timer_precision, $precision)
+	public function testGet($timer_precision, $precision): void
 	{
 		Timer::start();
 
@@ -144,14 +66,11 @@ class TimerTest extends TestCase
 		$result = Timer::get($timer_precision);
 		$expected = round($stop_value - $start_value, $precision);
 
-		$msg = 'Wrong Timer result type';
-		$this->assertInternalType('float', $result, $msg);
-
 		$msg = 'Wrong Timer result';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function getProvider()
+	public function getProvider(): array
 	{
 		return [
 			[Precision::SECONDS, 0],
@@ -164,15 +83,11 @@ class TimerTest extends TestCase
 	}
 
 	/**
-	 * @covers       \Veles\Tools\Timer::get
 	 * @group        Tools
-	 * @depends      testStop
 	 * @dataProvider getPrecisionProvider
 	 * @see          Timer::get
-	 *
-	 * @param $precision
 	 */
-	public function testGetPrecision($precision)
+	public function testGetPrecision($precision): void
 	{
 		Timer::start();
 		Timer::stop();
@@ -188,13 +103,10 @@ class TimerTest extends TestCase
 		$result = Timer::get($precision);
 
 		$msg = 'Wrong Timer precision result';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * Data-provider for testGetPrecision
-	 */
-	public function getPrecisionProvider()
+	public function getPrecisionProvider(): array
 	{
 		return [
 			[Precision::SECONDS],

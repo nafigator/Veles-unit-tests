@@ -25,143 +25,33 @@ class CurlRequestTest extends TestCase
 	/** @var string  */
 	protected $url = 'http://localhost';
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
 	protected function setUp(): void
 	{
 		$this->object = new CurlRequest($this->url);
 	}
 
-	/**
-	 * @covers \Veles\CurlRequest\CurlRequest::__construct
-	 *
-	 * @dataProvider constructProvider
-	 *
-	 * @param $options
-	 * @param $expected
-	 */
-	public function testConstruct($expected, $options)
-	{
-		$object = new CurlRequest($this->url, $options);
-
-		$msg = 'CurlRequest::__construct() wrong behavior!';
-		$this->assertAttributeInternalType('resource', 'curl', $object, $msg);
-
-		$this->assertAttributeSame($expected, 'options', $object, $msg);
-	}
-
-	public function constructProvider()
-	{
-		return [
-			[
-				[
-					CURLOPT_URL            => $this->url,
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 10,
-					CURLOPT_TIMEOUT        => 10
-				],
-				[]
-			],
-			[
-				[
-					CURLOPT_URL            => $this->url,
-					CURLOPT_CRLF           => true,
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 10,
-					CURLOPT_TIMEOUT        => 10
-				],
-				[CURLOPT_CRLF => true]
-			]
-		];
-	}
-
-	/**
-	 * @covers \Veles\CurlRequest\CurlRequest::__destruct
-	 */
-	public function test__destruct()
-	{
-		$this->object->__destruct();
-
-		$msg = 'CurlRequest::__destruct() wrong behavior!';
-		$this->assertAttributeinternalType('resource', 'curl', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\CurlRequest\CurlRequest::exec
-	 */
-	public function testExec()
+	public function testExec(): void
 	{
 		$expected = 'This is curl_exec result!';
 		$actual   = $this->object->exec();
 
 		$msg = 'CurlRequest::exec() return wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	/**
-	 * @covers \Veles\CurlRequest\CurlRequest::setHeaders
-	 *
-	 * @dataProvider setHeadersProvider
-	 *
-	 * @param $headers
-	 * @param $expected
-	 */
-	public function testSetHeaders($headers, $expected)
-	{
-		$actual = $this->object->setHeaders($headers);
-
-		$msg = 'CurlRequest::setHeaders() wrong behavior!';
-		$this->assertAttributeSame($expected, 'options', $this->object, $msg);
-
-		$msg = 'CurlRequest::setHeaders() returns wrong result!';
-		$this->assertSame($this->object, $actual, $msg);
-	}
-
-	public function setHeadersProvider()
-	{
-		return [
-			[
-				['Content-length: 100'],
-				[
-					CURLOPT_URL            => $this->url,
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 10,
-					CURLOPT_TIMEOUT        => 10,
-					CURLOPT_HTTPHEADER     => ['Content-length: 100'],
-				]
-			],
-			[
-				['Content-type: text/plain', 'Content-length: 300'],
-				[
-					CURLOPT_URL            => $this->url,
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 10,
-					CURLOPT_TIMEOUT        => 10,
-					CURLOPT_HTTPHEADER     => ['Content-type: text/plain', 'Content-length: 300']
-				]
-			]
-		];
-	}
-
-	/**
-	 * @covers \Veles\CurlRequest\CurlRequest::getHeaders
-	 *
 	 * @dataProvider getHeadersProvider
-	 *
-	 * @param $expected
 	 */
-	public function testGetHeaders($expected)
+	public function testGetHeaders($expected): void
 	{
 		$this->object->setHeaders($expected);
 		$actual = $this->object->getHeaders();
 
 		$msg = 'CurlRequest::getHeaders() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	public function getHeadersProvider()
+	public function getHeadersProvider(): array
 	{
 		return [
 			[['Content-type: text/plain', 'Content-length: 300']],
@@ -170,115 +60,57 @@ class CurlRequestTest extends TestCase
 	}
 
 	/**
-	 * @covers       \Veles\CurlRequest\CurlRequest::setOption
-	 *
 	 * @dataProvider setOptionProvider
-	 *
-	 * @param $expected
-	 * @param $option
-	 * @param $value
 	 */
-	public function testSetOption($expected, $option, $value)
+	public function testSetOption($option, $value): void
 	{
 		$actual = $this->object->setOption($option, $value);
 
-		$msg = 'CurlRequest::setOption() wrong behavior!';
-		$this->assertAttributeSame($expected, 'options', $this->object, $msg);
-
 		$msg = 'CurlRequest::setOption() returns wrong result!';
-		$this->assertSame($this->object, $actual, $msg);
+		self::assertSame($this->object, $actual, $msg);
 	}
 
-	public function setOptionProvider()
+	public function setOptionProvider(): array
 	{
 		return [
 			[
-				[
-					CURLOPT_URL            => 'http://new-uri.ru',
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 10,
-					CURLOPT_TIMEOUT        => 10
-				],
 				CURLOPT_URL,
 				'http://new-uri.ru'
 			],
-			[
-				[
-					CURLOPT_URL            => 'http://localhost',
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 10,
-					CURLOPT_TIMEOUT        => 10,
-					CURLOPT_BINARYTRANSFER => true
-				],
-				CURLOPT_BINARYTRANSFER,
-				true
-			]
 		];
 	}
 
 	/**
-	 * @covers \Veles\CurlRequest\CurlRequest::setArrayOptions
-	 *
 	 * @dataProvider setArrayOptionsProvider
-	 *
-	 * @param $expected
-	 * @param $options
 	 */
-	public function testSetArrayOptions($expected, $options)
+	public function testSetArrayOptions($options): void
 	{
 		$actual = $this->object->setArrayOptions($options);
 
-		$msg = 'CurlRequest::setArrayOptions() wrong behavior!';
-		$this->assertAttributeSame($expected, 'options', $this->object, $msg);
-
 		$msg = 'CurlRequest::setArrayOptions() returns wrong result!';
-		$this->assertSame($this->object, $actual, $msg);
+		self::assertSame($this->object, $actual, $msg);
 	}
 
-	public function setArrayOptionsProvider()
+	public function setArrayOptionsProvider(): array
 	{
 		return [
 			[
-				[
-					CURLOPT_URL            => 'http://localhost',
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 10,
-					CURLOPT_TIMEOUT        => 10,
-					CURLOPT_BINARYTRANSFER => true
-				],
-				[CURLOPT_BINARYTRANSFER => true]
-			],
-			[
-				[
-					CURLOPT_URL            => 'http://localhost',
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CONNECTTIMEOUT => 10,
-					CURLOPT_TIMEOUT        => 10,
-					CURLOPT_BINARYTRANSFER => true,
-					CURLOPT_AUTOREFERER    => true
-				],
-				[CURLOPT_BINARYTRANSFER => true, CURLOPT_AUTOREFERER => true]
+				[CURLOPT_AUTOREFERER => true]
 			]
 		];
 	}
 
-	/**
-	 * @covers \Veles\CurlRequest\CurlRequest::setAuth
-	 */
-	public function testSetAuth()
+	public function testSetAuth(): void
 	{
 		$auth = $this->getMockBuilder(HttpBasic::class)
-			->setMethods(['apply'])
+			->onlyMethods(['apply'])
 			->getMock();
-		$auth->expects($this->once())
+		$auth->expects(self::once())
 			->method('apply');
 
 		$actual = $this->object->setAuth($auth);
 
-		$msg = 'CurlRequest::setAuth() wrong behavior!';
-		$this->assertAttributeSame($auth, 'auth', $this->object, $msg);
-
 		$msg = 'CurlRequest::setAuth() returns wrong result!';
-		$this->assertSame($this->object, $actual, $msg);
+		self::assertSame($this->object, $actual, $msg);
 	}
 }

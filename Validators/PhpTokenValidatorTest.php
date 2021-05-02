@@ -41,7 +41,7 @@ class PhpTokenValidatorTest extends TestCase
 		$result = $this->object->check($data);
 
 		$msg = 'PhpTokenValidator returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	public function checkProvider()

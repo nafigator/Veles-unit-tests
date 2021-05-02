@@ -31,46 +31,35 @@ class CurlAbstractTest extends TestCase
 		$this->object = new CurlRequest($this->url);
 	}
 
-	/**
-	 * @covers \Veles\CurlRequest\CurlAbstract::getErrorCode
-	 */
-	public function testGetErrorCode()
+	public function testGetErrorCode(): void
 	{
 		$expected = 555;
 
 		$actual = $this->object->getErrorCode();
 		$msg = 'CurlAbstract::getErrorCode() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\CurlRequest\CurlAbstract::getError
-	 */
-	public function testGetError()
+	public function testGetError(): void
 	{
 		$expected = 'This is test error message!';
 
 		$actual = $this->object->getError();
 		$msg = 'CurlAbstract::getError() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	/**
-	 * @covers \Veles\CurlRequest\CurlAbstract::getInfo
-	 *
 	 * @dataProvider getInfoProvider
-	 *
-	 * @param $expected
-	 * @param $option
 	 */
-	public function testGetInfo($expected, $option)
+	public function testGetInfo($expected, $option): void
 	{
 		$actual = $this->object->getInfo($option);
 		$msg = 'CurlAbstract::getInfo() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	public function getInfoProvider()
+	public function getInfoProvider(): array
 	{
 		$option1 = null;
 		$option2 = 'TEST_OPTION';
@@ -81,13 +70,10 @@ class CurlAbstractTest extends TestCase
 		];
 	}
 
-	/**
-	 * @covers \Veles\CurlRequest\CurlAbstract::getResource
-	 */
-	public function testGetResource()
+	public function testGetResource(): void
 	{
 		$actual = $this->object->getResource();
 		$msg = 'CurlAbstract::getResource() returns wrong result!';
-		$this->assertInternalType('resource', $actual, $msg);
+		self::assertSame('resource', gettype($actual), $msg);
 	}
 }

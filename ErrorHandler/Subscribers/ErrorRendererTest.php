@@ -41,6 +41,16 @@ class ErrorRendererTest extends TestCase
 	$this->message<br>
 	index.php<br>
 	23<br>
+	<tr>
+		<td>1</td>
+		<td>PHPUnit_Framework_TestCase->runTest()</td>
+		<td>phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php<b>:</b>844</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>test()</td>
+		<td>phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php<b>:</b>822</td>
+	</tr>
 </body>
 </html>
 
@@ -48,19 +58,15 @@ EOL;
 	}
 
 	/**
-	 * @covers       \Veles\ErrorHandler\Subscribers\ErrorRenderer::update
-	 *
 	 * @dataProvider updateProvider
-	 *
-	 * @param $vars
 	 */
-	public function testUpdate($vars)
+	public function testUpdate($vars): void
 	{
 		$handler = $this->getMockBuilder(ExceptionHandler::class)
-			->setMethods(['getVars'])
+			->onlyMethods(['getVars'])
 			->getMock();
 
-		$handler->expects($this->once())
+		$handler->expects(self::once())
 			->method('getVars')
 			->willReturn($vars);
 
@@ -76,7 +82,7 @@ EOL;
 		$this->object->update($handler);
 	}
 
-	public function updateProvider()
+	public function updateProvider(): array
 	{
 		return [
 			[
@@ -96,7 +102,7 @@ EOL;
 						],
 						[
 							'file'     => "phar:///usr/local/bin/phpunit/phpunit/Framework/TestCase.php",
-							'line'     => 844,
+							'line'     => 822,
 							'function' => "test",
 							'args'     => []
 						]
@@ -108,39 +114,23 @@ EOL;
 		];
 	}
 
-	public function testUpdateNull()
+	public function testUpdateNull(): void
 	{
 		$handler  = new UpdateTestHandler;
 		$expected = null;
 		$actual   = $this->object->update($handler);
 		$msg      = 'ErrorRenderer::update() returns wrong result!';
 
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\ErrorHandler\Subscribers\ErrorRenderer::setMessageBuilder
-	 */
-	public function testSetMessageBuilder()
-	{
-		$expected = new ErrorBuilder;
-		$this->object->setMessageBuilder($expected);
-
-		$msg = 'ErrorRenderer::setMessageBuilder() wrong behavior!';
-		$this->assertAttributeSame($expected, 'message_builder', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\ErrorHandler\Subscribers\ErrorRenderer::getMessageBuilder
-	 * @depends testSetMessageBuilder
-	 */
-	public function testGetMessageBuilder()
+	public function testGetMessageBuilder(): void
 	{
 		$expected = new ErrorBuilder;
 		$this->object->setMessageBuilder($expected);
 
 		$result = $this->object->getMessageBuilder();
 		$msg = 'ErrorRenderer::getMessageBuilder() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 }

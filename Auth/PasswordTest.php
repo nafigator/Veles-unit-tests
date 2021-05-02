@@ -25,27 +25,18 @@ use Veles\Model\User;
 class PasswordTest extends TestCase
 {
 	/**
-	 * Unit-test for Password::checkCookieHash
-	 * @covers \Veles\Auth\Password::checkCookieHash
 	 * @dataProvider checkCookieHashProvider
-	 * @see \Veles\Auth\Password::checkCookieHash
 	 */
-	public function testCheckCookieHash($user, $cookie_hash, $expected)
+	public function testCheckCookieHash($user, $cookie_hash, $expected): void
 	{
 		$result = Password::checkCookieHash($user, $cookie_hash);
 
-		$msg = 'Wrong result type: ' . gettype($result);
-		$this->assertInternalType('bool', $result, $msg);
-
 		$txt_result = $result ? 'true' : 'false';
 		$msg = "CheckCookieHash \"$cookie_hash\" has wrong result: $txt_result";
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	/**
-	 * DataProvider for PasswordTest::testCheckCookieHash
-	 */
-	public function checkCookieHashProvider()
+	public function checkCookieHashProvider(): array
 	{
 		$user = new User;
 		$user->hash = crypt('password', '$2a$07$' . Helper::genStr() . '$');
@@ -57,32 +48,18 @@ class PasswordTest extends TestCase
 	}
 
 	/**
-	 * Unit-test for Password::check
-	 *
-	 * @covers       \Veles\Auth\Password::check
 	 * @dataProvider checkProvider
-	 * @see          \Veles\Auth\Password::check
-	 *
-	 * @param $user
-	 * @param $password
-	 * @param $expected
 	 */
-	public function testCheck($user, $password, $expected)
+	public function testCheck($user, $password, $expected): void
 	{
-		$result = Password::check($user, $password);
+		$actual = Password::check($user, $password);
 
-		$msg = 'Wrong result type: ' . gettype($result);
-		$this->assertInternalType('bool', $result, $msg);
-
-		$txt_result = $result ? 'true' : 'false';
+		$txt_result = $actual ? 'true' : 'false';
 		$msg = "Password::check \"$password\" has wrong result: $txt_result";
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * DataProvider for PasswordTest::testCheck
-	 */
-	public function checkProvider()
+	public function checkProvider(): array
 	{
 		$user = new User;
 		$user->hash = crypt('password', '$2y$07$' . Helper::genStr());

@@ -23,21 +23,20 @@ use Veles\Validators\NumberValidator;
 class NumberValidatorTest extends TestCase
 {
 	/**
-	 * @covers \Veles\Validators\NumberValidator::check
 	 * @group  Validators
 	 * @see	   NumberValidator::check()
 	 * @dataProvider checkProvider
 	 */
-	public function testCheck($number, $expected)
+	public function testCheck($number, $expected): void
 	{
 		$object = new NumberValidator;
 		$result = $object->check($number);
 
 		$msg = 'Wrong NumberValidator::check() validation';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function checkProvider()
+	public function checkProvider(): array
 	{
 		return [
 			['lalala', false],
@@ -45,33 +44,5 @@ class NumberValidatorTest extends TestCase
 			['34', true],
 			[2147483649, false]
 		];
-	}
-
-	/**
-	 * @covers \Veles\Validators\NumberValidator::__construct
-	 * @group  Validators
-	 * @see	   NumberValidator::__construct()
-	 */
-	public function testConstruct()
-	{
-		$expect_min = 10;
-		$expect_max = 100;
-		$object = new NumberValidator($expect_min, $expect_max);
-
-		$msg = 'Wrong value of NumberValidator::min';
-		$this->assertAttributeSame($expect_min, 'min', $object, $msg);
-
-		$msg = 'Wrong value of NumberValidator::max';
-		$this->assertAttributeSame($expect_max, 'max', $object, $msg);
-
-		$expect_min = 1;
-		$expect_max = 2147483647;
-		$object = new NumberValidator;
-
-		$msg = 'Wrong value of NumberValidator::min';
-		$this->assertAttributeSame($expect_min, 'min', $object, $msg);
-
-		$msg = 'Wrong value of NumberValidator::max';
-		$this->assertAttributeSame($expect_max, 'max', $object, $msg);
 	}
 }

@@ -33,7 +33,7 @@ class ViewAdapterAbstractChild extends ViewAdapterAbstract
 	 *
 	 * @param string $path Path to template
 	 */
-	public function show($path)
+	public function show($path): void
 	{
 	}
 
@@ -43,7 +43,7 @@ class ViewAdapterAbstractChild extends ViewAdapterAbstract
 	 * @param string $path Path to template
 	 * @return string View content
 	 */
-	public function get($path)
+	public function get($path): string
 	{
 		return '';
 	}
@@ -54,27 +54,27 @@ class ViewAdapterAbstractChild extends ViewAdapterAbstract
 	 * @param string $tpl Template file
 	 * @return bool Cache status
 	 */
-	public function isCached($tpl)
+	public function isCached($tpl): bool
 	{
 		return true;
 	}
 
-	public function addCalls($calls)
+	public function addCalls($calls): void
 	{
-		self::$calls = $calls;
+		static::$calls = $calls;
 	}
 
-	public function setInstance($instance)
+	public function setInstance($instance): void
 	{
-		self::$instance = $instance;
+		static::$instance = $instance;
 	}
 
-	public function getCalls()
+	public function getCalls(): array
 	{
-		return self::$calls;
+		return static::$calls;
 	}
 
-	public function testCall($param)
+	public function testCall($param): void
 	{
 	}
 }

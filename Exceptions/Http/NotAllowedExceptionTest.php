@@ -23,7 +23,7 @@ class NotAllowedExceptionTest extends TestCase
 
 		new NotAllowedException(new RestApiExampleController(new Application));
 		$msg = 'NotAllowedException::__construct() wrong behavior!';
-		$this->assertSame(405, http_response_code(), $msg);
+		self::assertSame(405, http_response_code(), $msg);
 
 		//$expected = 'Allowed: GET, POST, PUT, DELETE';
 		//$actual   = '';
@@ -35,6 +35,6 @@ class NotAllowedExceptionTest extends TestCase
 		//	}
 		//}
 		//
-		//$this->assertSame($expected, $actual, $msg);
+		//self::assertSame($expected, $actual, $msg);
 	}
 }

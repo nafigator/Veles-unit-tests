@@ -16,11 +16,7 @@ require_once 'fwrite_stub.php';
  */
 class MemcacheRawTest extends TestCase
 {
-	/**
-	 * @covers \Veles\Cache\Adapters\MemcacheRaw::__construct
-
-	 */
-	public function testConstructor()
+	public function testConstructor(): void
 	{
 		$host = 'VELES_UNIT_TEST';
 		$port = rand(10600, 15000);
@@ -38,25 +34,20 @@ class MemcacheRawTest extends TestCase
 		$actual = $object->getConnection();
 
 		$msg = 'MemcacheRaw::__construct() wrong behavior';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Adapters\MemcacheRaw::__construct
-	 * @expectedException Exception
-	 * @expectedExceptionMessage Can not connect to Memcache. Host: localhost Port: 11213
-	 */
-	public function testConctructException()
+	public function testConstructException(): void
 	{
+		$this->expectException(Exception::class);
+		$this->expectExceptionMessage('Can not connect to Memcache. Host: localhost Port: 11213');
+
 		MemcacheRaw::setConnectionParams('localhost', 11213);
 
 		new MemcacheRawChild;
 	}
 
-	/**
-	 * @covers \Veles\Cache\Adapters\MemcacheRaw::setConnectionParams
-	 */
-	public function testSetConnectionParams()
+	public function testSetConnectionParams(): void
 	{
 		$host = 'VELES_UNIT_TEST';
 		$port = rand(10600, 15000);
@@ -67,20 +58,15 @@ class MemcacheRawTest extends TestCase
 		$actual = $object->getHost();
 
 		$msg = 'Wrong MemcacheRaw::$host result';
-		$this->assertSame($host, $actual, $msg);
-		$this->assertInternalType('string', $actual, $msg);
+		self::assertSame($host, $actual, $msg);
 
 		$actual = $object->getPort();
 
 		$msg = 'Wrong MemcacheRaw::$port result';
-		$this->assertSame($port, $actual, $msg);
-		$this->assertInternalType('integer', $actual, $msg);
+		self::assertSame($port, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Adapters\MemcacheRaw::disconnect
-	 */
-	public function testDisconnect()
+	public function testDisconnect(): void
 	{
 		$host = 'VELES_UNIT_TEST';
 		$port = rand(10600, 15000);
@@ -94,18 +80,15 @@ class MemcacheRawTest extends TestCase
 		$actual = $object->disconnect();
 
 		$msg = 'MemcacheRaw::disconnect() return wrong result!';
-		$this->assertSame(true, $actual, $msg);
+		self::assertTrue($actual, $msg);
 
 		$actual = $object->getConnection();
 
 		$msg = 'Wrong type of MemcacheRaw::$connection!';
-		$this->assertSame($expected_connection, $actual, $msg);
+		self::assertSame($expected_connection, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Adapters\MemcacheRaw::command
-	 */
-	public function testCommand()
+	public function testCommand(): void
 	{
 		$key   = uniqid('VELES::UNIT-TEST::');
 		$host  = 'VELES_UNIT_TEST';
@@ -119,15 +102,10 @@ class MemcacheRawTest extends TestCase
 		$actual = $object->command("delete $key");
 
 		$msg = 'MemcacheRaw::command() malfunction!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Adapters\MemcacheRaw::getSlabs
-	 * @covers \Veles\Cache\Adapters\MemcacheRaw::delByTemplate
-	 * @covers \Veles\Cache\Adapters\MemcacheRaw::delete
-	 */
-	public function testDelByTemplate()
+	public function testDelByTemplate(): void
 	{
 		$host  = 'VELES_UNIT_TEST_DEL_BY_TEMPLATE';
 		$port  = rand(10600, 15000);
@@ -140,13 +118,10 @@ class MemcacheRawTest extends TestCase
 		$actual = $object->delByTemplate($template);
 
 		$msg = 'MemcacheRaw::delByTemplate return wrong result!';
-		$this->assertTrue($actual instanceof MemcacheRaw, $msg);
+		self::assertInstanceOf(MemcacheRaw::class, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Adapters\MemcacheRaw::query
-	 */
-	public function testQuery()
+	public function testQuery(): void
 	{
 		$key   = 'VELES::UNIT-TEST::59ea24a876add';
 		$value = '434';
@@ -158,9 +133,9 @@ class MemcacheRawTest extends TestCase
 
 		$output = $object->query("get $key");
 		$expr = "/^VALUE $key [\d\s]+$value\s$/";
-		$result = preg_match($expr, $output);
+		$actual = preg_match($expr, $output);
 
 		$msg = 'MemcacheRaw::query return wrong result!';
-		$this->assertSame(1, $result, $msg);
+		self::assertSame(1, $actual, $msg);
 	}
 }

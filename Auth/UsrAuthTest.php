@@ -13,7 +13,7 @@ use Veles\Model\User;
 class UsrAuthTest extends TestCase
 {
 	/**
-	 * @var \Veles\Auth\UsrAuth
+	 * @var UsrAuth
 	 */
 	protected $object;
 
@@ -23,49 +23,38 @@ class UsrAuthTest extends TestCase
 	 */
 	protected function setUp(): void
 	{
-		$this->object = UsrAuthCopy::instance();
+		$this->object = UsrAuth::instance();
 	}
 
-	/**
-	 * @covers \Veles\Auth\UsrAuth::instance
-	 * @covers \Veles\Auth\UsrAuth::__construct
-	 */
-	public function testInstance()
+	public function testInstance(): void
 	{
-		UsrAuthCopy::unsetInstance();
+		UsrAuthCleaner::unsetInstance();
 
 		$expected = UsrAuth::class;
-		$result = UsrAuthCopy::instance();
+		$result = $this->object::instance();
 		$msg = 'UsrAuth::instance() return wrong result!';
-		$this->assertInstanceOf($expected, $result, $msg);
+		self::assertInstanceOf($expected, $result, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Auth\UsrAuth::getErrors
-	 */
-	public function testGetErrors()
+	public function testGetErrors(): void
 	{
 		$expected = 0;
 		$result = $this->object::getErrors();
 		$msg = 'UsrAuth::getErrors returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
 	/**
-	 * @covers       \Veles\Auth\UsrAuth::hasAccess
 	 * @dataProvider hasAccessProvider
-	 *
-	 * @param $group
-	 * @param $expected
 	 */
-	public function testHasAccess($group, $expected)
+	public function testHasAccess($group, $expected): void
 	{
 		$result = $this->object::hasAccess($group);
 		$msg    = 'UsrAuth::hasAccess() returns wrong result!';
-		$this->assertSame($expected, $result, $msg);
+		self::assertSame($expected, $result, $msg);
 	}
 
-	public function hasAccessProvider()
+	public function hasAccessProvider(): array
 	{
 		return [
 			[UsrGroup::ADMIN, false],
@@ -79,14 +68,11 @@ class UsrAuthTest extends TestCase
 		];
 	}
 
-	/**
-	 * @covers \Veles\Auth\UsrAuth::getUser
-	 */
-	public function testGetUser()
+	public function testGetUser(): void
 	{
 		$expected = User::class;
 		$result = $this->object::getUser();
 		$msg = 'UsrAuth::getUser() returns wrong result!';
-		$this->assertInstanceOf($expected, $result, $msg);
+		self::assertInstanceOf($expected, $result, $msg);
 	}
 }

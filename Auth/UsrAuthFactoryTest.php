@@ -25,7 +25,7 @@ class UsrAuthFactoryTest extends TestCase
 	protected function setUp(): void
 	{
 		$this->object = $this->getMockBuilder(UsrAuthFactory::class)
-			->setMethods(['getPost', 'getCookies'])
+			->onlyMethods(['getPost', 'getCookies'])
 			->getMock();
 	}
 
@@ -43,16 +43,16 @@ class UsrAuthFactoryTest extends TestCase
 	{
 		/** @var UsrAuthFactory $object */
 		$object = $this->getMockBuilder(UsrAuthFactory::class)
-			->setMethods(['getPost', 'getCookies'])
+			->onlyMethods(['getPost', 'getCookies'])
 			->getMock();
 
 		$result = $object->create();
 		$expected = GuestStrategy::class;
 
 		$msg = 'UsrAuthFactory::create() return wrong result!';
-		$this->assertInstanceOf($expected, $result, $msg);
+		self::assertInstanceOf($expected, $result, $msg);
 
-		$object->expects($this->once())
+		$object->expects(self::once())
 			->method('getPost')
 			->willReturn(['ln' => 'login', 'pw' => 'password']);
 
@@ -60,13 +60,13 @@ class UsrAuthFactoryTest extends TestCase
 		$expected = LoginFormStrategy::class;
 
 		$msg = 'UsrAuthFactory::create() return wrong result!';
-		$this->assertInstanceOf($expected, $result, $msg);
+		self::assertInstanceOf($expected, $result, $msg);
 
 		$object = $this->getMockBuilder(UsrAuthFactory::class)
-			->setMethods(['getPost', 'getCookies'])
+			->onlyMethods(['getPost', 'getCookies'])
 			->getMock();
 
-		$object->expects($this->once())
+		$object->expects(self::once())
 			->method('getCookies')
 			->willReturn(['id' => 1111, 'pw' => 'password']);
 
@@ -74,6 +74,6 @@ class UsrAuthFactoryTest extends TestCase
 		$expected = CookieStrategy::class;
 
 		$msg = 'UsrAuthFactory::create() return wrong result!';
-		$this->assertInstanceOf($expected, $result, $msg);
+		self::assertInstanceOf($expected, $result, $msg);
 	}
 }

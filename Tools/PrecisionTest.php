@@ -30,19 +30,19 @@ class PrecisionTest extends TestCase
 	public function testConstants()
 	{
 		$msg = 'Wrong value of Precision::SECONDS: ' . Precision::SECONDS;
-		$this->assertSame(0, Precision::SECONDS, $msg);
+		self::assertSame(0, Precision::SECONDS, $msg);
 
 		$msg = 'Wrong value of Precision::MILLISECONDS: ' . Precision::MILLISECONDS;
-		$this->assertSame(3, Precision::MILLISECONDS, $msg);
+		self::assertSame(3, Precision::MILLISECONDS, $msg);
 
 		$msg = 'Wrong value of Precision::MICROSECONDS: ' . Precision::MICROSECONDS;
-		$this->assertSame(6, Precision::MICROSECONDS, $msg);
+		self::assertSame(6, Precision::MICROSECONDS, $msg);
 
 		$msg = 'Wrong value of Precision::NANOSECONDS: ' . Precision::NANOSECONDS;
-		$this->assertSame(9, Precision::NANOSECONDS, $msg);
+		self::assertSame(9, Precision::NANOSECONDS, $msg);
 
 		$msg = 'Wrong value of Precision::PICOSECONDS: ' . Precision::PICOSECONDS;
-		$this->assertSame(12, Precision::PICOSECONDS, $msg);
+		self::assertSame(12, Precision::PICOSECONDS, $msg);
 	}
 
 	/**
@@ -60,6 +60,6 @@ class PrecisionTest extends TestCase
 
 		$actual = $this->object->getValues();
 		$msg = 'Precision::getValues() returns wrong values';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

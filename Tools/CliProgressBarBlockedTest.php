@@ -30,45 +30,7 @@ class CliProgressBarBlockedTest extends TestCase
 		$this->time_after_init = microtime(true);
 	}
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
-
-	public function testConstruct()
-	{
-		$expected = $this->final;
-		$msg = 'CliProgressBarBlocked::__construct wrong behavior!';
-		$this->assertAttributeSame($expected, 'final_value', $this->object, $msg);
-
-		$expected = $this->width;
-		$this->assertAttributeSame($expected, 'width', $this->object, $msg);
-
-		$expected = $this->width / 100;
-		$this->assertAttributeSame($expected, 'pb_percent', $this->object, $msg);
-
-		$expected = $this->final / 100;
-		$this->assertAttributeSame($expected, 'percent', $this->object, $msg);
-
-		$expected = null;
-		$this->assertAttributeNotEquals($expected, 'start_time', $this->object, $msg);
-		$expected = 'float';
-		$this->assertAttributeInternalType($expected, 'start_time', $this->object, $msg);
-
-		$this->assertAttributeGreaterThanOrEqual($this->time_before_init, 'start_time', $this->object, $msg);
-		$this->assertAttributeLessThanOrEqual($this->time_after_init, 'start_time', $this->object, $msg);
-
-		$expected = $this->getObjectAttribute($this->object, 'start_time');
-		$this->assertAttributeSame($expected, 'last_update_time', $this->object, $msg);
-	}
-
-	/**
-	 * @covers \Veles\Tools\CliProgressBarBlocked::update
-	 */
-	public function testUpdate()
+	public function testUpdate(): void
 	{
 		$mem_string = 'mem-string';
 		$stat_string = 'stat-string';
@@ -77,12 +39,12 @@ class CliProgressBarBlockedTest extends TestCase
 
 		$this->object = $this->getMockBuilder('\Veles\Tools\CliProgressBarBlocked')
 			->setConstructorArgs([60])
-			->setMethods(['getStatusString', 'getMemString'])
+			->onlyMethods(['getStatusString', 'getMemString'])
 			->getMock();
-		$this->object->expects($this->once())
+		$this->object->expects(self::once())
 			->method('getStatusString')
 			->willReturn($stat_string);
-		$this->object->expects($this->once())
+		$this->object->expects(self::once())
 			->method('getMemString')
 			->willReturn($mem_string);
 
@@ -90,7 +52,7 @@ class CliProgressBarBlockedTest extends TestCase
 		$this->object->update(1);
 	}
 
-	public function testUpdateTwo()
+	public function testUpdateTwo(): void
 	{
 		$mem_string = 'mem-string';
 		$stat_string = 'stat-string';
@@ -99,12 +61,12 @@ class CliProgressBarBlockedTest extends TestCase
 
 		$this->object = $this->getMockBuilder('\Veles\Tools\CliProgressBarBlocked')
 			->setConstructorArgs([60])
-			->setMethods(['getStatusString', 'getMemString'])
+			->onlyMethods(['getStatusString', 'getMemString'])
 			->getMock();
-		$this->object->expects($this->once())
+		$this->object->expects(self::once())
 			->method('getStatusString')
 			->willReturn($stat_string);
-		$this->object->expects($this->once())
+		$this->object->expects(self::once())
 			->method('getMemString')
 			->willReturn($mem_string);
 

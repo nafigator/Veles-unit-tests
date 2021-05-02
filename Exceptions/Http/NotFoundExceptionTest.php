@@ -17,6 +17,6 @@ class NotFoundExceptionTest extends TestCase
 	{
 		new NotFoundException;
 		$msg = 'NotFoundException::__construct() wrong behavior!';
-		$this->assertSame(404, http_response_code(), $msg);
+		self::assertSame(404, http_response_code(), $msg);
     }
 }

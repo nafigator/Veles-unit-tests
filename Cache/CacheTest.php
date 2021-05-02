@@ -25,69 +25,30 @@ class CacheTest extends TestCase
 		MemcachedAdapterChild::unsetInstance();
 	}
 
-	/**
-	 * @covers       \Veles\Cache\Traits\CacheAdapterTrait
-	 * @dataProvider setAdapterProvider
-	 *
-	 * @param CacheAdapterInterface $adapter Adapter
-	 */
-	public function testSetAdapter($adapter)
-	{
-		$expected = $adapter;
-		Cache::setAdapter($adapter);
-
-		$msg = 'Wrong Cache::$adapter property value!';
-		$this->assertAttributeEquals(
-			$expected, 'adapter', 'Veles\Tests\Cache\Cache', $msg
-		);
-	}
-
-	public function setAdapterProvider()
-	{
-		return [
-			[MemcachedAdapter::instance()]
-		];
-	}
-
-	/**
-	 * @covers \Veles\Cache\Traits\CacheAdapterTrait::getAdapter
-	 * @depends testSetAdapter
-	 */
-	public function testGetAdapter()
+	public function testGetAdapter(): void
 	{
 		Cache::setAdapter(MemcachedAdapter::instance());
 		$result = Cache::getAdapter();
 
-		$this->assertTrue($result instanceof MemcachedAdapter);
+		self::assertInstanceOf(MemcachedAdapter::class, $result);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Traits\CacheAdapterTrait::getAdapter
-	 * @expectedException Exception
-	 */
-	public function testSetAdapterException()
+	public function testSetAdapterException(): void
 	{
+		$this->expectException(Exception::class);
+
 		Cache::unsetAdapter();
 		Cache::getAdapter();
 	}
 
 	/**
-	 * @covers       \Veles\Cache\Cache::set
-	 * @depends      testSetAdapter
-	 * @depends      testGetAdapter
-	 *
 	 * @dataProvider setProvider
-	 *
-	 * @param $key
-	 * @param $value
-	 * @param $ttl
-	 * @param $expected
 	 */
-	public function testSet($key, $value, $ttl, $expected)
+	public function testSet($key, $value, $ttl, $expected): void
 	{
 		/** @var Memcached $driver */
 		$driver = $this->getMockBuilder(Memcached::class)
-			->setMethods(['set'])
+			->onlyMethods(['set'])
 			->getMock();
 
 		$driver->method('set')
@@ -102,10 +63,10 @@ class CacheTest extends TestCase
 			: Cache::set($key, $value, $ttl);
 
 		$msg = 'Wrong Cache::set() result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	public function setProvider()
+	public function setProvider(): array
 	{
 		return [
 			[
@@ -124,22 +85,13 @@ class CacheTest extends TestCase
 	}
 
 	/**
-	 * @covers       \Veles\Cache\Cache::add
-	 * @depends      testSetAdapter
-	 * @depends      testGetAdapter
-	 *
 	 * @dataProvider setProvider
-	 *
-	 * @param $key
-	 * @param $value
-	 * @param $ttl
-	 * @param $expected
 	 */
-	public function testAdd($key, $value, $ttl, $expected)
+	public function testAdd($key, $value, $ttl, $expected): void
 	{
 		/** @var Memcached $driver */
 		$driver = $this->getMockBuilder(Memcached::class)
-			->setMethods(['add'])
+			->onlyMethods(['add'])
 			->getMock();
 
 		$driver->method('add')
@@ -154,22 +106,17 @@ class CacheTest extends TestCase
 			: Cache::add($key, $value, $ttl);
 
 		$msg = 'Wrong Cache::add() result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Cache::get
-	 * @depends testSetAdapter
-	 * @depends testGetAdapter
-	 */
-	public function testGet()
+	public function testGet(): void
 	{
 		$key = uniqid('VELES::UNIT-TEST::');
 		$expected = uniqid();
 
 		/** @var Memcached $driver */
 		$driver = $this->getMockBuilder(Memcached::class)
-			->setMethods(['get'])
+			->onlyMethods(['get'])
 			->getMock();
 
 		$driver->method('get')
@@ -181,22 +128,17 @@ class CacheTest extends TestCase
 		$actual = Cache::get($key);
 
 		$msg = 'Wrong Cache::get() result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Cache::has
-	 * @depends testSetAdapter
-	 * @depends testGetAdapter
-	 */
-	public function testHas()
+	public function testHas(): void
 	{
 		$key = uniqid('VELES::UNIT-TEST::');
 		$expected = true;
 
 		/** @var Memcached $driver */
 		$driver = $this->getMockBuilder(Memcached::class)
-			->setMethods(['get'])
+			->onlyMethods(['get'])
 			->getMock();
 
 		$driver->method('get')
@@ -208,22 +150,17 @@ class CacheTest extends TestCase
 		$actual = Cache::has($key);
 
 		$msg = 'Wrong Cache::has() result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Cache::del
-	 * @depends testSetAdapter
-	 * @depends testGetAdapter
-	 */
-	public function testDel()
+	public function testDel(): void
 	{
 		$key = uniqid('VELES::UNIT-TEST::');
 		$expected = true;
 
 		/** @var Memcached $driver */
 		$driver = $this->getMockBuilder(Memcached::class)
-			->setMethods(['delete'])
+			->onlyMethods(['delete'])
 			->getMock();
 
 		$driver->method('delete')
@@ -235,22 +172,17 @@ class CacheTest extends TestCase
 		$actual = Cache::del($key);
 
 		$msg = 'Wrong Cache::del() result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
 	/**
-	 * @covers       \Veles\Cache\Cache::increment
 	 * @dataProvider incrementProvider
-	 *
-	 * @param $key
-	 * @param $offset
-	 * @param $expected
 	 */
-	public function testIncrement($key, $offset, $expected)
+	public function testIncrement($key, $offset, $expected): void
 	{
 		/** @var Memcached $driver */
 		$driver = $this->getMockBuilder(Memcached::class)
-			->setMethods(['increment'])
+			->onlyMethods(['increment'])
 			->getMock();
 
 		$driver->method('increment')
@@ -264,10 +196,10 @@ class CacheTest extends TestCase
 			: Cache::increment($key);
 
 		$msg = 'Wrong Cache::increment() result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	public function incrementProvider()
+	public function incrementProvider(): array
 	{
 		return [
 			[
@@ -284,18 +216,13 @@ class CacheTest extends TestCase
 	}
 
 	/**
-	 * @covers  \Veles\Cache\Cache::decrement
 	 * @dataProvider incrementProvider
-	 *
-	 * @param $key
-	 * @param $offset
-	 * @param $expected
 	 */
-	public function testDecrement($key, $offset, $expected)
+	public function testDecrement($key, $offset, $expected): void
 	{
 		/** @var Memcached $driver */
 		$driver = $this->getMockBuilder(Memcached::class)
-			->setMethods(['decrement'])
+			->onlyMethods(['decrement'])
 			->getMock();
 
 		$driver->method('decrement')
@@ -309,21 +236,17 @@ class CacheTest extends TestCase
 			: Cache::decrement($key);
 
 		$msg = 'Wrong Cache::decrement() result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Cache::clear
-	 * @depends testSet
-	 */
-	public function testClear()
+	public function testClear(): void
 	{
 		$key = uniqid('VELES::UNIT-TEST::');
 		$expected = true;
 
 		/** @var Memcached $driver */
 		$driver = $this->getMockBuilder(Memcached::class)
-			->setMethods(['flush'])
+			->onlyMethods(['flush'])
 			->getMock();
 
 		$driver->method('flush')
@@ -334,15 +257,10 @@ class CacheTest extends TestCase
 		$actual = Cache::clear($key);
 
 		$msg = 'Wrong Cache::clear() result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 
-	/**
-	 * @covers \Veles\Cache\Cache::delByTemplate
-	 * @depends testSetAdapter
-	 * @depends testGetAdapter
-	 */
-	public function testDelByTemplate()
+	public function testDelByTemplate(): void
 	{
 		$host = 'VELES_UNIT_TEST_MEMCACHED_ADAPTER';
 		$port = rand(10600, 15000);
@@ -360,6 +278,6 @@ class CacheTest extends TestCase
 		$actual = Cache::delByTemplate($tpl);
 
 		$msg = 'Wrong Cache::delByTemplate() result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }

@@ -93,6 +93,6 @@ class IniConfigLoaderTest extends TestCase
 		$actual = $this->object->load();
 
 		$msg = 'IniConfigLoader::load() returns wrong result!';
-		$this->assertSame($expected, $actual, $msg);
+		self::assertSame($expected, $actual, $msg);
 	}
 }
