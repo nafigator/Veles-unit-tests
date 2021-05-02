@@ -44,8 +44,12 @@ class FatalErrorHandlerTest extends TestCase
 			? 'Undefined variable: a'
 			: 'Trying to access array offset on value of type null';
 
+		$type = (PHP_VERSION_ID < 80000)
+			? 8
+			: 2;
+
 		$expected = [
-			'type'    => 8,
+			'type'    => $type,
 			'message' => $message,
 			'file'    => realpath(__FILE__),
 			'line'    => 39,
