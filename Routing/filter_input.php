@@ -22,7 +22,7 @@ namespace Veles\Routing;
 
 function filter_input($type, $variable_name)
 {
-	if (INPUT_SERVER === $type && 'HTTP_X_REQUESTED_WITH' === $variable_name) {
+	if (INPUT_SERVER === $type && 'REQUEST_URI' === $variable_name) {
 		return isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 			? $_SERVER['HTTP_X_REQUESTED_WITH']
 			: null;

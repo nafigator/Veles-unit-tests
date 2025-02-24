@@ -52,6 +52,14 @@ class RouteTest extends TestCase
 		$this->object->init();
 	}
 
+	public function testNotFoundExceptionByBadURL(): void
+	{
+		$_SERVER['HTTP_X_REQUESTED_WITH'] = 'https://localhost';
+		$this->expectException(NotFoundException::class);
+
+		$this->object->init();
+	}
+
 	public function testSetNotFoundException(): void
 	{
 		$this->expectException(DomainException::class);
@@ -90,7 +98,7 @@ class RouteTest extends TestCase
 	{
 		$this->object->method('parseUri')->willReturn(['/', '']);
 
-		$expected = $controller = new Home;
+		$expected = new Home;
 		$result = $this->object->init()->getController();
 
 		$msg = 'Route::getController() returns wrong result!';
