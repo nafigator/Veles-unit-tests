@@ -106,7 +106,7 @@ EOL;
 					'type'    => 1024,
 					'defined' => ['exception' => new Exception($this->message)]
 				],
-			]
+			],
 		];
 	}
 

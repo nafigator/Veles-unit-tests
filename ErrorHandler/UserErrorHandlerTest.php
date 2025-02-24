@@ -50,7 +50,6 @@ class UserErrorHandlerTest extends TestCase
 			'file' => $file,
 			'line' => $line,
 			'stack' => array_reverse(debug_backtrace()),
-			'defined' => []
 		];
 
 		$this->object->setTime($time);

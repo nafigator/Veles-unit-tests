@@ -2,3 +2,4 @@
 bootstrap.php
 .phpunit.result.cache
 override.ini
+phpunit
